@@ -1,13 +1,13 @@
 ---
-title: "Week 11 — Interactive Demo Dashboard & Workshop Guide"
+title: "Tuần 11 — Giao diện Demo Tương tác & Tài liệu Workshop"
 date: 2026-08-15
 weight: 11
 chapter: false
 pre: "<b>1.11. </b>"
 ---
 
-# Week 11: Interactive Demo Dashboard & Workshop Guide
+# Tuần 11: Giao diện Demo Tương tác & Tài liệu Workshop
 
-## Key Tasks & Achievements
-- Built the Interactive ML Forecast Live Dashboard (`demo_ui/`) featuring real-time predictions, Chart.js trends, and What-If simulation.
-- Drafted step-by-step workshop documentation for reproducibility.
+## Công việc & Kết quả chính
+- Xây dựng giao diện Live Dashboard tương tác (`demo_ui/`) với tính năng dự báo thời gian thực, biểu đồ xu hướng và thử nghiệm What-If.
+- Hoàn thiện tài liệu hướng dẫn từng bước (Step-by-step lab guide) cho Workshop.

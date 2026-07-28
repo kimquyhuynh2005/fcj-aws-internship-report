@@ -1,43 +1,22 @@
 ---
-title: "Prerequisites & AWS Account Setup"
+title: "Yêu cầu Tiền đề & Cấu hình AWS Credentials"
 date: 2026-06-06
 weight: 2
 chapter: false
 pre: "<b>5.2. </b>"
 ---
 
-## Prerequisites
+## Các điều kiện chuẩn bị
 
-### AWS Account Requirements
+### Yêu cầu Tài khoản AWS
 
 {{% notice warning %}}
-Check your SageMaker service quotas **before** starting. This workshop requires SageMaker Endpoint quota ≥ 1. If your quota is 0, see the workaround section below.
+Kiểm tra Service Quotas SageMaker **trước khi** bắt đầu. Workshop này yêu cầu quota SageMaker Endpoint ≥ 1.
 {{% /notice %}}
 
-#### Check Your Quotas
+#### Các quyền IAM bắt buộc
 
-```bash
-# Install quota checker
-pip install boto3
-
-# Check SageMaker Endpoint quota
-aws service-quotas get-service-quota \
-  --service-code sagemaker \
-  --quota-code L-65C4BD00 \
-  --region ap-southeast-1
-```
-
-#### Required Quotas
-
-| Resource | Required | Check |
-|----------|---------|-------|
-| SageMaker Endpoints | ≥ 1 | Service Quotas → SageMaker |
-| Lambda functions | ≥ 1 | Usually in free tier |
-| S3 buckets | ≥ 1 | Usually no limit |
-
-### Required Permissions (IAM)
-
-Create an IAM Role with these permissions:
+Tạo IAM Role với các quyền tối thiểu:
 
 ```json
 {
@@ -72,87 +51,34 @@ Create an IAM Role with these permissions:
 }
 ```
 
-### Local Environment Setup
+### Khởi tạo Môi trường Local
 
 ```powershell
-# 1. Clone the project
+# 1. Clone dự án
 git clone https://github.com/YOUR-USERNAME/aws-internship-ML-forecasting.git
 cd aws-internship-ML-forecasting
 
-# 2. Create virtual environment
+# 2. Tạo môi trường ảo (virtualenv)
 python -m venv venv
 .\venv\Scripts\activate    # Windows
-# source venv/bin/activate  # Linux/Mac
 
-# 3. Install dependencies
+# 3. Cài đặt các thư viện phụ thuộc
 pip install -r requirements.txt
 
-# 4. Configure AWS CLI
-aws configure
-# or for SSO:
-aws configure sso
-
-# 5. Verify setup
+# 4. Kiểm tra cấu hình môi trường
 python verify_setup.py
 ```
 
-### `requirements.txt`
-
-```
-boto3>=1.26.0
-pandas>=1.5.0
-numpy>=1.23.0
-xgboost==1.7.6
-torch>=1.13.0
-scikit-learn>=1.1.0
-shap>=0.41.0
-```
-
-{{% notice info %}}
-**Version Note:** `xgboost==1.7.6` is pinned to exactly this version. The SageMaker container uses this version for serving. A mismatch causes ModelError 500.
-{{% /notice %}}
-
-### Download Dataset
+### Cấu hình `config.py`
 
 ```python
-# Download Rossmann Store Sales from Kaggle
-# (requires Kaggle API key in ~/.kaggle/kaggle.json)
-pip install kaggle
-kaggle competitions download -c rossmann-store-sales
-unzip rossmann-store-sales.zip -d data/raw/
-```
-
-Or download manually from: [Kaggle Rossmann Store Sales](https://www.kaggle.com/c/rossmann-store-sales)
-
-### S3 Bucket Setup
-
-```bash
-# Create bucket
-aws s3 mb s3://your-ml-forecasting-bucket --region ap-southeast-1
-
-# Upload raw data
-aws s3 cp data/raw/train.csv s3://your-ml-forecasting-bucket/ml-forecasting/data/raw/
-aws s3 cp data/raw/store.csv s3://your-ml-forecasting-bucket/ml-forecasting/data/raw/
-```
-
-### Update `config.py`
-
-```python
-# config.py — update with your settings
-BUCKET_NAME = "your-ml-forecasting-bucket"
+# config.py — Cập nhật thông tin tài khoản của bạn
+BUCKET_NAME = "aws-internship-hkq-2026"
 REGION = "ap-southeast-1"
 PREFIX = "ml-forecasting"
 
 S3_RAW_DATA = f"s3://{BUCKET_NAME}/{PREFIX}/data/raw/"
 S3_PROCESSED_DATA = f"s3://{BUCKET_NAME}/{PREFIX}/data/processed/"
 S3_MODEL_ARTIFACTS = f"s3://{BUCKET_NAME}/{PREFIX}/models/artifacts/"
-SAGEMAKER_ROLE_ARN = "arn:aws:iam::YOUR-ACCOUNT-ID:role/SageMaker-ExecutionRole"
+SAGEMAKER_ROLE_ARN = "arn:aws:iam::119505195050:role/SageMaker-ExecutionRole-hkq"
 ```
-
-### Workaround: If SageMaker Endpoint Quota = 0
-
-If you encounter quota issues (as the team did), you have two options:
-1. **Request quota increase** via AWS Support (takes 1–3 business days)
-2. **Use a personal AWS account** with fresh quota (immediate)
-
-The team used option 2 during Week 6 — this is a valid solution for a bootcamp setting.

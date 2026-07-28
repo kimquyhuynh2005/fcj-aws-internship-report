@@ -1,99 +1,99 @@
 ---
-title: "Self-evaluation"
+title: "Tự đánh giá"
 date: 2026-06-06
 weight: 6
 chapter: false
 pre: "<b>6. </b>"
 ---
 
-# Self-evaluation
+# Tự đánh giá
 
-Assessment of personal performance and skill development during the 8-week AWS First Cloud AI Journey internship.
+Đánh giá hiệu suất cá nhân và sự phát triển kỹ năng trong 8 tuần thực tập AWS First Cloud AI Journey.
 
-**Evaluator:** Huynh Kim Quy  
-**Period:** 06/06/2026 – 15/08/2026
-
----
-
-## Evaluation Criteria
-
-| # | Criteria | Rating | Notes |
-|---|---------|--------|-------|
-| 1 | Technical AWS Knowledge | **Tốt / Good** | Mastered S3, IAM, SageMaker, Lambda, API Gateway, CloudWatch |
-| 2 | Machine Learning Skills | **Tốt / Good** | Successfully trained XGBoost with RMSE 925.28, MAPE 9.92% |
-| 3 | Problem-solving & Debugging | **Tốt / Good** | Resolved 3 real deployment errors; multiple quota workarounds |
-| 4 | Code Quality | **Khá / Fair** | Code works but documentation could be more consistent |
-| 5 | Teamwork & Collaboration | **Tốt / Good** | Effective division of work with team; clear communication |
-| 6 | Time Management | **Khá / Fair** | Most deliverables on time; Week 6 took longer than planned |
-| 7 | Documentation | **Khá / Fair** | Improved significantly during Weeks 9–12 |
-| 8 | Initiative & Proactiveness | **Tốt / Good** | Identified quota issues early; proposed workarounds |
-
-**Scale:** Tốt (Good) > Khá (Fair) > Trung bình (Average)
+**Người đánh giá:** Huỳnh Kim Quý  
+**Thời gian:** 06/06/2026 – 15/08/2026
 
 ---
 
-## Technical Skills Acquired
+## Tiêu chí đánh giá
 
-### AWS Services (Hands-on)
-- ✅ **Amazon S3** — bucket creation, policies, versioning, boto3 upload/download
-- ✅ **AWS IAM** — roles, inline policies, least privilege design
-- ✅ **Amazon SageMaker** — Endpoint deployment, model packaging, Experiments tracking
-- ✅ **AWS Lambda** — function creation, IaC deployment, SageMaker integration
-- ✅ **Amazon API Gateway** — REST API, Lambda Proxy, stage deployment
-- ✅ **Amazon CloudWatch** — dashboard creation, metrics, log groups
-- ✅ **SageMaker Pipelines** — Pipeline definition JSON, boto3 creation
+| # | Tiêu chí | Đánh giá | Ghi chú |
+|---|---------|---------|---------|
+| 1 | Kiến thức AWS kỹ thuật | **Tốt** | Thành thạo S3, IAM, SageMaker, Lambda, API Gateway, CloudWatch |
+| 2 | Kỹ năng Machine Learning | **Tốt** | Train XGBoost đạt RMSE 925.28, MAPE 9.92% |
+| 3 | Giải quyết vấn đề & Debug | **Tốt** | Giải quyết 3 lỗi deploy thực tế; nhiều workaround quota |
+| 4 | Chất lượng code | **Khá** | Code hoạt động nhưng documentation chưa nhất quán |
+| 5 | Làm việc nhóm | **Tốt** | Phân công công việc hiệu quả; giao tiếp rõ ràng |
+| 6 | Quản lý thời gian | **Khá** | Hầu hết deliverables đúng hạn; tuần 6 chậm hơn kế hoạch |
+| 7 | Tài liệu | **Khá** | Cải thiện đáng kể trong tuần 9–12 |
+| 8 | Chủ động & sáng kiến | **Tốt** | Phát hiện vấn đề quota sớm; đề xuất workaround |
 
-### ML/Data Engineering Skills
-- ✅ Feature engineering for time series (rolling means, lags, date features)
-- ✅ XGBoost training, hyperparameter tuning, early stopping
-- ✅ Model evaluation: RMSE, MAPE
-- ✅ SHAP feature importance analysis
-- ✅ Statistical drift detection (z-score)
-- ✅ Data leakage prevention (chronological splits, proper scaling)
-- 🔄 PyTorch LSTM (basic implementation, needs improvement)
+**Thang điểm:** Tốt > Khá > Trung bình
 
 ---
 
-## Key Accomplishments
+## Kỹ năng kỹ thuật đạt được
 
-1. **Best model result:** RMSE 925.28, MAPE 9.92% — exceeded initial target of RMSE ~1,200
-2. **Production deployment:** Successfully deployed REST API with 5.14% error on real data
-3. **Real debugging:** Solved 3 concrete deployment errors with root cause analysis
-4. **Pragmatic workarounds:** Navigated quota limitations without blocking project progress
-5. **Knowledge sharing:** Published 3 technical blog posts and presented at AWS Study Group Q&A
+### AWS Services (thực hành)
+- ✅ **Amazon S3** — tạo bucket, policies, versioning, boto3 upload/download
+- ✅ **AWS IAM** — roles, inline policies, thiết kế Least Privilege
+- ✅ **Amazon SageMaker** — deploy Endpoint, đóng gói model, Experiments tracking
+- ✅ **AWS Lambda** — tạo function, IaC deployment, tích hợp SageMaker
+- ✅ **Amazon API Gateway** — REST API, Lambda Proxy, deploy stage
+- ✅ **Amazon CloudWatch** — tạo dashboard, metrics, log groups
+- ✅ **SageMaker Pipelines** — Pipeline definition JSON, tạo bằng boto3
 
----
-
-## Areas for Improvement
-
-1. **Deep Learning:** LSTM implementation needs better normalization and longer training
-2. **Testing:** Should have written more unit tests throughout the project
-3. **Documentation:** Started documentation too late (Week 9 vs. continuous)
-4. **Cost optimization:** Could have used Spot Instances for training experiments
-
----
-
-## Personal Reflection
-
-The 12-week internship exceeded my expectations in terms of practical learning. The most valuable experience was not the final working API — it was the debugging journey: discovering quota limitations, resolving XGBoost version conflicts, and understanding why `np.expm1()` caused Infinity predictions.
-
-These are the lessons that no tutorial can teach. Real projects break in unexpected ways, and learning to diagnose and fix those breaks is the core skill of a cloud engineer.
-
-**What I would do differently:** Check service quotas on Day 1 of any new AWS project, and start documentation from Week 1 — not Week 9.
+### Kỹ năng ML/Data Engineering
+- ✅ Feature engineering cho time series (rolling means, lags, date features)
+- ✅ Train XGBoost, hyperparameter tuning, early stopping
+- ✅ Đánh giá model: RMSE, MAPE
+- ✅ Phân tích SHAP feature importance
+- ✅ Phát hiện drift thống kê (z-score)
+- ✅ Ngăn data leakage (chronological splits, scaling đúng cách)
+- 🔄 PyTorch LSTM (triển khai cơ bản, cần cải thiện)
 
 ---
 
-## Rating Summary
+## Thành tựu nổi bật
+
+1. **Kết quả model tốt nhất:** RMSE 925.28, MAPE 9.92% — vượt mục tiêu ban đầu RMSE ~1,200
+2. **Deploy Production:** REST API hoạt động với sai lệch 5.14% trên dữ liệu thật
+3. **Debug thực tế:** Giải quyết 3 lỗi deploy cụ thể với phân tích nguyên nhân gốc
+4. **Workaround thực dụng:** Xử lý giới hạn quota mà không làm chậm tiến độ dự án
+5. **Chia sẻ kiến thức:** Đăng 3 bài blog kỹ thuật và trình bày tại Q&A AWS Study Group
+
+---
+
+## Điểm cần cải thiện
+
+1. **Deep Learning:** LSTM cần chuẩn hoá đầu vào tốt hơn và train lâu hơn
+2. **Testing:** Nên viết unit tests nhiều hơn trong suốt dự án
+3. **Documentation:** Bắt đầu viết tài liệu quá muộn (tuần 9 thay vì liên tục từ đầu)
+4. **Tối ưu chi phí:** Nên dùng Spot Instances cho các training experiments
+
+---
+
+## Cảm nhận cá nhân
+
+12 tuần thực tập vượt xa kỳ vọng của tôi về học tập thực tế. Kinh nghiệm có giá trị nhất không phải là REST API hoạt động cuối cùng — mà là hành trình debug: phát hiện giới hạn quota, giải quyết xung đột XGBoost version, và hiểu tại sao `np.expm1()` gây ra kết quả Infinity.
+
+Đây là những bài học mà không tutorial nào có thể dạy được. Dự án thực tế gặp lỗi theo những cách bất ngờ, và học cách chẩn đoán và sửa những lỗi đó chính là kỹ năng cốt lõi của một cloud engineer.
+
+**Nếu làm lại:** Kiểm tra service quotas ngay ngày đầu tiên của bất kỳ dự án AWS mới nào, và bắt đầu viết tài liệu từ tuần 1 — không phải tuần 9.
+
+---
+
+## Tổng hợp đánh giá
 
 ```
-Technical AWS Knowledge:    ████████░░  Good
-Machine Learning Skills:    ████████░░  Good
-Problem-solving:            ████████░░  Good
-Code Quality:               ██████░░░░  Fair
-Teamwork:                   ████████░░  Good
-Time Management:            ██████░░░░  Fair
-Documentation:              ██████░░░░  Fair
-Initiative:                 ████████░░  Good
+Kiến thức AWS:        ████████░░  Tốt
+Kỹ năng ML:           ████████░░  Tốt
+Giải quyết vấn đề:    ████████░░  Tốt
+Chất lượng code:      ██████░░░░  Khá
+Làm việc nhóm:        ████████░░  Tốt
+Quản lý thời gian:    ██████░░░░  Khá
+Tài liệu:             ██████░░░░  Khá
+Chủ động:             ████████░░  Tốt
 ```
 
-**Overall Rating: Khá — Good** (above average, with clear growth areas identified)
+**Đánh giá tổng: Khá** (trên mức trung bình, với các lĩnh vực phát triển rõ ràng)

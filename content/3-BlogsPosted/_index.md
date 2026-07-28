@@ -1,15 +1,15 @@
 ---
-title: "Blogs Posted"
+title: "Bài viết Blog"
 date: 2026-06-06
 weight: 3
 chapter: false
 pre: "<b>3. </b>"
 ---
 
-# Blogs Posted on AWS Study Group
+# Bài viết Blog trên cộng đồng AWS Study Group
 
-| # | Blog Title | Technical Topic | Status | Link |
-|---|------------|-----------------|--------|------|
-| 1 | XGBoost vs. PyTorch LSTM for Time Series Forecasting | Time Series Forecasting & Model Evaluation | Completed | [Read Article](3.1-blog1/) |
-| 2 | (Pending Update) | — | Pending | — |
-| 3 | (Pending Update) | — | Pending | — |
+| # | Tiêu đề Bài viết | Chủ đề Chuyên môn | Trạng thái | Liên kết Bài viết |
+|---|------------------|-------------------|------------|-------------------|
+| 1 | XGBoost vs. PyTorch LSTM trong Dự báo Chuỗi thời gian | Time Series Forecasting & Model Evaluation | Hoàn thành | [Xem bài viết](3.1-blog1/) |
+| 2 | (Đang chờ cập nhật) | — | Đang chuẩn bị | — |
+| 3 | (Đang chờ cập nhật) | — | Đang chuẩn bị | — |

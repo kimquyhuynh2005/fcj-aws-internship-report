@@ -1,93 +1,93 @@
 ---
-title: "Feedback"
+title: "Cảm nhận"
 date: 2026-06-06
 weight: 7
 chapter: false
 pre: "<b>7. </b>"
 ---
 
-# Feedback — AWS First Cloud AI Journey
+# Cảm nhận — AWS First Cloud AI Journey
 
-**Submitted by:** Huynh Kim Quy  
-**Program:** Workforce Bootcamp — First Cloud AI Journey  
-**Company:** Amazon Web Services Viet Nam Company Limited  
-**Period:** 06/06/2026 – 15/08/2026
-
----
-
-## Overall Satisfaction
-
-**Rating: 4/5** — Very satisfied with the program
+**Người gửi:** Huỳnh Kim Quý  
+**Chương trình:** Workforce Bootcamp — First Cloud AI Journey  
+**Công ty:** Amazon Web Services Viet Nam Company Limited  
+**Thời gian:** 06/06/2026 – 15/08/2026
 
 ---
 
-## Program Strengths
+## Mức độ hài lòng tổng thể
 
-### 1. Real-world Project Focus
-The program's emphasis on building a real project (not just following tutorials) was the most valuable aspect. Working with a real dataset (Rossmann, 1M+ records) and encountering real AWS limitations (quota issues, SDK bugs) created learning experiences impossible to get from structured courses.
-
-### 2. Team-based Learning
-Working in a 3-person team with divided responsibilities (Data/ML, Infra/AWS, Backend) closely mirrors real industry workflows. This collaborative structure significantly improved both technical and communication skills.
-
-### 3. Technical Depth
-The program covered the full ML lifecycle — from data preprocessing to deployment, monitoring, and pipeline automation. This end-to-end exposure is rare in academic settings.
-
-### 4. AWS Resource Access
-Having access to real AWS accounts (even with some quota limitations) provided hands-on cloud experience that no simulated environment can replicate.
+**Đánh giá: 4/5** — Rất hài lòng với chương trình
 
 ---
 
-## Areas for Improvement
+## Điểm mạnh của chương trình
 
-### 1. Service Quota Guidance
-The team spent significant time dealing with SageMaker service quotas that were 0 on new accounts. The program could benefit from:
-- A pre-check guide for required quotas before Week 1
-- Pre-configured accounts with appropriate quotas for bootcamp participants
+### 1. Tập trung vào dự án thực tế
+Điểm nhấn của chương trình — xây dựng dự án thực thay vì chỉ làm theo hướng dẫn — là khía cạnh có giá trị nhất. Làm việc với dataset thực (Rossmann, hơn 1 triệu bản ghi) và gặp phải các giới hạn AWS thực tế (vấn đề quota, lỗi SDK) tạo ra trải nghiệm học tập không thể có từ các khóa học cấu trúc.
 
-### 2. SDK Version Documentation
-SageMaker Python SDK had breaking issues in version 3.x. A pinned, tested dependency list at the start of the program would save debugging time.
+### 2. Học tập theo nhóm
+Làm việc theo nhóm 3 người với phân công trách nhiệm riêng biệt (Data/ML, Infra/AWS, Backend) phản ánh sát quy trình làm việc thực tế trong ngành. Cấu trúc hợp tác này cải thiện đáng kể cả kỹ năng kỹ thuật lẫn kỹ năng giao tiếp.
 
-### 3. More Structured Mentorship
-While self-directed learning is valuable, more scheduled code reviews or technical Q&A sessions with AWS practitioners would accelerate problem resolution.
+### 3. Chiều sâu kỹ thuật
+Chương trình bao quát toàn bộ vòng đời ML — từ tiền xử lý dữ liệu đến triển khai, giám sát và tự động hoá pipeline. Sự tiếp cận end-to-end này hiếm có trong môi trường học thuật.
 
-### 4. Mid-program Check-ins
-A structured mid-point review (around Week 4–5) would help teams course-correct earlier rather than discovering issues in Week 6–7.
+### 4. Quyền truy cập tài nguyên AWS
+Có quyền truy cập vào tài khoản AWS thực (dù có một số giới hạn quota) mang lại trải nghiệm cloud thực tế mà không môi trường mô phỏng nào có thể thay thế.
 
 ---
 
-## Recommendations for Future Participants
+## Điểm cần cải thiện
 
-Based on my 12-week experience, my top advice for incoming bootcamp participants:
+### 1. Hướng dẫn về Service Quota
+Nhóm tốn nhiều thời gian xử lý SageMaker service quotas = 0 trên account mới. Chương trình sẽ tốt hơn nếu:
+- Có hướng dẫn kiểm tra quota trước Tuần 1
+- Account được cấu hình trước với quota phù hợp cho học viên bootcamp
 
-1. **Check service quotas on Day 1** — run `check_quota.py` before writing any code
-2. **Use boto3 directly** — more stable than SageMaker SDK for complex workflows
-3. **Document as you go** — don't leave documentation to the final 4 weeks
-4. **Embrace workarounds** — real cloud engineering is about solving problems creatively when ideal tools are unavailable
-5. **Clean up endpoints immediately** — SageMaker Endpoints charge by the hour even when idle
+### 2. Tài liệu phiên bản SDK
+SageMaker Python SDK gặp lỗi nghiêm trọng trong version 3.x. Danh sách dependencies được pin và test từ đầu chương trình sẽ tiết kiệm thời gian debug đáng kể.
 
----
+### 3. Mentorship có cấu trúc hơn
+Trong khi tự học có giá trị, các buổi code review hay Q&A kỹ thuật với AWS practitioners được lên lịch sẵn sẽ giúp giải quyết vấn đề nhanh hơn.
 
-## Skills I Will Use in My Career
-
-| Skill | Direct Application |
-|-------|-------------------|
-| IAM Least Privilege | Every AWS project |
-| boto3 API patterns | Any Python-based cloud automation |
-| XGBoost + feature engineering | Tabular ML projects |
-| SageMaker Endpoint deployment | ML production systems |
-| CloudWatch monitoring | Production observability |
-| IaC deployment scripts | Repeatable infrastructure |
+### 4. Check-in giữa chương trình
+Đánh giá tiến độ có cấu trúc ở giữa (khoảng Tuần 4–5) sẽ giúp nhóm điều chỉnh sớm hơn thay vì phát hiện vấn đề ở Tuần 6–7.
 
 ---
 
-## Final Message
+## Lời khuyên cho học viên tương lai
 
-The AWS First Cloud AI Journey program provided me with real-world cloud engineering experience that significantly exceeded what I could have gained from self-study or academic courses alone.
+Dựa trên 12 tuần trải nghiệm của mình, những lời khuyên hàng đầu cho học viên sắp tham gia:
 
-The most important learning: **the best engineers aren't the ones who avoid problems — they're the ones who understand why problems happen and fix them systematically.**
-
-Thank you to the FCJ team, AWS Vietnam, and my teammates (Van Thai Quan and Nguyen Ngoc Sang) for making this 12 weeks exceptional.
+1. **Kiểm tra service quotas từ Ngày 1** — chạy `check_quota.py` trước khi viết bất kỳ code nào
+2. **Dùng boto3 trực tiếp** — ổn định hơn SageMaker SDK cho các workflow phức tạp
+3. **Ghi chép liên tục** — đừng để documentation đến 4 tuần cuối
+4. **Chấp nhận workaround** — kỹ thuật cloud thực tế là giải quyết vấn đề sáng tạo khi công cụ lý tưởng không có sẵn
+5. **Cleanup endpoint ngay lập tức** — SageMaker Endpoint tính phí theo giờ kể cả khi không có request
 
 ---
 
-*Huynh Kim Quy | kimquyhuynh2005@gmail.com | AWS062026*
+## Kỹ năng sẽ áp dụng trong sự nghiệp
+
+| Kỹ năng | Ứng dụng trực tiếp |
+|---------|-------------------|
+| IAM Least Privilege | Mọi dự án AWS |
+| Patterns boto3 API | Tự động hoá cloud bằng Python |
+| XGBoost + feature engineering | Dự án ML dạng bảng |
+| Deploy SageMaker Endpoint | Hệ thống ML production |
+| CloudWatch monitoring | Quan sát hệ thống production |
+| IaC deployment scripts | Hạ tầng có thể lặp lại |
+
+---
+
+## Lời kết
+
+Chương trình AWS First Cloud AI Journey cung cấp cho tôi trải nghiệm kỹ thuật cloud thực tế vượt xa những gì tôi có thể đạt được từ tự học hay các khóa học học thuật.
+
+Bài học quan trọng nhất: **kỹ sư giỏi nhất không phải là người tránh được vấn đề — mà là người hiểu tại sao vấn đề xảy ra và sửa chúng một cách có hệ thống.**
+
+Cảm ơn đội ngũ FCJ, AWS Vietnam và các thành viên nhóm (Văn Thái Quân và Nguyễn Ngọc Sáng) đã làm cho 12 tuần này trở nên đặc biệt.
+
+---
+
+*Huỳnh Kim Quý | kimquyhuynh2005@gmail.com | AWS062026*

@@ -1,70 +1,120 @@
 ---
-title: "Week 7 — Monitoring + Drift Detection"
+title: "Tuần 7 — Monitoring + Drift Detection"
 date: 2026-07-18
 weight: 7
 chapter: false
 pre: "<b>1.7. </b>"
 ---
 
-## Week 7 — Monitoring + Drift Detection ✅
+## Tuần 7 — Monitoring + Drift Detection ✅
 
-**Owner:** Nguyen Ngoc Sang | **Period:** 18/07/2026 – 24/07/2026
+**Người thực hiện:** Nguyễn Ngọc Sáng | **Thời gian:** 18/07/2026 – 24/07/2026
 
 ---
 
-### Context
-Model XGBoost deployed in Week 6. Rossmann dataset ends in 2015 — no real new data available for monitoring. Solution: wrote `drift_simulator.py` to synthetically generate anomalous data for testing the monitoring system.
+### Bối cảnh
+Model XGBoost đã deploy ở tuần 6. Dataset Rossmann kết thúc năm 2015 — không có data mới thực tế để monitor. Giải pháp: viết `drift_simulator.py` tự tạo dữ liệu bất thường để kiểm tra hệ thống monitoring.
 
-### Tasks Completed
+### Công việc đã làm
 
-1. **Created Baseline Statistics from Training Data**
-   - Read `week2_preprocessing/data/processed/train.csv`
-   - Computed mean, std, min, max, count for 5 top features (by SHAP): `Store`, `DayOfWeek`, `Promo`, `CompetitionDistance`, `Month`
-   - Saved as `week7_monitoring/baseline_stats.json`
-   - Uploaded to S3: `ml-forecasting/monitoring/baseline/`
+1. **Tạo baseline statistics từ train data**
+   - Đọc `week2_preprocessing/data/processed/train.csv`
+   - Tính mean, std, min, max, count cho 5 features quan trọng nhất (theo SHAP): `Store`, `DayOfWeek`, `Promo`, `CompetitionDistance`, `Month`
+   - Lưu thành `week7_monitoring/baseline_stats.json`
+   - Upload S3: `ml-forecasting/monitoring/baseline/`
 
-2. **Wrote `drift_simulator.py`**
-   - 2 types of synthetic drift:
+2. **Viết `drift_simulator.py`**
+   - 2 loại drift được mô phỏng:
 
-   | Type | Change | Real-world Meaning |
-   |------|-------|--------------------|
-   | `shift` | CompetitionDistance × 3, Promo → 80% | Market competition intensifies |
-   | `noise` | DayOfWeek randomized | Data pipeline failure |
+   | Loại | Thay đổi | Ý nghĩa thực tế |
+   |------|---------|----------------|
+   | `shift` | CompetitionDistance × 3, Promo → 80% | Thị trường cạnh tranh tăng mạnh |
+   | `noise` | DayOfWeek random | Lỗi data pipeline |
 
-3. **Z-score Based Drift Detection**
+3. **Phát hiện drift bằng z-score**
    ```
    z_score = |mean_new - mean_baseline| / std_baseline
-   Alert when z_score > 2.0
+   Alert khi z_score > 2.0
    ```
 
-4. **CloudWatch Dashboard**
+4. **Tạo CloudWatch Dashboard**
    - Dashboard: `RossmannForecastingDashboard`
-   - Widgets: Request count, Lambda duration & error rate, Drift Detection Status table
+   - Widgets: Request count, Lambda duration & error rate, Drift Detection Status
 
 ---
 
-### Results
+### Kết quả đạt được
 
 **Drift Detection:**
 
-| Scenario | Alerts | Result |
+| Scenario | Alerts | Kết quả |
 |---------|--------|--------|
-| Normal data (test set) | 0 alerts | ✅ No false alarm |
-| Drifted data (shift type) | 2 alerts | ✅ Correctly detected |
+| Normal data (test set gốc) | 0 alerts | ✅ Không false alarm |
+| Drifted data (shift type) | 2 alerts | ✅ Phát hiện đúng |
 
-**Drift Detail:**
+**Chi tiết drift detected:**
 
 | Feature | Baseline Mean | Current Mean | z-score | Status |
 |---------|--------------|-------------|---------|--------|
 | CompetitionDistance | 5,430.34 | 16,291.02 | 6.83 | ⚠️ DRIFT |
 | Promo | 0.38 | 0.80 | 4.21 | ⚠️ DRIFT |
+
+---
+
+### 💻 Code Snippet Nổi bật
+
+#### 1. Thuật toán Tính Z-Score Data Drift (`drift_simulator.py`)
+```python
+import numpy as np
+import json
+
+def detect_feature_drift(baseline_stats, current_df, threshold=2.0):
+    drift_report = {}
+    for feature, stats in baseline_stats.items():
+        base_mean, base_std = stats['mean'], stats['std']
+        curr_mean = current_df[feature].mean()
+        
+        # Tính Z-Score đo độ lệch chuẩn
+        z_score = abs(curr_mean - base_mean) / base_std if base_std > 0 else 0
+        is_drift = z_score > threshold
+        
+        drift_report[feature] = {
+            'z_score': round(z_score, 2),
+            'drift_detected': is_drift
+        }
+        if is_drift:
+            print(f"⚠️ ALERT: Feature '{feature}' has drifted! Z-score = {z_score:.2f} > {threshold}")
+            
+    return drift_report
+```
+
+#### 2. Tự động hóa Tạo CloudWatch Alarms (`create_alarm.py`)
+```python
+import boto3
+
+cw = boto3.client('cloudwatch', region_name='ap-southeast-1')
+
+# Tạo Cảnh báo khi Z-Score > 2.0
+cw.put_metric_alarm(
+    AlarmName='Rossmann-DataDrift-Alert',
+    ComparisonOperator='GreaterThanThreshold',
+    EvaluationPeriods=1,
+    MetricName='DataDriftZScore',
+    Namespace='RossmannMLMonitoring',
+    Period=300,
+    Statistic='Maximum',
+    Threshold=2.0,
+    AlarmDescription='Alert when Z-score data drift exceeds 2.0'
+)
+print("✅ Created CloudWatch Alarm: Rossmann-DataDrift-Alert")
+```
 | Store | 558.43 | 558.43 | 0.00 | ✅ OK |
 | DayOfWeek | 3.99 | 4.00 | 0.01 | ✅ OK |
 | Month | 7.22 | 7.22 | 0.01 | ✅ OK |
 
 ---
 
-### Lessons Learned
-- When no new data is available, `drift_simulator.py` is a valid and practical monitoring test strategy
-- z-score threshold = 2.0 is a standard statistical threshold for anomaly detection
-- CloudWatch dashboard provides at-a-glance visibility for model health
+### Bài học rút ra
+- Khi không có data mới, `drift_simulator.py` là chiến lược kiểm tra monitoring hợp lệ và thực tế
+- z-score threshold = 2.0 là ngưỡng thống kê chuẩn cho anomaly detection
+- CloudWatch dashboard cung cấp khả năng giám sát tình trạng model một cách trực quan

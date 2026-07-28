@@ -1,14 +1,14 @@
 ---
-title: "Week 9 — Performance Optimization & Load Testing"
+title: "Tuần 9 — Tối ưu Hóa Hiệu năng & Kiểm thử Tải"
 date: 2026-08-01
 weight: 9
 chapter: false
 pre: "<b>1.9. </b>"
 ---
 
-# Week 9: Performance Optimization & Load Testing
+# Tuần 9: Tối ưu Hóa Hiệu năng & Kiểm thử Tải
 
-## Key Tasks & Achievements
-- Conducted concurrency load testing on API Gateway & Lambda inference handler.
-- Measured latency distribution under 100 concurrent requests (avg latency ~1.1s).
-- Optimized XGBoost inference payload size and reduced memory footprint.
+## Công việc & Kết quả chính
+- Thực hiện kiểm thử tải đồng thời (Load Testing) trên API Gateway & Lambda Handler.
+- Đo đạc độ trễ phân phối với 100 requests đồng thời (độ trễ trung bình ~1.1 giây).
+- Tối ưu dung lượng payload và bộ nhớ thực thi mô hình XGBoost.

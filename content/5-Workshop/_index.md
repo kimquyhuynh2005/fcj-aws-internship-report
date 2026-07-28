@@ -6,82 +6,82 @@ chapter: false
 pre: "<b>5. </b>"
 ---
 
-# Workshop: E-commerce Sales Forecasting Pipeline on AWS
+# Workshop: Pipeline Dự báo Doanh số trên AWS
 
-## Overview
+## Tổng quan
 
-In this workshop, you will build a complete **end-to-end Machine Learning pipeline** on AWS to forecast daily sales for a retail chain. This is based on the actual project completed during the AWS First Cloud AI Journey internship.
+Trong workshop này, bạn sẽ xây dựng một **pipeline Machine Learning end-to-end hoàn chỉnh** trên AWS để dự báo doanh số bán hàng theo ngày cho chuỗi cửa hàng bán lẻ. Workshop này dựa trên dự án thực tế được thực hiện trong chương trình AWS First Cloud AI Journey.
 
 {{% notice info %}}
-**Real Project:** This workshop is based on actual work performed during a 12-week AWS internship. All code, results, and configurations are from a real implementation — not a tutorial demo.
+**Dự án thực tế:** Workshop này dựa trên công việc thực tế trong 12 tuần thực tập AWS. Tất cả code, kết quả và cấu hình đều từ implementation thực tế — không phải demo hướng dẫn.
 {{% /notice %}}
 
-## What You Will Build
+## Những gì bạn sẽ xây dựng
 
 ```
-Raw Data (S3)
+Dữ liệu thô (S3)
      │
      ▼
-Data Preprocessing & Feature Engineering
+Tiền xử lý dữ liệu & Feature Engineering
      │
      ▼
-XGBoost Model Training (local, with SageMaker Experiments logging)
+Train Model XGBoost (local, log lên SageMaker Experiments)
      │
      ▼
-SageMaker Endpoint Deployment (ml.t2.medium)
+Deploy SageMaker Endpoint (ml.t2.medium)
      │
      ▼
-AWS Lambda + API Gateway (public REST API)
+AWS Lambda + API Gateway (REST API công khai)
      │
      ▼
-CloudWatch Monitoring + Drift Detection
+CloudWatch Monitoring + Phát hiện Data Drift
 ```
 
-## AWS Services Used
+## AWS Services sử dụng
 
-| Service | Purpose |
+| Service | Mục đích |
 |---------|---------|
-| Amazon S3 | Data storage, model artifacts |
-| AWS IAM | Least privilege roles |
-| Amazon SageMaker | Model deployment endpoint |
+| Amazon S3 | Lưu trữ data, model artifacts |
+| AWS IAM | Role theo Least Privilege |
+| Amazon SageMaker | Deploy model endpoint |
 | AWS Lambda | Serverless inference wrapper |
-| Amazon API Gateway | Public REST API |
-| Amazon CloudWatch | Monitoring dashboard |
+| Amazon API Gateway | REST API công khai |
+| Amazon CloudWatch | Dashboard giám sát |
 
-## Learning Objectives
+## Mục tiêu học tập
 
-After completing this workshop, you will be able to:
-- Preprocess and feature-engineer time series data for ML
-- Train an XGBoost model and evaluate with RMSE/MAPE
-- Deploy a model to SageMaker Endpoint using boto3
-- Build a serverless inference API with Lambda + API Gateway
-- Monitor model health and detect data drift
+Sau khi hoàn thành workshop, bạn có thể:
+- Tiền xử lý và feature engineer dữ liệu time series cho ML
+- Train model XGBoost và đánh giá với RMSE/MAPE
+- Deploy model lên SageMaker Endpoint bằng boto3
+- Xây dựng serverless inference API với Lambda + API Gateway
+- Giám sát sức khỏe model và phát hiện data drift
 
-## Estimated Time
+## Thời gian ước tính
 
-| Section | Time |
-|---------|------|
-| 1. Overview | 10 min |
-| 2. Prerequisites | 15 min |
-| 3. Data Processing | 30 min |
-| 4. Model Training | 30 min |
-| 5. Deployment & API | 45 min |
-| 6. Cleanup | 10 min |
-| **Total** | **~2.5 hours** |
+| Phần | Thời gian |
+|------|----------|
+| 1. Tổng quan | 10 phút |
+| 2. Chuẩn bị | 15 phút |
+| 3. Xử lý dữ liệu | 30 phút |
+| 4. Train Model | 30 phút |
+| 5. Triển khai & API | 45 phút |
+| 6. Dọn dẹp | 10 phút |
+| **Tổng** | **~2.5 giờ** |
 
-## Estimated Cost
+## Chi phí ước tính
 
-~$2–5 USD (SageMaker Endpoint for ~1 hour)
+~$2–5 USD (SageMaker Endpoint trong ~1 giờ)
 
 {{% notice warning %}}
-**Important:** Always run the Cleanup step to delete the SageMaker Endpoint after completing the workshop. Endpoints charge by the hour even when idle.
+**Quan trọng:** Luôn chạy bước Cleanup để xóa SageMaker Endpoint sau khi hoàn thành workshop. Endpoint tính phí theo giờ kể cả khi không có request.
 {{% /notice %}}
 
-## Workshop Sections
+## Các phần của Workshop
 
-1. [Workshop Overview](5.1-Workshop-overview)
-2. [Prerequisites](5.2-Prerequiste)
-3. [Data Processing](5.3-S3-vpc)
-4. [Model Training](5.4-S3-onprem)
-5. [Deployment & API](5.5-Policy)
-6. [Cleanup](5.6-Cleanup)
+1. [Tổng quan Workshop](5.1-Workshop-overview)
+2. [Chuẩn bị](5.2-Prerequiste)
+3. [Xử lý dữ liệu](5.3-S3-vpc)
+4. [Train Model](5.4-S3-onprem)
+5. [Triển khai & API](5.5-Policy)
+6. [Dọn dẹp](5.6-Cleanup)

@@ -1,56 +1,56 @@
 ---
-title: "Internship Report"
+title: "Báo cáo thực tập"
 date: 2026-06-06
 weight: 1
 chapter: false
 ---
 
-# Internship Report — AWS First Cloud AI Journey
+# Báo cáo thực tập — AWS First Cloud AI Journey
 
-## Student Information
+## Thông tin sinh viên
 
-![Intern Profile Photo - Huynh Kim Quy](/images/avatar.jpg)
+![Ảnh thẻ thực tập sinh - Huỳnh Kim Quý](/images/avatar.jpg)
 
-&emsp; **Full Name:** Huynh Kim Quy
+&emsp; **Họ và tên:** Huỳnh Kim Quý
 
-&emsp; **Phone:** 0911263926
+&emsp; **Số điện thoại:** 0911263926
 
 &emsp; **Email:** kimquyhuynh2005@gmail.com
 
-&emsp; **University:** Ho Chi Minh City University of Technology (HCMUT)
+&emsp; **Trường:** Đại học Bách Khoa TP.HCM (HCMUT)
 
-&emsp; **Major:** Computer Science
+&emsp; **Chuyên ngành:** Khoa học Máy tính
 
-&emsp; **Class:** AWS062026
+&emsp; **Lớp:** AWS062026
 
-&emsp; **Host Company:** Amazon Web Services Viet Nam Company Limited
+&emsp; **Công ty thực tập:** Amazon Web Services Viet Nam Company Limited
 
-&emsp; **Internship Position:** Workforce Bootcamp — First Cloud AI Journey
+&emsp; **Vị trí thực tập:** Workforce Bootcamp — First Cloud AI Journey
 
-&emsp; **Duration:** 06/06/2026 → 15/08/2026
+&emsp; **Thời gian thực tập:** 06/06/2026 → 15/08/2026
 
 ---
 
-## Project Overview
+## Tổng quan dự án
 
-**Project:** E-commerce Sales Forecasting System on AWS
+**Dự án:** Hệ thống Dự báo Doanh số Thương mại Điện tử trên AWS
 
-> Building an end-to-end Machine Learning system on AWS to forecast daily sales for a retail chain (Rossmann dataset, 1M+ records), covering data preprocessing, model training, real-time deployment, monitoring, and pipeline automation.
+> Xây dựng hệ thống Machine Learning end-to-end trên AWS để dự báo doanh số bán hàng theo ngày cho chuỗi cửa hàng bán lẻ (dataset Rossmann, hơn 1 triệu bản ghi), bao gồm: tiền xử lý dữ liệu, huấn luyện mô hình, triển khai API thời gian thực, giám sát và tự động hoá pipeline.
 
-**Team:** 3 members
-| Member | Role |
-|--------|------|
-| **Huynh Kim Quy** (this report) | Data / ML Engineering |
-| Van Thai Quan | Infrastructure / AWS |
-| Nguyen Ngoc Sang | Backend / Monitoring |
+**Nhóm thực hiện:** 3 thành viên
+| Thành viên | Vai trò |
+|------------|---------|
+| **Huỳnh Kim Quý** (báo cáo này) | Data / ML Engineering |
+| Văn Thái Quân | Infrastructure / AWS |
+| Nguyễn Ngọc Sáng | Backend / Monitoring |
 
-### 🏆 Model Comparison Results
+### 🏆 So sánh Kết quả Huấn luyện Mô hình
 
 <div class="model-card-grid">
   <div class="model-card winner-card">
     <span class="badge-pill badge-winner">⭐ Production Selected</span>
     <h3 style="margin-top: 10px; color: #ffffff !important;">XGBoost Baseline</h3>
-    <p style="color: #94a3b8; font-size: 0.9rem;">Primary model deployed as REST API to AWS SageMaker Endpoint</p>
+    <p style="color: #94a3b8; font-size: 0.9rem;">Mô hình chính được triển khai REST API lên AWS SageMaker Endpoint</p>
     <div class="card-metrics">
       <div>
         <small style="color: #94a3b8;">TEST RMSE</small>
@@ -66,7 +66,7 @@ chapter: false
   <div class="model-card">
     <span class="badge-pill badge-experiment">Experiment</span>
     <h3 style="margin-top: 10px; color: #ffffff !important;">PyTorch LSTM</h3>
-    <p style="color: #94a3b8; font-size: 0.9rem;">Experimental 2-layer Deep Learning time-series forecaster</p>
+    <p style="color: #94a3b8; font-size: 0.9rem;">Mô hình Deep Learning 2-layer LSTM thử nghiệm chuỗi thời gian</p>
     <div class="card-metrics">
       <div>
         <small style="color: #94a3b8;">TEST RMSE</small>
@@ -82,14 +82,14 @@ chapter: false
 
 ---
 
-## Report Structure
+## Cấu trúc báo cáo
 
-| Section | Content |
-|---------|---------|
-| **1. Worklog** | Week-by-week activity log (Week 1 → 12) |
-| **2. Proposal** | Project proposal, architecture, timeline, risks |
-| **3. Blogs Posted** | 3 technical blog posts published on AWS Study Group |
-| **4. Events Participated** | AWS events and workshops attended |
-| **5. Workshop** | Technical workshop: ML Forecasting Pipeline on AWS |
-| **6. Self-evaluation** | Assessment across 8 skill criteria |
-| **7. Feedback** | Program feedback and improvement suggestions |
+| Phần | Nội dung |
+|------|---------|
+| **1. Worklog** | Nhật ký hoạt động từng tuần (Tuần 1 → 12) |
+| **2. Đề xuất dự án** | Proposal, kiến trúc, timeline, rủi ro |
+| **3. Bài viết Blog** | 3 bài viết chuyên môn đăng trên nhóm AWS Study Group |
+| **4. Sự kiện tham gia** | Các sự kiện và workshop AWS đã tham dự |
+| **5. Workshop** | Workshop kỹ thuật: ML Forecasting Pipeline trên AWS |
+| **6. Tự đánh giá** | Đánh giá theo 8 tiêu chí kỹ năng |
+| **7. Cảm nhận** | Phản hồi về chương trình và đề xuất cải tiến |
