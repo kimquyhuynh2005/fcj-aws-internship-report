@@ -13,23 +13,23 @@ Báo cáo này ghi lại quá trình thực tập thực tế tại **Amazon Web
 
 ## Thông tin sinh viên
 
-&emsp; **Họ và tên:** Huỳnh Kim Quý
-
-&emsp; **Số điện thoại:** 0911263926
-
-&emsp; **Email:** kimquyhuynh2005@gmail.com
-
-&emsp; **Trường:** Đại học Bách Khoa TP.HCM (HCMUT)
-
-&emsp; **Chuyên ngành:** Khoa học Máy tính
-
-&emsp; **Lớp:** AWS062026
-
-&emsp; **Công ty thực tập:** Amazon Web Services Viet Nam Company Limited
-
-&emsp; **Vị trí thực tập:** Workforce Bootcamp — First Cloud AI Journey
-
-&emsp; **Thời gian thực tập:** 06/06/2026 → 06/09/2026 (12 tuần)
+<div style="display: flex; gap: 24px; align-items: flex-start; margin-top: 15px; margin-bottom: 25px; flex-wrap: wrap;">
+  <div style="flex-shrink: 0; text-align: center;">
+    <img src="/images/avatar.png" alt="Ảnh thẻ Huỳnh Kim Quý" style="width: 160px; height: 210px; object-fit: cover; border-radius: 10px; border: 3px solid #0284c7; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); display: block;" />
+    <small style="display: block; margin-top: 8px; color: #94a3b8; font-size: 0.82rem;">(Ảnh thẻ thực tập sinh)</small>
+  </div>
+  <div style="flex: 1; min-width: 280px; line-height: 1.8;">
+    <p style="margin-bottom: 6px;"><strong>Họ và tên:</strong> Huỳnh Kim Quý</p>
+    <p style="margin-bottom: 6px;"><strong>Số điện thoại:</strong> 0911263926</p>
+    <p style="margin-bottom: 6px;"><strong>Email:</strong> kimquyhuynh2005@gmail.com</p>
+    <p style="margin-bottom: 6px;"><strong>Trường:</strong> Đại học Bách Khoa TP.HCM (HCMUT)</p>
+    <p style="margin-bottom: 6px;"><strong>Chuyên ngành:</strong> Khoa học Máy tính</p>
+    <p style="margin-bottom: 6px;"><strong>Lớp:</strong> AWS062026</p>
+    <p style="margin-bottom: 6px;"><strong>Công ty thực tập:</strong> Amazon Web Services Viet Nam Company Limited</p>
+    <p style="margin-bottom: 6px;"><strong>Vị trí thực tập:</strong> Workforce Bootcamp — First Cloud AI Journey</p>
+    <p style="margin-bottom: 6px;"><strong>Thời gian thực tập:</strong> 06/06/2026 → 06/09/2026 (12 tuần)</p>
+  </div>
+</div>
 
 ---
 

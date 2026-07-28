@@ -48,6 +48,8 @@ Forecast daily sales for 1,115 retail stores based on historical data, promotion
 
 ## 4. Solution Architecture
 
+![Detailed AWS System Architecture Diagram](/images/2-Proposal/aws_architecture.png)
+
 ```
 Raw Data (Rossmann CSV) → Amazon S3
          │
@@ -107,7 +109,9 @@ SageMaker Pipelines (end-to-end automation)
 | **6** | Deployment + REST API | REST API live, sai lệch 5.14% ✅ |
 | **7** | Monitoring + Drift Detection | CloudWatch Dashboard, drift detected ✅ |
 | **8** | Pipeline + Refactor | SageMaker Pipeline IaC, local orchestration ✅ |
-| **9–12** | Documentation & Report | This website ✅ |
+| **9–12** | Documentation & Report | This website & AWS Architecture Packaging ✅ |
+
+![Overall Final AWS Architecture Diagram (Weeks 9-12)](/images/2-Proposal/aws_architecture.png)
 
 ---
 

@@ -13,23 +13,23 @@ This report documents my real internship project at **Amazon Web Services Viet N
 
 ## Student Information
 
-&emsp; **Full Name:** Huynh Kim Quy
-
-&emsp; **Phone Number:** 0911263926
-
-&emsp; **Email:** kimquyhuynh2005@gmail.com
-
-&emsp; **University:** Ho Chi Minh City University of Technology (HCMUT)
-
-&emsp; **Major:** Computer Science
-
-&emsp; **Class:** AWS062026
-
-&emsp; **Internship Company:** Amazon Web Services Viet Nam Company Limited
-
-&emsp; **Internship Position:** Workforce Bootcamp — First Cloud AI Journey
-
-&emsp; **Internship Duration:** 06/06/2026 → 06/09/2026 (12 weeks)
+<div style="display: flex; gap: 24px; align-items: flex-start; margin-top: 15px; margin-bottom: 25px; flex-wrap: wrap;">
+  <div style="flex-shrink: 0; text-align: center;">
+    <img src="/images/avatar.png" alt="Intern Profile Photo - Huynh Kim Quy" style="width: 160px; height: 210px; object-fit: cover; border-radius: 10px; border: 3px solid #0284c7; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); display: block;" />
+    <small style="display: block; margin-top: 8px; color: #94a3b8; font-size: 0.82rem;">(Intern Profile Photo)</small>
+  </div>
+  <div style="flex: 1; min-width: 280px; line-height: 1.8;">
+    <p style="margin-bottom: 6px;"><strong>Full Name:</strong> Huynh Kim Quy</p>
+    <p style="margin-bottom: 6px;"><strong>Phone:</strong> 0911263926</p>
+    <p style="margin-bottom: 6px;"><strong>Email:</strong> kimquyhuynh2005@gmail.com</p>
+    <p style="margin-bottom: 6px;"><strong>University:</strong> Ho Chi Minh City University of Technology (HCMUT)</p>
+    <p style="margin-bottom: 6px;"><strong>Major:</strong> Computer Science</p>
+    <p style="margin-bottom: 6px;"><strong>Class:</strong> AWS062026</p>
+    <p style="margin-bottom: 6px;"><strong>Host Company:</strong> Amazon Web Services Viet Nam Company Limited</p>
+    <p style="margin-bottom: 6px;"><strong>Internship Position:</strong> Workforce Bootcamp — First Cloud AI Journey</p>
+    <p style="margin-bottom: 6px;"><strong>Duration:</strong> 06/06/2026 → 06/09/2026 (12 weeks)</p>
+  </div>
+</div>
 
 ---
 
