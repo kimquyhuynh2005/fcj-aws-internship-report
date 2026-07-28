@@ -1,6 +1,6 @@
 baseURL = "https://kimquyhuynh2005.github.io/fcj-aws-internship-report/"
-relativeURLs = true
-canonifyURLs = false
+relativeURLs = false
+canonifyURLs = true
 defaultContentLanguage = "vi"
 
 # Change the default theme to be use when building the site with Hugo
