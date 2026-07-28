@@ -11,7 +11,7 @@ pre: "<b>6. </b>"
 **Submitted by:** Huynh Kim Quy  
 **Program:** Workforce Bootcamp — First Cloud AI Journey  
 **Company:** Amazon Web Services Viet Nam Company Limited  
-**Period:** 06/06/2026 – 06/09/2026
+**Period:** 06/06/2026 – 15/08/2026
 
 ---
 

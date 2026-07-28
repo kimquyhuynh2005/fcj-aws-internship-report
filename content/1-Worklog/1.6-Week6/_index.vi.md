@@ -55,8 +55,72 @@ Account nhóm (119505195050) bị block quota SageMaker Endpoint = 0. Văn Thái
 | Validate dữ liệu thật | Store 1, 2015-06-15: **sai lệch 5.14%** ✅ |
 | Lambda function | statusCode 200, Duration ~2.4s ✅ |
 | REST API (curl) | `{"predicted_sales": [5301.91]}` ✅ |
-| Cleanup | Endpoint, Config, Model đã xóa ✅ |
+---
 
+### 💻 Code Snippet Nổi bật
+
+#### 1. Triển khai Endpoint bằng Boto3 (`deploy_endpoint.py`)
+```python
+import boto3
+import sagemaker
+
+sm_client = boto3.client('sagemaker', region_name='ap-southeast-1')
+
+# Lấy container image URI chính xác cho XGBoost 1.7-1
+image_uri = sagemaker.image_uris.retrieve(
+    framework='xgboost',
+    region='ap-southeast-1',
+    version='1.7-1'
+)
+
+# 1. Create Model
+sm_client.create_model(
+    ModelName='rossmann-xgboost-model',
+    PrimaryContainer={
+        'Image': image_uri,
+        'ModelDataUrl': 's3://quanvan-ml-forecasting-2026/ml-forecasting/models/artifacts/xgboost_model_with_code.tar.gz'
+    },
+    ExecutionRoleArn='arn:aws:iam::897355252080:role/SageMaker-ExecutionRole-QuanVan'
+)
+
+# 2. Create Endpoint Config & Endpoint
+sm_client.create_endpoint_config(
+    EndpointConfigName='rossmann-endpoint-config',
+    ProductionVariants=[{
+        'VariantName': 'AllTraffic',
+        'ModelName': 'rossmann-xgboost-model',
+        'InitialInstanceCount': 1,
+        'InstanceType': 'ml.t2.medium'
+    }]
+)
+sm_client.create_endpoint(
+    EndpointName='rossmann-forecasting-endpoint',
+    EndpointConfigName='rossmann-endpoint-config'
+)
+```
+
+#### 2. Serverless Lambda Proxy Handler (`lambda_function.py`)
+```python
+import json
+import boto3
+
+runtime = boto3.client('sagemaker-runtime', region_name='ap-southeast-1')
+
+def lambda_handler(event, context):
+    body = json.loads(event.get('body', '{}')) if 'body' in event else event
+    
+    response = runtime.invoke_endpoint(
+        EndpointName='rossmann-forecasting-endpoint',
+        ContentType='application/json',
+        Body=json.dumps(body)
+    )
+    result = json.loads(response['Body'].read().decode())
+    return {
+        'statusCode': 200,
+        'headers': {'Content-Type': 'application/json'},
+        'body': json.dumps(result)
+    }
+```
 **API Endpoint:**
 ```
 https://81nxjqyb91.execute-api.ap-southeast-1.amazonaws.com/prod/forecast

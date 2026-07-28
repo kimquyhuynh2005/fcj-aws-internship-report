@@ -58,6 +58,56 @@ Model XGBoost đã deploy ở tuần 6. Dataset Rossmann kết thúc năm 2015 �
 |---------|--------------|-------------|---------|--------|
 | CompetitionDistance | 5,430.34 | 16,291.02 | 6.83 | ⚠️ DRIFT |
 | Promo | 0.38 | 0.80 | 4.21 | ⚠️ DRIFT |
+
+---
+
+### 💻 Code Snippet Nổi bật
+
+#### 1. Thuật toán Tính Z-Score Data Drift (`drift_simulator.py`)
+```python
+import numpy as np
+import json
+
+def detect_feature_drift(baseline_stats, current_df, threshold=2.0):
+    drift_report = {}
+    for feature, stats in baseline_stats.items():
+        base_mean, base_std = stats['mean'], stats['std']
+        curr_mean = current_df[feature].mean()
+        
+        # Tính Z-Score đo độ lệch chuẩn
+        z_score = abs(curr_mean - base_mean) / base_std if base_std > 0 else 0
+        is_drift = z_score > threshold
+        
+        drift_report[feature] = {
+            'z_score': round(z_score, 2),
+            'drift_detected': is_drift
+        }
+        if is_drift:
+            print(f"⚠️ ALERT: Feature '{feature}' has drifted! Z-score = {z_score:.2f} > {threshold}")
+            
+    return drift_report
+```
+
+#### 2. Tự động hóa Tạo CloudWatch Alarms (`create_alarm.py`)
+```python
+import boto3
+
+cw = boto3.client('cloudwatch', region_name='ap-southeast-1')
+
+# Tạo Cảnh báo khi Z-Score > 2.0
+cw.put_metric_alarm(
+    AlarmName='Rossmann-DataDrift-Alert',
+    ComparisonOperator='GreaterThanThreshold',
+    EvaluationPeriods=1,
+    MetricName='DataDriftZScore',
+    Namespace='RossmannMLMonitoring',
+    Period=300,
+    Statistic='Maximum',
+    Threshold=2.0,
+    AlarmDescription='Alert when Z-score data drift exceeds 2.0'
+)
+print("✅ Created CloudWatch Alarm: Rossmann-DataDrift-Alert")
+```
 | Store | 558.43 | 558.43 | 0.00 | ✅ OK |
 | DayOfWeek | 3.99 | 4.00 | 0.01 | ✅ OK |
 | Month | 7.22 | 7.22 | 0.01 | ✅ OK |

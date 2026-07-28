@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Tuần 2 — Tiền xử lý dữ liệu & EDA"
 date: 2026-06-13
 weight: 2
@@ -54,6 +54,38 @@ Dataset Rossmann có 1,017,209 bản ghi từ 1,115 cửa hàng (2013–2015). E
    ├── test.csv
    └── scaler.pkl
    `
+
+---
+
+### 💻 Code Snippet Nổi bật (`preprocessing.py`)
+
+```python
+import pandas as pd
+import numpy as np
+
+def create_time_series_features(df):
+    """Tạo 22 đặc trưng phục vụ bài toán dự báo chuỗi thời gian."""
+    df = df.sort_values(['Store', 'Date']).reset_index(drop=True)
+    
+    # 1. Trích xuất đặc trưng lịch
+    df['Year'] = df['Date'].dt.year
+    df['Month'] = df['Date'].dt.month
+    df['Day'] = df['Date'].dt.day
+    df['WeekOfYear'] = df['Date'].dt.isocalendar().week.astype(int)
+    df['IsWeekend'] = df['DayOfWeek'].isin([6, 7]).astype(int)
+    
+    # 2. Tạo Lag Features (Doanh số các ngày trước)
+    df['lag_1'] = df.groupby('Store')['Sales'].shift(1)
+    df['lag_7'] = df.groupby('Store')['Sales'].shift(7)
+    df['lag_14'] = df.groupby('Store')['Sales'].shift(14)
+    
+    # 3. Tạo Rolling Features (Trung bình trượt 7, 14, 30 ngày)
+    df['rolling_mean_7'] = df.groupby('Store')['Sales'].transform(lambda x: x.shift(1).rolling(7).mean())
+    df['rolling_mean_14'] = df.groupby('Store')['Sales'].transform(lambda x: x.shift(1).rolling(14).mean())
+    df['rolling_mean_30'] = df.groupby('Store')['Sales'].transform(lambda x: x.shift(1).rolling(30).mean())
+    
+    return df.dropna().reset_index(drop=True)
+```
 
 ---
 

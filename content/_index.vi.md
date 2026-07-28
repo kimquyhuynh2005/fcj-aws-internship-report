@@ -29,7 +29,7 @@ Báo cáo này ghi lại quá trình thực tập thực tế tại **Amazon Web
 
 &emsp; **Vị trí thực tập:** Workforce Bootcamp — First Cloud AI Journey
 
-&emsp; **Thời gian thực tập:** 06/06/2026 → 06/09/2026 (12 tuần)
+&emsp; **Thời gian thực tập:** 06/06/2026 → 15/08/2026 (8 tuần)
 
 ---
 

@@ -29,7 +29,7 @@ This report documents my real internship project at **Amazon Web Services Viet N
 
 &emsp; **Internship Position:** Workforce Bootcamp — First Cloud AI Journey
 
-&emsp; **Internship Duration:** 06/06/2026 → 06/09/2026 (12 weeks)
+&emsp; **Internship Duration:** 06/06/2026 → 15/08/2026 (8 weeks)
 
 ---
 

@@ -58,6 +58,69 @@ Mục tiêu: tự động hoá toàn bộ pipeline ML. Rào cản: Training Jobs
 | Preprocessing | 8.2s | 785,727 rows ✅ |
 | Training XGBoost | 147.1s | RMSE 929.83, MAPE 9.81% ✅ |
 | Deploy Endpoint | 426.4s | InService ✅ |
+
+---
+
+### 💻 Code Snippet Nổi bật
+
+#### 1. Định nghĩa SageMaker Pipeline bằng Boto3 (`pipeline_definition.py`)
+```python
+import json
+import boto3
+
+sm_client = boto3.client('sagemaker', region_name='ap-southeast-1')
+
+pipeline_definition = {
+    "Version": "2020-12-01",
+    "Metadata": {},
+    "Parameters": [{"Name": "ProcessingInstanceType", "Type": "String", "DefaultValue": "ml.t3.medium"}],
+    "PipelineExperimentConfig": {"ExperimentName": "RossmannPipelineExp"},
+    "Steps": [
+        {
+            "Name": "PreprocessData",
+            "Type": "Processing",
+            "Arguments": {"ProcessingResources": {"ClusterConfig": {"InstanceCount": 1, "InstanceType": "ml.t3.medium"}}}
+        },
+        {
+            "Name": "TrainXGBoost",
+            "Type": "Training",
+            "Arguments": {"AlgorithmSpecification": {"TrainingInputMode": "File"}}
+        }
+    ]
+}
+
+# Tạo hoặc Cập nhật Pipeline trên AWS
+response = sm_client.create_pipeline(
+    PipelineName='Rossmann-Sales-Pipeline',
+    PipelineDefinition=json.dumps(pipeline_definition),
+    RoleArn='arn:aws:iam::897355252080:role/SageMaker-ExecutionRole-QuanVan'
+)
+print(f"✅ Created SageMaker Pipeline ARN: {response['PipelineArn']}")
+```
+
+#### 2. Local Orchestration Runner (`simple_orchestration.py`)
+```python
+import subprocess
+import sys
+import time
+
+def run_step(step_name, command):
+    print(f"\n🚀 Running Step: {step_name}...")
+    start_time = time.time()
+    result = subprocess.run(command, shell=True)
+    duration = time.time() - start_time
+    
+    if result.returncode != 0:
+        print(f"❌ Step '{step_name}' failed after {duration:.1f}s")
+        sys.exit(1)
+    print(f"✅ Step '{step_name}' completed in {duration:.1f}s")
+
+if __name__ == '__main__':
+    run_step("1. Preprocessing", "python src/data/preprocessing.py")
+    run_step("2. XGBoost Training", "python src/models/xgboost_trainer.py")
+    run_step("3. Drift Simulation", "python monitoring/drift_simulator.py")
+    print("\n🎉 End-to-End Orchestration Completed Successfully!")
+```
 | Smoke Test | 2.4s | predicted_sales: 5301.91 ✅ |
 | Validate Accuracy | 3.9s | Sai lệch 5.14% < 15% ✅ PASS |
 | **Tổng** | **587.9s** | **✅ Hoàn tất** |

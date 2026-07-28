@@ -46,6 +46,55 @@ pre: "<b>1.1. </b>"
 ✅ verify_setup.py: ALL CHECKS PASSED
 ```
 
+---
+
+### 💻 Code Snippet Nổi bật (Core Implementation)
+
+#### 1. Script Kiểm tra Môi trường Kết nối (`verify_setup.py`)
+```python
+import boto3
+import sys
+
+def verify_aws_connection():
+    try:
+        sts = boto3.client('sts')
+        identity = sts.get_caller_identity()
+        print(f"✅ AWS Account Authenticated: {identity['Account']}")
+        print(f"✅ User / Role ARN: {identity['Arn']}")
+        
+        s3 = boto3.client('s3', region_name='ap-southeast-1')
+        s3.list_objects_v2(Bucket='aws-internship-hkq-2026', MaxKeys=1)
+        print("✅ S3 Bucket Access Verified: s3://aws-internship-hkq-2026")
+    except Exception as e:
+        print(f"❌ Connection Failed: {e}")
+        sys.exit(1)
+
+if __name__ == '__main__':
+    verify_aws_connection()
+```
+
+#### 2. Script Tự động Kiểm tra Service Quotas (`check_quota.py`)
+```python
+import boto3
+
+def check_sagemaker_quotas():
+    client = boto3.client('service-quotas', region_name='ap-southeast-1')
+    try:
+        response = client.get_service_quota(
+            ServiceCode='sagemaker',
+            QuotaCode='L-7E81F931'  # ml.m5.xlarge training jobs
+        )
+        quota_val = response['Quota']['Value']
+        print(f"📊 SageMaker Training Quota: {quota_val}")
+        if quota_val == 0:
+            print("⚠️ WARN: Quota = 0! Activating Local-training + S3-logging Workaround.")
+    except Exception as e:
+        print(f"⚠️ Service Quotas API Error: {e}")
+
+if __name__ == '__main__':
+    check_sagemaker_quotas()
+```
+
 ### Script khởi động
 ```powershell
 cd "E:\AWS - TTNT\aws-internship-ML-forecasting"

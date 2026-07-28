@@ -8,10 +8,10 @@ pre: "<b>5. </b>"
 
 # Self-evaluation
 
-Assessment of personal performance and skill development during the 12-week AWS First Cloud AI Journey internship.
+Assessment of personal performance and skill development during the 8-week AWS First Cloud AI Journey internship.
 
 **Evaluator:** Huynh Kim Quy  
-**Period:** 06/06/2026 – 06/09/2026
+**Period:** 06/06/2026 – 15/08/2026
 
 ---
 

@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Tuần 5 — Model Registry + SHAP Analysis"
 date: 2026-07-04
 weight: 5
@@ -42,6 +42,50 @@ pre: "<b>1.5. </b>"
    - Input: dict raw features
    - Process: kiểm tra features → predict → trả về giá trị doanh số
    - Không có `np.expm1()` — model train trực tiếp trên Sales gốc
+
+---
+
+### 💻 Code Snippet Nổi bật
+
+#### 1. Quản lý Model Registry dạng JSON trên S3 (`model_registry.py`)
+```python
+import json
+import boto3
+
+s3_client = boto3.client('s3', region_name='ap-southeast-1')
+BUCKET = 'aws-internship-hkq-2026'
+
+metadata = {
+    "ModelName": "rossmann-xgboost-model",
+    "ModelVersion": "v1.0",
+    "Framework": "XGBoost 1.7-1",
+    "TestMetrics": {"RMSE": 925.28, "MAPE": 9.92},
+    "ApprovalStatus": "Approved",
+    "ArtifactLocation": f"s3://{BUCKET}/ml-forecasting/models/artifacts/xgboost_model.tar.gz"
+}
+
+s3_client.put_object(
+    Bucket=BUCKET,
+    Key='ml-forecasting/models/registry/v1.0_metadata.json',
+    Body=json.dumps(metadata, indent=2)
+)
+print("✅ Registered XGBoost Model Metadata to S3 Registry!")
+```
+
+#### 2. Phân tích Tầm quan trọng Đặc trưng (`shap_analysis.py`)
+```python
+import shap
+import pickle
+
+with open('models/xgboost_model.pkl', 'rb') as f:
+    model = pickle.load(f)
+
+explainer = shap.TreeExplainer(model)
+shap_values = explainer.shap_values(X_test.sample(1000, random_state=42))
+
+# Top 3 đặc trưng ảnh hưởng lớn nhất: rolling_mean_14, Promo, rolling_mean_30
+shap.summary_plot(shap_values, X_test, show=False)
+```
 
 ---
 

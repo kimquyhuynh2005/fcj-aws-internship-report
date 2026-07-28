@@ -8,10 +8,10 @@ pre: "<b>5. </b>"
 
 # Tự đánh giá
 
-Đánh giá hiệu suất cá nhân và sự phát triển kỹ năng trong 12 tuần thực tập AWS First Cloud AI Journey.
+Đánh giá hiệu suất cá nhân và sự phát triển kỹ năng trong 8 tuần thực tập AWS First Cloud AI Journey.
 
 **Người đánh giá:** Huỳnh Kim Quý  
-**Thời gian:** 06/06/2026 – 06/09/2026
+**Thời gian:** 06/06/2026 – 15/08/2026
 
 ---
 

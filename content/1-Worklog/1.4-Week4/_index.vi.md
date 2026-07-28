@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Tuần 4 — Train PyTorch LSTM"
 date: 2026-06-27
 weight: 4
@@ -35,6 +35,34 @@ pre: "<b>1.4. </b>"
 
 4. **Quyết định**
    > **XGBoost được chọn làm production model.** LSTM kém hơn được ghi nhận là bài học, không phải thất bại — time series dạng bảng với dataset vừa thường ưu tiên gradient boosting hơn deep learning.
+
+---
+
+### 💻 Code Snippet Nổi bật (`lstm_model.py`)
+
+```python
+import torch
+import torch.nn as nn
+
+class SalesLSTM(nn.Module):
+    """Kiến trúc PyTorch 2-layer LSTM cho bài toán dự báo chuỗi thời gian."""
+    def __init__(self, input_dim, hidden_dim=128, num_layers=2, output_dim=1):
+        super(SalesLSTM, self).__init__()
+        self.lstm = nn.LSTM(
+            input_size=input_dim,
+            hidden_size=hidden_dim,
+            num_layers=num_layers,
+            batch_first=True,
+            dropout=0.2
+        )
+        self.fc = nn.Linear(hidden_dim, output_dim)
+
+    def forward(self, x):
+        out, _ = self.lstm(x)
+        # Lấy hidden state của timesteps cuối cùng
+        out = self.fc(out[:, -1, :])
+        return out
+```
 
 ---
 
