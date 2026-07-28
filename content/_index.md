@@ -86,7 +86,7 @@ chapter: false
 
 | Phần | Nội dung |
 |------|---------|
-| **1. Worklog** | Nhật ký hoạt động từng tuần (Tuần 1 → 12) |
+| **1. Worklog** | Nhật ký hoạt động từng tuần (Tuần 1 → 8) |
 | **2. Đề xuất dự án** | Proposal, kiến trúc, timeline, rủi ro |
 | **3. Bài viết Blog** | 3 bài viết chuyên môn đăng trên nhóm AWS Study Group |
 | **4. Sự kiện tham gia** | Các sự kiện và workshop AWS đã tham dự |

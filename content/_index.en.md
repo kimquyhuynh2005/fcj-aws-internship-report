@@ -86,7 +86,7 @@ chapter: false
 
 | Section | Content |
 |---------|---------|
-| **1. Worklog** | Week-by-week activity log (Week 1 → 12) |
+| **1. Worklog** | Week-by-week activity log (Week 1 → 8) |
 | **2. Proposal** | Project proposal, architecture, timeline, risks |
 | **3. Blogs Posted** | 3 technical blog posts published on AWS Study Group |
 | **4. Events Participated** | AWS events and workshops attended |

@@ -1,4 +1,4 @@
-baseURL = "/"
+baseURL = "https://kimquyhuynh2005.github.io/fcj-aws-internship-report/"
 relativeURLs = true
 canonifyURLs = false
 defaultContentLanguage = "vi"
