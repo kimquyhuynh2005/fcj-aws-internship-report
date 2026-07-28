@@ -1,9 +1,9 @@
 ---
 title: "Feedback"
 date: 2026-06-06
-weight: 6
+weight: 7
 chapter: false
-pre: "<b>6. </b>"
+pre: "<b>7. </b>"
 ---
 
 # Feedback — AWS First Cloud AI Journey

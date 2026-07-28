@@ -1,9 +1,9 @@
 ---
 title: "Self-evaluation"
 date: 2026-06-06
-weight: 5
+weight: 6
 chapter: false
-pre: "<b>5. </b>"
+pre: "<b>6. </b>"
 ---
 
 # Self-evaluation

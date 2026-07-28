@@ -1,9 +1,9 @@
 ---
 title: "Workshop"
 date: 2026-06-06
-weight: 4
+weight: 5
 chapter: false
-pre: "<b>4. </b>"
+pre: "<b>5. </b>"
 ---
 
 # Workshop: Pipeline Dự báo Doanh số trên AWS
