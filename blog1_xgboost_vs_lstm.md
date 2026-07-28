@@ -1,15 +1,10 @@
----
-title: "Blog 1: XGBoost vs. PyTorch LSTM trong Dự báo Chuỗi thời gian"
-date: 2026-06-06
-weight: 1
-chapter: false
-pre: "<b>3.1. </b>"
----
+# Blog: XGBoost vs. PyTorch LSTM trong Bài toán Dự báo Doanh số Chuỗi Thời gian
 
 > **Tác giả:** Huỳnh Kim Quý  
+> **Lớp / Khóa:** AWS062026 — Workforce Bootcamp (First Cloud AI Journey)  
+> **Đơn vị:** Amazon Web Services Viet Nam Company Limited  
 > **Chuyên mục:** Machine Learning Engineering / Time Series Forecasting  
-> **Cộng đồng:** AWS Study Group  
-> **Dự án:** E-commerce Sales Forecasting on AWS SageMaker
+> **Cộng đồng xuất bản:** AWS Study Group Viet Nam
 
 ---
 
@@ -53,6 +48,33 @@ Thay vì phụ thuộc vào khả năng tự học chuỗi của mạng nơ-ron,
 
 Các đặc trưng này chuyển đổi bài toán chuỗi thời gian thành bài toán Hồi quy có giám sát (Supervised Regression). Thuật toán Gradient Boosting của XGBoost khai thác tối đa các chỉ số trung bình trượt này để đưa ra dự báo.
 
+```python
+import pandas as pd
+
+def create_time_series_features(df):
+    """Tạo 22 đặc trưng phục vụ bài toán dự báo chuỗi thời gian."""
+    df = df.sort_values(['Store', 'Date']).reset_index(drop=True)
+    
+    # 1. Trích xuất đặc trưng lịch
+    df['Year'] = df['Date'].dt.year
+    df['Month'] = df['Date'].dt.month
+    df['Day'] = df['Date'].dt.day
+    df['WeekOfYear'] = df['Date'].dt.isocalendar().week.astype(int)
+    df['IsWeekend'] = df['DayOfWeek'].isin([6, 7]).astype(int)
+    
+    # 2. Tạo Lag Features (Doanh số các ngày trước)
+    df['lag_1'] = df.groupby('Store')['Sales'].shift(1)
+    df['lag_7'] = df.groupby('Store')['Sales'].shift(7)
+    df['lag_14'] = df.groupby('Store')['Sales'].shift(14)
+    
+    # 3. Tạo Rolling Features (Trung bình trượt 7, 14, 30 ngày)
+    df['rolling_mean_7'] = df.groupby('Store')['Sales'].transform(lambda x: x.shift(1).rolling(7).mean())
+    df['rolling_mean_14'] = df.groupby('Store')['Sales'].transform(lambda x: x.shift(1).rolling(14).mean())
+    df['rolling_mean_30'] = df.groupby('Store')['Sales'].transform(lambda x: x.shift(1).rolling(30).mean())
+    
+    return df.dropna().reset_index(drop=True)
+```
+
 ### 3.3. Độ bền vững trước biến động dữ liệu và thang đo (Scale Robustness)
 Mạng LSTM nhạy cảm với thang đo của dữ liệu đầu vào. Khi doanh số tăng đột biến vào các giai đoạn cao điểm (như tháng 12), gradient của LSTM dễ bị rơi vào trạng thái bùng nổ hoặc biến mất (Exploding/Vanishing Gradients). 
 
@@ -90,3 +112,7 @@ Xếp hạng các đặc trưng có ảnh hưởng lớn nhất:
 1. **Đánh giá mô hình baseline:** Cần thiết lập mô hình baseline từ Gradient Boosting (XGBoost/LightGBM) kết hợp Feature Engineering trước khi thử nghiệm các kiến trúc mạng nơ-ron phức tạp.
 2. **Ưu thế của Tree-based Models trên Tabular Data:** Đối với dữ liệu dạng bảng dưới vài triệu bản ghi, các mô hình dựa trên cây vẫn duy trì hiệu năng vượt trội về độ chính xác và tốc độ xử lý.
 3. **Tiêu chuẩn lựa chọn mô hình Production:** Mô hình được chọn cần tối ưu hóa đồng thời giữa độ chính xác, chi phí hạ tầng và độ trễ phản hồi trong môi trường thực tế.
+
+---
+
+*Tài liệu lưu hành nội bộ — Dự án E-commerce Sales Forecasting on AWS SageMaker.*
