@@ -24,6 +24,11 @@ home = [ "HTML", "RSS", "JSON"]
   disableSearch = false
   disableInlineCopyToClipboard = true
 
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
 [Languages]
 [Languages.en]
 title = "AWS First Cloud AI Journey — Internship Report"
@@ -60,8 +65,3 @@ name = "<i class='fab fa-facebook'></i> AWS Study Group - Nhóm FB"
 identifier = "AWS Study Group FB"
 url = "https://www.facebook.com/groups/awsstudygroupfcj"
 weight = 20
-
-[markup]
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true

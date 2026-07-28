@@ -109,9 +109,6 @@ SageMaker Pipelines (tự động hoá end-to-end)
 | **6** | Triển khai + REST API | REST API live, sai lệch 5.14% ✅ |
 | **7** | Monitoring + Drift Detection | CloudWatch Dashboard, phát hiện drift ✅ |
 | **8** | Pipeline + Refactor | SageMaker Pipeline IaC, local orchestration ✅ |
-| **9–12** | Tài liệu & Báo cáo | Website này & Đóng gói Kiến trúc AWS ✅ |
-
-![Sơ đồ Kiến trúc Tổng thể AWS Dự án hoàn thiện (Tuần 9-12)](/images/2-Proposal/aws_architecture.png)
 
 ---
 

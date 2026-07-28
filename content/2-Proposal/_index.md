@@ -109,9 +109,6 @@ SageMaker Pipelines (end-to-end automation)
 | **6** | Deployment + REST API | REST API live, sai lệch 5.14% ✅ |
 | **7** | Monitoring + Drift Detection | CloudWatch Dashboard, drift detected ✅ |
 | **8** | Pipeline + Refactor | SageMaker Pipeline IaC, local orchestration ✅ |
-| **9–12** | Documentation & Report | This website & AWS Architecture Packaging ✅ |
-
-![Overall Final AWS Architecture Diagram (Weeks 9-12)](/images/2-Proposal/aws_architecture.png)
 
 ---
 

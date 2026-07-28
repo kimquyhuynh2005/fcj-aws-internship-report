@@ -13,6 +13,8 @@ This report documents my real internship project at **Amazon Web Services Viet N
 
 ## Student Information
 
+![Intern Profile Photo - Huynh Kim Quy](/images/avatar.png)
+
 <div style="display: flex; gap: 24px; align-items: flex-start; margin-top: 15px; margin-bottom: 25px; flex-wrap: wrap;">
   <div style="flex-shrink: 0; text-align: center;">
     <img src="/images/avatar.png" alt="Intern Profile Photo - Huynh Kim Quy" style="width: 160px; height: 210px; object-fit: cover; border-radius: 10px; border: 3px solid #0284c7; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); display: block;" />
