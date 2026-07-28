@@ -1,4 +1,4 @@
-baseURL = "/"
+baseURL = "https://kimquyhuynh2005.github.io/fcj-aws-internship-report/"
 relativeURLs = true
 canonifyURLs = false
 defaultContentLanguage = "en"
@@ -14,7 +14,7 @@ home = [ "HTML", "RSS", "JSON"]
   # Change default color scheme with a variant one. Can be "red", "blue", "green".
   themeVariant = "workshop"
   # Git hub repo link
-  editURL = "https://github.com/kimquyhuynh2005/aws-internship-report/edit/main/content/"
+  editURL = "https://github.com/kimquyhuynh2005/fcj-aws-internship-report/edit/main/content/"
   description = "AWS ML Internship Report — Huynh Kim Quy"
   author = "kimquyhuynh2005"
   showVisitedLinks = true
