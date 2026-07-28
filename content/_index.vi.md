@@ -29,7 +29,7 @@ Báo cáo này ghi lại quá trình thực tập thực tế tại **Amazon Web
 
 &emsp; **Vị trí thực tập:** Workforce Bootcamp — First Cloud AI Journey
 
-&emsp; **Thời gian thực tập:** 06/06/2026 → 15/08/2026 (8 tuần)
+&emsp; **Thời gian thực tập:** 06/06/2026 → 06/09/2026 (12 tuần)
 
 ---
 
@@ -46,7 +46,41 @@ Báo cáo này ghi lại quá trình thực tập thực tế tại **Amazon Web
 | Văn Thái Quân | Infrastructure / AWS |
 | Nguyễn Ngọc Sáng | Backend / Monitoring |
 
-**Kết quả nổi bật:** Model XGBoost đạt **RMSE 925.28**, **MAPE 9.92%** — triển khai thành REST API qua SageMaker + Lambda + API Gateway
+### 🏆 So sánh Kết quả Huấn luyện Mô hình
+
+<div class="model-card-grid">
+  <div class="model-card winner-card">
+    <span class="badge-pill badge-winner">⭐ Production Selected</span>
+    <h3 style="margin-top: 10px; color: #ffffff !important;">XGBoost Baseline</h3>
+    <p style="color: #94a3b8; font-size: 0.9rem;">Mô hình chính được triển khai REST API lên AWS SageMaker Endpoint</p>
+    <div class="card-metrics">
+      <div>
+        <small style="color: #94a3b8;">TEST RMSE</small>
+        <div class="metric-number">925.28</div>
+      </div>
+      <div>
+        <small style="color: #94a3b8;">TEST MAPE</small>
+        <div class="metric-number">9.92%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="model-card">
+    <span class="badge-pill badge-experiment">Experiment</span>
+    <h3 style="margin-top: 10px; color: #ffffff !important;">PyTorch LSTM</h3>
+    <p style="color: #94a3b8; font-size: 0.9rem;">Mô hình Deep Learning 2-layer LSTM thử nghiệm chuỗi thời gian</p>
+    <div class="card-metrics">
+      <div>
+        <small style="color: #94a3b8;">TEST RMSE</small>
+        <div class="metric-number" style="color: #cbd5e1;">3,044.43</div>
+      </div>
+      <div>
+        <small style="color: #94a3b8;">TEST MAPE</small>
+        <div class="metric-number" style="color: #cbd5e1;">32.79%</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ---
 
@@ -56,7 +90,8 @@ Báo cáo này ghi lại quá trình thực tập thực tế tại **Amazon Web
 |------|---------|
 | **1. Worklog** | Nhật ký hoạt động từng tuần (Tuần 1 → 12) |
 | **2. Đề xuất dự án** | Proposal, kiến trúc, timeline, rủi ro |
-| **3. Sự kiện tham gia** | Các sự kiện và workshop AWS đã tham dự |
-| **4. Workshop** | Workshop kỹ thuật: ML Forecasting Pipeline trên AWS |
-| **5. Tự đánh giá** | Đánh giá theo 8 tiêu chí kỹ năng |
-| **6. Cảm nhận** | Phản hồi về chương trình và đề xuất cải tiến |
+| **3. Bài viết Blog** | 3 bài viết chuyên môn đăng trên nhóm AWS Study Group |
+| **4. Sự kiện tham gia** | Các sự kiện và workshop AWS đã tham dự |
+| **5. Workshop** | Workshop kỹ thuật: ML Forecasting Pipeline trên AWS |
+| **6. Tự đánh giá** | Đánh giá theo 8 tiêu chí kỹ năng |
+| **7. Cảm nhận** | Phản hồi về chương trình và đề xuất cải tiến |

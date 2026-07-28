@@ -29,7 +29,7 @@ This report documents my real internship project at **Amazon Web Services Viet N
 
 &emsp; **Internship Position:** Workforce Bootcamp — First Cloud AI Journey
 
-&emsp; **Internship Duration:** 06/06/2026 → 15/08/2026 (8 weeks)
+&emsp; **Internship Duration:** 06/06/2026 → 06/09/2026 (12 weeks)
 
 ---
 
@@ -46,7 +46,41 @@ This report documents my real internship project at **Amazon Web Services Viet N
 | Van Thai Quan | Infrastructure / AWS |
 | Nguyen Ngoc Sang | Backend / Monitoring |
 
-**Key Result:** XGBoost model — **RMSE 925.28**, **MAPE 9.92%** deployed as REST API via SageMaker + Lambda + API Gateway
+### 🏆 Model Comparison Results
+
+<div class="model-card-grid">
+  <div class="model-card winner-card">
+    <span class="badge-pill badge-winner">⭐ Production Selected</span>
+    <h3 style="margin-top: 10px; color: #ffffff !important;">XGBoost Baseline</h3>
+    <p style="color: #94a3b8; font-size: 0.9rem;">Primary model deployed as REST API to AWS SageMaker Endpoint</p>
+    <div class="card-metrics">
+      <div>
+        <small style="color: #94a3b8;">TEST RMSE</small>
+        <div class="metric-number">925.28</div>
+      </div>
+      <div>
+        <small style="color: #94a3b8;">TEST MAPE</small>
+        <div class="metric-number">9.92%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="model-card">
+    <span class="badge-pill badge-experiment">Experiment</span>
+    <h3 style="margin-top: 10px; color: #ffffff !important;">PyTorch LSTM</h3>
+    <p style="color: #94a3b8; font-size: 0.9rem;">Experimental 2-layer Deep Learning time-series forecaster</p>
+    <div class="card-metrics">
+      <div>
+        <small style="color: #94a3b8;">TEST RMSE</small>
+        <div class="metric-number" style="color: #cbd5e1;">3,044.43</div>
+      </div>
+      <div>
+        <small style="color: #94a3b8;">TEST MAPE</small>
+        <div class="metric-number" style="color: #cbd5e1;">32.79%</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ---
 
@@ -56,7 +90,8 @@ This report documents my real internship project at **Amazon Web Services Viet N
 |---------|---------|
 | **1. Worklog** | Week-by-week activity log (Week 1 → 12) |
 | **2. Proposal** | Project proposal, architecture, timeline, risks |
-| **3. Events Participated** | AWS events and workshops attended |
-| **4. Workshop** | Technical workshop: ML Forecasting Pipeline on AWS |
-| **5. Self-evaluation** | Assessment across 8 skill criteria |
-| **6. Feedback** | Program feedback and improvement suggestions |
+| **3. Blogs Posted** | 3 technical blog posts published on AWS Study Group |
+| **4. Events Participated** | AWS events and workshops attended |
+| **5. Workshop** | Technical workshop: ML Forecasting Pipeline on AWS |
+| **6. Self-evaluation** | Assessment across 8 skill criteria |
+| **7. Feedback** | Program feedback and improvement suggestions |

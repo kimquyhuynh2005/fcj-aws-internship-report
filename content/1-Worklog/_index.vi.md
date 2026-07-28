@@ -9,14 +9,14 @@ pre: "<b>1. </b>"
 # Nhật ký công việc — Dự án AWS ML Internship
 
 > **Nhóm thực hiện:** Huỳnh Kim Quý (Data/ML) · Văn Thái Quân (Infra/AWS) · Nguyễn Ngọc Sáng (Backend/API)  
-> **Thời gian:** 8 tuần  
+> **Thời gian:** 12 tuần  
 > **Trạng thái:** Hoàn thành ✅
 
 ---
 
 ## Thông tin Hạ tầng AWS
 
-| Hạng mục | Tài khoản Nhóm (Tuần 1–5) | Tài khoản Quân (Tuần 6–8) |
+| Hạng mục | Tài khoản Nhóm (Tuần 1–5) | Tài khoản Quân (Tuần 6–12) |
 |---|---|---|
 | Account ID | `119505195050` | `897355252080` |
 | Region | `ap-southeast-1` | `ap-southeast-1` |
@@ -50,3 +50,7 @@ pre: "<b>1. </b>"
 | [Tuần 6](1.6-week6/) | Triển khai Endpoint & REST API | Văn Thái Quân | `deploy_endpoint.py`, `deploy_lambda.py` (API live) |
 | [Tuần 7](1.7-week7/) | Giám sát & Drift Detection | Nguyễn Ngọc Sáng | `drift_simulator.py`, `CloudWatch Dashboard` |
 | [Tuần 8](1.8-week8/) | Tự động hóa Pipeline & Refactor | Văn Thái Quân | `pipeline_definition.py`, `simple_orchestration.py` |
+| [Tuần 9](1.9-week9/) | Tối ưu Hiệu năng & Load Testing | Huỳnh Kim Quý | Kiểm thử 100 requests đồng thời, latency ~1.1s |
+| [Tuần 10](1.10-week10/) | Tối ưu Bảo mật & IAM Policy | Văn Thái Quân | Áp dụng Least Privilege, rà soát credentials |
+| [Tuần 11](1.11-week11/) | Giao diện Demo & Workshop Guide | Huỳnh Kim Quý | Hoàn thành `demo_ui` Live Dashboard & Workshop guide |
+| [Tuần 12](1.12-week12/) | Hoàn thiện Báo cáo Hugo & Tổng kết | Cả nhóm | Biên dịch 80 EN & 79 VI pages trên Hugo site |

@@ -202,3 +202,19 @@ Actual Sales:    5,518.00
 Predicted Sales: 5,801.69  (via API)
 Error:           5.14%  ✅ PASS (threshold: 15%)
 ```
+
+---
+
+### Step 5.6: Interactive ML Forecast Live Dashboard (UI Demo)
+
+The team developed a real-time Interactive Web Forecast Dashboard featuring a modern Dark Mode / Glassmorphism UI to visualize daily predictions, simulate **What-If** scenarios, and display 14-day sales trend charts.
+
+![Retail Sales Forecasting Live Dashboard](/images/demo_dashboard.png)
+
+#### Running the Live Dashboard:
+```powershell
+# Start the Python HTTP Server & UI on port 8000
+python demo_ui/server.py
+```
+Open your browser and navigate to: **http://localhost:8000**
+

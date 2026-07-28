@@ -6,6 +6,11 @@ chapter: false
 pre: "<b>3. </b>"
 ---
 
-*(Xem bản tiếng Anh để biết nội dung chi tiết — nội dung tương đương.)*
+# Các sự kiện đã tham gia
 
-> Trang này đang được dịch sang tiếng Việt. Trong thời gian chờ đợi, vui lòng tham khảo phiên bản tiếng Anh.
+Trong suốt quá trình thực tập tại chương trình AWS First Cloud AI Journey, tôi đã tham gia các sự kiện và workshop chuyên môn về Điện toán đám mây và Trí tuệ nhân tạo.
+
+| # | Tên sự kiện | Thể loại | Thời gian |
+|---|-------------|----------|-----------|
+| 1 | AWS First Cloud AI Journey Kickoff | Khai giảng & Định hướng | Tháng 6, 2026 |
+| 2 | AWS Study Group Weekly Session | Workshop Kỹ thuật | Tháng 7, 2026 |
