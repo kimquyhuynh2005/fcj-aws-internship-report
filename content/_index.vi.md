@@ -7,13 +7,9 @@ chapter: false
 
 # Báo cáo thực tập — AWS First Cloud AI Journey
 
-{{% notice info %}}
-Báo cáo này ghi lại quá trình thực tập thực tế tại **Amazon Web Services Viet Nam Company Limited** thông qua chương trình **First Cloud AI Journey**. Toàn bộ nội dung phản ánh công việc thực tế trong khoảng thời gian từ tháng 6 đến tháng 9 năm 2026.
-{{% /notice %}}
-
 ## Thông tin sinh viên
 
-![Ảnh thẻ thực tập sinh - Huỳnh Kim Quý](/images/avatar.png)
+![Ảnh thẻ thực tập sinh - Huỳnh Kim Quý](/images/avatar.jpg)
 
 &emsp; **Họ và tên:** Huỳnh Kim Quý
 

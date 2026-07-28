@@ -7,13 +7,9 @@ chapter: false
 
 # Internship Report — AWS First Cloud AI Journey
 
-{{% notice info %}}
-This report documents my real internship project at **Amazon Web Services Viet Nam Company Limited** through the **First Cloud AI Journey** program. All content reflects actual work performed during the internship period from June to September 2026.
-{{% /notice %}}
-
 ## Student Information
 
-![Intern Profile Photo - Huynh Kim Quy](/images/avatar.png)
+![Intern Profile Photo - Huynh Kim Quy](/images/avatar.jpg)
 
 &emsp; **Full Name:** Huynh Kim Quy
 
