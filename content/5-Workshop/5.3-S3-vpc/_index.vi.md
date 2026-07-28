@@ -1,9 +1,9 @@
 ---
-title: "3. Tiền xử lý Dữ liệu"
+title: "Tiền xử lý Dữ liệu & Đưa Dữ liệu lên Amazon S3"
 date: 2026-06-06
 weight: 3
 chapter: false
-pre: "<b>4.3. </b>"
+pre: "<b>5.3. </b>"
 ---
 
 ## Bước 3: Tiền xử lý Dữ liệu & Tạo Đặc trưng

@@ -1,9 +1,9 @@
 ---
-title: "1. Workshop Overview"
+title: "Workshop Overview & Solution Architecture"
 date: 2026-06-06
 weight: 1
 chapter: false
-pre: "<b>4.1. </b>"
+pre: "<b>5.1. </b>"
 ---
 
 ## Workshop Overview

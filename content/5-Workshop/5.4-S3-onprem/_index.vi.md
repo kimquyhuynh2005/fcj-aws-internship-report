@@ -1,9 +1,9 @@
 ---
-title: "4. Huấn luyện Mô hình (Model Training)"
+title: "Huấn luyện & So sánh Mô hình Machine Learning"
 date: 2026-06-06
 weight: 4
 chapter: false
-pre: "<b>4.4. </b>"
+pre: "<b>5.4. </b>"
 ---
 
 ## Bước 4: Huấn luyện Mô hình ML

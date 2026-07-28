@@ -1,9 +1,9 @@
 ---
-title: "3. Data Processing"
+title: "Data Preprocessing & Amazon S3 Integration"
 date: 2026-06-06
 weight: 3
 chapter: false
-pre: "<b>4.3. </b>"
+pre: "<b>5.3. </b>"
 ---
 
 ## Step 3: Data Preprocessing & Feature Engineering

@@ -1,9 +1,9 @@
 ---
-title: "2. Chuẩn bị (Prerequisites)"
+title: "Yêu cầu Tiền đề & Cấu hình AWS Credentials"
 date: 2026-06-06
 weight: 2
 chapter: false
-pre: "<b>4.2. </b>"
+pre: "<b>5.2. </b>"
 ---
 
 ## Các điều kiện chuẩn bị

@@ -1,9 +1,9 @@
 ---
-title: "5. Deployment & API"
+title: "Serverless REST API & Live UI Dashboard Deployment"
 date: 2026-06-06
 weight: 5
 chapter: false
-pre: "<b>4.5. </b>"
+pre: "<b>5.5. </b>"
 ---
 
 ## Step 5: Deployment & REST API

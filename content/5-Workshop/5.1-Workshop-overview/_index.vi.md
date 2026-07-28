@@ -1,9 +1,9 @@
 ---
-title: "1. Tổng quan Workshop"
+title: "Tổng quan Workshop & Kiến trúc Dự án"
 date: 2026-06-06
 weight: 1
 chapter: false
-pre: "<b>4.1. </b>"
+pre: "<b>5.1. </b>"
 ---
 
 ## Tổng quan Workshop

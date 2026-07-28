@@ -1,9 +1,9 @@
 ---
-title: "6. Cleanup"
+title: "AWS Resources Cleanup"
 date: 2026-06-06
 weight: 6
 chapter: false
-pre: "<b>4.6. </b>"
+pre: "<b>5.6. </b>"
 ---
 
 ## Step 6: Cleanup

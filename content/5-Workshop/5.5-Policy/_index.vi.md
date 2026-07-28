@@ -1,9 +1,9 @@
 ---
-title: "5. Triển khai API (Deployment)"
+title: "Triển khai Serverless REST API & Live UI Dashboard"
 date: 2026-06-06
 weight: 5
 chapter: false
-pre: "<b>4.5. </b>"
+pre: "<b>5.5. </b>"
 ---
 
 ## Bước 5: Triển khai Endpoint & REST API

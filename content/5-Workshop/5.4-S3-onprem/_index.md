@@ -1,9 +1,9 @@
 ---
-title: "4. Model Training"
+title: "Model Training & Evaluation (XGBoost vs LSTM)"
 date: 2026-06-06
 weight: 4
 chapter: false
-pre: "<b>4.4. </b>"
+pre: "<b>5.4. </b>"
 ---
 
 ## Step 4: Model Training
