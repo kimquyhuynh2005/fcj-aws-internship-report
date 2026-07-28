@@ -31,6 +31,8 @@ Thử nghiệm được thực hiện trên cùng một tập dữ liệu Train,
 | Độ trễ dự báo (Inference Latency) | **~12 ms** | ~85 ms | XGBoost phản hồi nhanh hơn |
 | Trạng thái triển khai AWS | **Chọn làm Production Model** | Mô hình thử nghiệm | — |
 
+![Biểu đồ so sánh hiệu năng RMSE và MAPE giữa XGBoost và PyTorch LSTM](/images/3-BlogsPosted/model_comparison.png)
+
 ---
 
 ## 3. Phân tích nguyên nhân kỹ thuật
@@ -99,6 +101,10 @@ with open('models/xgboost_model.pkl', 'rb') as f:
 explainer = shap.TreeExplainer(model)
 shap_values = explainer.shap_values(X_test.sample(1000, random_state=42))
 ```
+
+![Biểu đồ phân tích SHAP Summary Plot đánh giá tác động của từng đặc trưng tới doanh số](/images/3-BlogsPosted/shap_summary.png)
+
+![Xếp hạng tầm quan trọng đặc trưng SHAP Feature Importance](/images/3-BlogsPosted/shap_importance.png)
 
 Xếp hạng các đặc trưng có ảnh hưởng lớn nhất:
 1. `rolling_mean_14`: Trung bình doanh số 14 ngày gần nhất đóng vai trò là chỉ báo ngắn hạn quan trọng nhất.

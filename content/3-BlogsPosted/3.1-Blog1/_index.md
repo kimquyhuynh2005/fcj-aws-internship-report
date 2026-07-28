@@ -36,6 +36,8 @@ Experiments were conducted on identical Train, Validation, and Test datasets spl
 | Inference Latency | **~12 ms** | ~85 ms | XGBoost is faster |
 | AWS Deployment Status | **Selected for Production** | Experimental Model | — |
 
+![Model Performance Comparison Chart - RMSE and MAPE](/images/3-BlogsPosted/model_comparison.png)
+
 ---
 
 ## 3. Technical Analysis
@@ -75,6 +77,10 @@ with open('models/xgboost_model.pkl', 'rb') as f:
 explainer = shap.TreeExplainer(model)
 shap_values = explainer.shap_values(X_test.sample(1000, random_state=42))
 ```
+
+![SHAP Summary Plot evaluating feature contributions to sales predictions](/images/3-BlogsPosted/shap_summary.png)
+
+![SHAP Feature Importance Ranking](/images/3-BlogsPosted/shap_importance.png)
 
 Top feature contributions:
 1. `rolling_mean_14`: The 14-day rolling average serves as the primary short-term indicator.
