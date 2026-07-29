@@ -6,10 +6,10 @@ chapter: false
 pre: "<b>3. </b>"
 ---
 
-# Blogs Posted on AWS Study Group
+# Technical Blogs Posted on AWS Study Group
 
-| # | Blog Title | Technical Topic | Status | Link |
-|---|------------|-----------------|--------|------|
-| 1 | XGBoost vs. PyTorch LSTM for Time Series Forecasting | Time Series Forecasting & Model Evaluation | Completed | [Read Article](3.1-blog1/) |
-| 2 | (Pending Update) | — | Pending | — |
-| 3 | (Pending Update) | — | Pending | — |
+| # | Article Title | Subject Area | Status | Article Link |
+|---|---------------|--------------|--------|--------------|
+| 1 | XGBoost vs. PyTorch LSTM in Time Series Forecasting | Time Series Forecasting & Model Evaluation | Completed | [Read Article](3.1-blog1/) |
+| 2 | Tracking Machine Learning Experiments with Amazon SageMaker Experiments | Experiment Tracking & SageMaker Experiments | Completed | [Read Article](3.2-blog2/) |
+| 3 | From Local Notebook to Production MLOps: Mastering AWS SageMaker Pipelines | MLOps & SageMaker Pipelines | Completed | [Read Article](3.3-blog3/) |
