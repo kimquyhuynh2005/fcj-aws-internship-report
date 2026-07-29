@@ -6,7 +6,7 @@ chapter: false
 pre: "<b>3.2. </b>"
 ---
 
-> **Author:** Huynh Kim Quy  
+> **Author:** Nguyen Ngoc Sang  
 > **Category:** Machine Learning Engineering / Experiment Tracking  
 > **Community:** AWS Study Group  
 > **Project:** E-commerce Sales Forecasting on AWS SageMaker  

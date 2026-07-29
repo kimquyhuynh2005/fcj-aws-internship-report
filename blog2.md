@@ -1,47 +1,73 @@
-# THEO DÕI THÍ NGHIỆM MACHINE LEARNING VỚI AMAZON SAGEMAKER EXPERIMENTS
+# Blog 2: Theo dõi Thí nghiệm Machine Learning với Amazon SageMaker Experiments
 
-Trong quá trình xây dựng một dự án dự báo doanh số bán hàng trên AWS, mình nhận ra rằng việc huấn luyện mô hình chỉ là một phần nhỏ của công việc. Phần tốn thời gian hơn, và cũng dễ bị bỏ qua hơn, là quản lý các lần thử nghiệm: mình đã thử những tham số nào, kết quả ra sao, và lần chạy nào cho ra mô hình tốt nhất. Khi số lần thử tăng lên, chỉ dựa vào file log hay notebook thôi là không đủ.
+> **Tác giả:** Nguyễn Ngọc Sáng  
+> **Chuyên mục:** Machine Learning Engineering / Experiment Tracking  
+> **Cộng đồng:** AWS Study Group  
+> **Dự án:** E-commerce Sales Forecasting on AWS SageMaker  
 
-Amazon SageMaker Experiments là dịch vụ mình tìm đến để giải quyết vấn đề này. Điều thú vị là mình không cần phải train mô hình trên SageMaker mới dùng được tính năng này. Toàn bộ quá trình tracking có thể được tích hợp vào script Python chạy trên máy local thông qua boto3, điều mà khá nhiều tài liệu không nói rõ.
+---
 
-## 1. BỐI CẢNH: VẤN ĐỀ CỦA VIỆC QUẢN LÝ THỬ NGHIỆM THỦ CÔNG
+## Theo dõi Thí nghiệm Machine Learning với Amazon SageMaker Experiments
 
-Khi mình bắt đầu chạy các experiment đầu tiên với XGBoost, mọi thứ vẫn còn đơn giản. Mình ghi kết quả vào một file CSV, mỗi dòng là một lần chạy với các tham số và chỉ số tương ứng. Cách này ổn cho đến khi số lần chạy vượt qua vài chục và mình bắt đầu cần so sánh nhiều chiều cùng lúc: không chỉ RMSE mà còn MAPE, thời gian train, số feature được dùng, và nhiều thứ khác.
+Trong quá trình xây dựng hệ thống dự báo doanh số bán hàng trên hạ tầng AWS, bên cạnh công đoạn huấn luyện mô hình, công tác quản lý và ghi vết các lượt thí nghiệm (Experiment Tracking) đóng vai trò then chốt. Việc ghi nhận chính xác các siêu tham số (hyperparameters), chỉ số đánh giá và xác định phiên bản mô hình tối ưu là yêu cầu bắt buộc nhằm đảm bảo tính tái lập (reproducibility) trong kỹ thuật Machine Learning.
 
-Vấn đề của file CSV là mình phải tự duy trì cấu trúc, tự viết code để visualize, và rất dễ ghi nhầm hoặc ghi thiếu. Quan trọng hơn, khi muốn chia sẻ kết quả với người khác trong nhóm, mình phải gửi file, giải thích cấu trúc, rồi đối phương phải tự chạy lại để xem biểu đồ. Không có một giao diện chung nào để cả nhóm nhìn vào cùng lúc.
+Amazon SageMaker Experiments là giải pháp điện toán đám mây chuyên dụng đáp ứng các yêu cầu trên. Điểm đặc trưng của dịch vụ này là khả năng tích hợp linh hoạt thông qua API `boto3` trong môi trường mã nguồn Python cục bộ (local environment) mà không bắt buộc phải thực thi toàn bộ tiến trình huấn luyện trên máy chủ SageMaker.
 
-## 2. AMAZON SAGEMAKER EXPERIMENTS LÀ GÌ
+---
 
-SageMaker Experiments là một dịch vụ cho phép tổ chức, theo dõi và so sánh các lần chạy thí nghiệm Machine Learning. Về cơ bản, nó cung cấp một cấu trúc phân cấp gồm Experiment (thí nghiệm tổng thể), Run (mỗi lần chạy cụ thể), và Metric (các chỉ số được ghi lại trong mỗi lần chạy).
+## 1. Bối cảnh và thách thức khi quản lý thí nghiệm thủ công
 
-Điều mình thấy hữu ích nhất là sau khi ghi dữ liệu vào SageMaker Experiments, mình có thể vào giao diện AWS Console, chọn thẳng các cột muốn so sánh, lọc theo điều kiện, và xem biểu đồ mà không cần viết thêm một dòng code nào. Đây là thứ mà tự xây dựng bằng file CSV sẽ mất khá nhiều công.
+Trong giai đoạn đầu của dự án, công tác quản lý các lần chạy thử nghiệm với mô hình XGBoost thường được thực hiện thủ công bằng cách lưu trữ tham số và chỉ số đánh giá vào các tập tin định dạng CSV. Tuy nhiên, khi số lượng thí nghiệm gia tăng đến hàng chục phiên bản, phương pháp này bộc lộ nhiều hạn chế:
 
-## 3. CÁCH TÍCH HỢP VỚI SCRIPT TRAIN LOCAL
+- **Khó khăn trong so sánh đa chiều:** Việc so sánh đồng thời nhiều chỉ số kỹ thuật (như RMSE, MAPE, thời gian huấn luyện, số lượng đặc trưng) đòi hỏi nhiều thao tác truy xuất thủ công.
+- **Tính toàn vẹn dữ liệu kém:** Việc lưu trữ dạng tập tin tĩnh dễ dẫn đến tình trạng sai lệch hoặc thiếu sót dữ liệu thí nghiệm.
+- **Hạn chế trong làm việc nhóm:** Thiếu giao diện quản lý tập trung gây khó khăn cho việc chia sẻ, đối chiếu kết quả giữa các thành viên trong dự án.
 
-Vì mình train mô hình trên máy cá nhân thay vì dùng SageMaker Training Jobs, cách tích hợp mình dùng là gọi thẳng API của boto3 từ trong script Python.
+---
 
-Trước tiên mình tạo một Experiment để nhóm tất cả các lần chạy liên quan lại với nhau. Sau đó với mỗi lần train, mình tạo một Run mới và ghi các tham số đầu vào (như learning rate, max depth, số estimators) cùng các chỉ số đầu ra (RMSE và MAPE trên tập validation và test). Toàn bộ việc này chỉ cần vài dòng boto3 và có thể đặt ngay trong vòng lặp train mà không làm thay đổi logic chính của script.
+## 2. Kiến trúc của Amazon SageMaker Experiments
 
-Một điểm cần chú ý là mình cần đảm bảo thông tin xác thực AWS đã được cấu hình trên máy local, và IAM user hoặc role sử dụng phải có quyền sagemaker:CreateExperiment, sagemaker:CreateRun và sagemaker:BatchPutMetrics. Nếu thiếu bất kỳ quyền nào trong số này, lệnh sẽ trả về lỗi AccessDeniedException mà đôi khi message lỗi không đủ rõ để biết ngay đó là vấn đề permission.
+SageMaker Experiments cung cấp một mô hình phân cấp quản lý thí nghiệm khoa học bao gồm 3 thành phần chính:
+- **Experiment (Thí nghiệm tổng thể):** Cấu trúc cấp cao nhất dùng để quản lý toàn bộ các lượt chạy thuộc cùng một mục tiêu nghiên cứu.
+- **Run (Lượt chạy cụ thể):** Đại diện cho một phiên bản huấn luyện mô hình thực tế.
+- **Metric (Chỉ số đo lường):** Các thông số đầu vào và chỉ số hiệu năng đầu ra được ghi vết tự động.
 
-## 4. SO SÁNH CÁC LẦN CHẠY TRÊN GIAO DIỆN
+Nhờ cấu trúc này, các nhà phát triển có thể truy cập giao diện AWS Management Console để truy vấn, lọc dữ liệu và trực quan hóa kết quả so sánh giữa các phiên bản mô hình một cách tự động.
 
-Sau khi đã có dữ liệu từ nhiều lần chạy, giao diện SageMaker Experiments cho phép mình chọn nhiều Run cùng lúc và xem bảng so sánh song song. Mình có thể thấy ngay lần nào cho RMSE thấp nhất, lần nào dùng learning rate cao hơn lại cho kết quả tệ hơn, hay tham số nào có vẻ ít ảnh hưởng đến kết quả.
+---
 
-Ngoài bảng so sánh, giao diện còn có phần biểu đồ để vẽ các metric theo từng step. Với XGBoost, mình ghi RMSE theo từng boosting round nên có thể thấy rõ đường cong học tập của mô hình, nhận ra điểm nào bắt đầu overfit và đánh giá xem early stopping có hoạt động đúng không. Những thứ này trước đây mình phải tự vẽ bằng matplotlib sau khi train xong.
+## 3. Quy trình tích hợp với kịch bản huấn luyện cục bộ (Local Training Script)
 
-## 5. NHỮNG ĐIỂM ĐÁNG LƯU Ý
+Trong dự án, tiến trình huấn luyện được thực thi trên môi trường máy chủ cục bộ và kết nối với dịch vụ đám mây thông qua thư viện AWS SDK (`boto3`):
 
-Tên Experiment phải là duy nhất trong cùng một region và account. Nếu mình gọi create_experiment với tên đã tồn tại, API sẽ báo lỗi. Cách xử lý đơn giản là dùng try/except để bắt lỗi ResourceInUse và tiếp tục dùng experiment đó, hoặc thêm timestamp vào tên để đảm bảo luôn tạo mới.
+1. **Khởi tạo Experiment:** Thiết lập đối tượng Experiment để nhóm toàn bộ các lượt chạy thử nghiệm liên quan.
+2. **Khởi tạo Run:** Tại mỗi chu kỳ huấn luyện, một đối tượng Run mới được khởi tạo để ghi nhận các tham số cấu hình (như `learning_rate`, `max_depth`, `n_estimators`) và các chỉ số đo lường (`RMSE`, `MAPE`).
+3. **Phân quyền IAM:** Tiến trình ghi dữ liệu yêu cầu các quyền truy cập IAM tối thiểu bao gồm: `sagemaker:CreateExperiment`, `sagemaker:CreateRun` và `sagemaker:BatchPutMetrics`.
 
-Dữ liệu ghi vào SageMaker Experiments không bị xóa tự động. Đây vừa là lợi thế (lịch sử được lưu lại lâu dài) vừa là thứ cần chú ý nếu bạn chạy rất nhiều experiment và không muốn dữ liệu cũ làm rối giao diện. SageMaker có API để xóa Run và Experiment khi không còn cần thiết.
+---
 
-Về chi phí, SageMaker Experiments tính theo số metric được ghi. Với các dự án quy mô nhỏ đến vừa, khoản chi phí này thường không đáng kể. Tuy nhiên nếu bạn ghi rất nhiều metric cho rất nhiều Run, nên xem lại pricing page để ước tính trước.
+## 4. Trực quan hóa và so sánh hiệu năng
 
-## 6. KẾT LUẬN
+Giao diện quản trị SageMaker Experiments hỗ trợ so sánh song song nhiều phiên bản Run:
+- **So sánh chỉ số đa chiều:** Giúp nhanh chóng xác định tập tham số mang lại chỉ số RMSE/MAPE tối ưu nhất.
+- **Phân tích đường cong học tập (Learning Curves):** Đối với mô hình XGBoost, chỉ số RMSE được ghi nhận theo từng vòng lặp (boosting round), hỗ trợ phát hiện hiện tượng quá khớp (overfitting) và kiểm tra hiệu quả của cơ chế ngắt sớm (early stopping).
 
-Việc dùng Amazon SageMaker Experiments không đòi hỏi phải thay đổi cách train mô hình hay chuyển hạ tầng lên cloud. Chỉ cần thêm vài lệnh boto3 vào script hiện có, mình đã có ngay một hệ thống tracking có giao diện trực quan, lưu trữ trung tâm và có thể chia sẻ với cả nhóm mà không cần duy trì bất kỳ file nào thêm. Với những dự án có nhiều lần thử nghiệm tham số, đây là một công cụ đáng để thêm vào quy trình làm việc.
+---
 
-Tài liệu tham khảo:
-- AWS Documentation – Amazon SageMaker Experiments: https://docs.aws.amazon.com/sagemaker/latest/dg/experiments.html
-- AWS Documentation – SageMaker Python SDK Experiments: https://sagemaker-experiments.readthedocs.io/
+## 5. Các lưu ý kỹ thuật khi triển khai
+
+- **Tính duy nhất của tên Thí nghiệm:** Tên của đối tượng Experiment là duy nhất trong cùng một tài khoản và vùng AWS Region. Cần xử lý ngoại lệ `ResourceInUse` để tái sử dụng đối tượng Experiment đã tồn tại.
+- **Quản lý vòng đời dữ liệu:** Dữ liệu thí nghiệm được lưu trữ lâu dài trên đám mây. Cần chủ động dọn dẹp các lượt chạy không còn sử dụng thông qua API để tối ưu không gian quản lý.
+- **Tối ưu chi phí:** Chi phí dịch vụ được tính dựa trên lượng chỉ số (metrics) được ghi nhận. Việc thiết lập tần suất ghi hợp lý giúp kiểm soát hiệu quả chi phí vận hành.
+
+---
+
+## 6. Kết luận
+
+Amazon SageMaker Experiments cung cấp giải pháp quản lý thí nghiệm Machine Learning chuẩn mực, cho phép tích hợp trực tiếp vào quy trình làm việc hiện có mà không đòi hỏi thay đổi cấu trúc hạ tầng. Giải pháp này nâng cao tính minh bạch, khả năng tái lập và hiệu quả hợp tác trong các dự án phát triển mô hình trí tuệ nhân tạo.
+
+---
+
+### Tài liệu tham khảo
+- [AWS Documentation – Amazon SageMaker Experiments](https://docs.aws.amazon.com/sagemaker/latest/dg/experiments.html)
+- [AWS Documentation – SageMaker Python SDK Experiments](https://sagemaker-experiments.readthedocs.io/)

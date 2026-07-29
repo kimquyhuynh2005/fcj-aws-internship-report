@@ -6,7 +6,7 @@ chapter: false
 pre: "<b>3.3. </b>"
 ---
 
-> **Author:** Huynh Kim Quy  
+> **Author:** Van Thai Quan  
 > **Category:** Machine Learning Engineering / MLOps  
 > **Community:** AWS Study Group  
 > **Project:** E-commerce Sales Forecasting on AWS SageMaker  
