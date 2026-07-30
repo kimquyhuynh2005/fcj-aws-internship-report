@@ -180,10 +180,10 @@ def create_report():
         ("  3.5. Tự động hóa Pipeline với Amazon SageMaker Pipelines", "Trang 15"),
         ("  3.6. Triển khai Serverless REST API và Live Web UI Dashboard", "Trang 17"),
         ("PHẦN 4: HƯỚNG DẪN THỰC HÀNH WORKSHOP PIPELINE", "Trang 19"),
-        ("PHẦN 5: TỰ ĐÁNH GIÁ VÀ PHẢN HỒI THỰC TẬP", "Trang 23"),
-        ("  5.1. Đánh giá Tổng quan (Overall Evaluation)", "Trang 23"),
-        ("  5.2. Câu hỏi Bổ sung (Additional Questions)", "Trang 24"),
-        ("  5.3. Đề xuất & Kỳ vọng (Suggestions & Expectations)", "Trang 25"),
+        ("PHẦN 5: TỰ ĐÁNH GIÁ VÀ PHẢN HỒI THỰC TẬP (8 TUẦN)", "Trang 23"),
+        ("  5.1. Bảng Tiêu chí Đánh giá Cá nhân", "Trang 23"),
+        ("  5.2. Đánh giá Tổng quan & Phản hồi Thực tập", "Trang 24"),
+        ("  5.3. Đề xuất & Bài học Kinh nghiệm", "Trang 25"),
         ("PHẦN 6: CHỮ KÝ XÁC NHẬN VÀ BẢO MẬT DỮ LIỆU DOANH NGHIỆP", "Trang 26")
     ]
     for title, page in toc_items:
@@ -384,51 +384,87 @@ def create_report():
         add_p(f"• {ws}", space_after=3)
 
     # -------------------------------------------------------------
-    # PHẦN 5: TỰ ĐÁNH GIÁ VÀ PHẢN HỒI THỰC TẬP (THEO ĐÚNG 3 ĐỀ MỤC)
+    # PHẦN 5: TỰ ĐÁNH GIÁ VÀ PHẢN HỒI THỰC TẬP (8 TUẦN)
     # -------------------------------------------------------------
-    add_h1("PHẦN 5: TỰ ĐÁNH GIÁ VÀ PHẢN HỒI THỰC TẬP")
+    add_h1("PHẦN 5: TỰ ĐÁNH GIÁ VÀ PHẢN HỒI THỰC TẬP (8 TUẦN)")
 
-    add_h2("5.1. Đánh giá Tổng quan (Overall Evaluation)")
+    add_h2("5.1. Bảng Tiêu chí Đánh giá Cá nhân (Evaluation Criteria Table)")
+    add_p("Dưới đây là bảng đánh giá 8 tiêu chí chuyên môn dựa trên các kết quả thực tế đạt được trong 8 tuần thực tập:")
+
+    eval_table = doc.add_table(rows=9, cols=4)
+    eval_table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    eval_table.autofit = False
     
+    e_headers = ["#", "Tiêu chí Đánh giá", "Đánh giá", "Mô tả Chi tiết & Minh chứng Thực tế"]
+    e_widths = [Inches(0.4), Inches(2.2), Inches(1.1), Inches(3.2)]
+
+    for idx, text in enumerate(e_headers):
+        cell = eval_table.rows[0].cells[idx]
+        cell.width = e_widths[idx]
+        set_cell_background(cell, "003366")
+        p = cell.paragraphs[0]
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p.paragraph_format.space_before = Pt(4)
+        p.paragraph_format.space_after = Pt(4)
+        run = p.add_run(text)
+        run.bold = True
+        run.font.name = 'Times New Roman'
+        run.font.size = Pt(11)
+        run.font.color.rgb = RGBColor(255, 255, 255)
+
+    eval_data = [
+        ("1", "Kiến thức AWS Kỹ thuật", "Tốt", "Thành thạo S3, IAM, SageMaker Endpoints/Experiments/Pipelines, Lambda, API Gateway, CloudWatch."),
+        ("2", "Kỹ năng Machine Learning", "Tốt", "Trích xuất 22 đặc trưng chuỗi thời gian; train XGBoost đạt Test RMSE 925.28 và MAPE 9.92%."),
+        ("3", "Giải quyết Vấn đề & Debug", "Tốt", "Xử lý triệt để 3 sự cố: Nâng Service Quotas, ấn định version SDK `sagemaker==2.257.5`, sửa tràn số log `np.expm1()`."),
+        ("4", "Chất lượng Code & Kiến trúc", "Khá", "Mã nguồn tổ chức mô-đun hóa sạch sẽ; đóng gói tự động `sourcedir.tar.gz`."),
+        ("5", "Làm việc Nhóm & Hợp tác", "Tốt", "Phân công nhịp nhàng 3 vai trò (Data/ML, Backend, Infra); giao tiếp minh bạch và họp trao đổi định kỳ."),
+        ("6", "Quản lý Thời gian", "Khá", "Hoàn thành 100% mục tiêu của 8 tuần thực tập; tiến độ các mốc chính được kiểm soát tốt."),
+        ("7", "Tài liệu Kỹ thuật", "Tốt", "Đăng 3 bài blog kỹ thuật học thuật; viết file tài liệu thực hành Workshop `Workshop_AWS_ML_Forecasting.md`."),
+        ("8", "Chủ động & Sáng kiến", "Tốt", "Chủ động kiểm tra quota sớm; đề xuất kiến trúc Serverless REST API với Lambda + API Gateway.")
+    ]
+
+    for r_i, r_data in enumerate(eval_data):
+        row = eval_table.rows[r_i + 1]
+        bg_c = "F2F5F8" if r_i % 2 == 1 else "FFFFFF"
+        for c_i, val in enumerate(r_data):
+            cell = row.cells[c_i]
+            cell.width = e_widths[c_i]
+            set_cell_background(cell, bg_c)
+            p = cell.paragraphs[0]
+            p.paragraph_format.space_before = Pt(3)
+            p.paragraph_format.space_after = Pt(3)
+            run = p.add_run(val)
+            run.font.name = 'Times New Roman'
+            run.font.size = Pt(10.5)
+            if c_i == 0 or c_i == 2:
+                p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                run.bold = True
+
+    add_p("", space_after=10)
+
+    add_h2("5.2. Đánh giá Tổng quan & Phản hồi Thực tập")
     add_h3("1. Môi trường Làm việc (Working Environment)")
-    add_p("Môi trường làm việc rất thân thiện và cởi mở. Các thành viên FCAJ luôn sẵn sàng hỗ trợ mỗi khi tôi gặp khó khăn, ngay cả ngoài giờ làm việc. Không gian làm việc ngăn nắp, thoải mái, giúp tôi tập trung tốt hơn. Tuy nhiên, tôi nghĩ sẽ rất tuyệt nếu có thêm các hoạt động giao lưu hoặc team-bonding để thắt chặt mối quan hệ giữa các thành viên.")
+    add_p("Môi trường làm việc rất thân thiện và cởi mở. Các thành viên FCAJ luôn sẵn sàng hỗ trợ mỗi khi tôi gặp khó khăn, ngay cả ngoài giờ làm việc. Không gian làm việc ngăn nắp, thoải mái, giúp tôi tập trung tốt hơn.")
 
     add_h3("2. Sự Hỗ trợ từ Mentor / Ban Quản lý (Support from Mentor / Team Admin)")
-    add_p("Mentor hướng dẫn rất chi tiết, giải thích rõ ràng khi tôi chưa hiểu và luôn khuyến khích tôi đặt câu hỏi. Đội ngũ Admin hỗ trợ hiệu quả các thủ tục hành chính, cung cấp đầy đủ tài liệu cần thiết và tạo điều kiện thuận lợi nhất để tôi làm việc. Tôi đặc biệt đánh giá cao việc mentor để tôi tự suy nghĩ giải quyết vấn đề trước thay vì đưa ngay đáp án.")
+    add_p("Mentor hướng dẫn rất chi tiết, giải thích rõ ràng khi tôi chưa hiểu và luôn khuyến khích tôi đặt câu hỏi. Đội ngũ Admin hỗ trợ hiệu quả các thủ tục hành chính, cung cấp đầy đủ tài liệu cần thiết và tạo điều kiện thuận lợi nhất để tôi làm việc.")
 
     add_h3("3. Mức độ Phù hợp với Chuyên ngành (Relevance of Work to Academic Major)")
-    add_p("Các công việc được giao bám sát kiến thức tôi đã học tại trường đại học, đồng thời giới thiệu thêm nhiều mảng công nghệ mới mà tôi chưa từng tiếp xúc. Điều này giúp tôi vừa củng cố nền tảng vừa tích lũy được nhiều kỹ năng thực tế có giá trị cao.")
+    add_p("Các công việc được giao bám sát kiến thức tôi đã học tại trường đại học, đồng thời giới thiệu thêm nhiều mảng công nghệ mới giúp tôi vừa củng cố nền tảng vừa tích lũy được nhiều kỹ năng thực tế có giá trị cao.")
 
     add_h3("4. Cơ hội Học hỏi & Phát triển Kỹ năng (Learning & Skill Development Opportunities)")
-    add_p("Trong suốt kỳ thực tập, tôi đã học hỏi được nhiều kỹ năng mới như sử dụng công cụ quản lý dự án, kỹ năng làm việc nhóm và giao tiếp chuyên nghiệp trong môi trường doanh nghiệp. Mentor cũng chia sẻ nhiều kinh nghiệm thực tế quý báu giúp tôi định hình rõ ràng hơn cho con đường sự nghiệp tương lai.")
+    add_p("Trong suốt 8 tuần thực tập, tôi đã học hỏi được nhiều kỹ năng mới như sử dụng công cụ quản lý dự án, kỹ năng làm việc nhóm và giao tiếp chuyên nghiệp trong môi trường doanh nghiệp.")
 
     add_h3("5. Văn hóa Công ty & Tinh thần Đồng đội (Company Culture & Team Spirit)")
-    add_p("Văn hóa công ty rất tích cực: mọi người tôn trọng lẫn nhau, làm việc nghiêm túc nhưng vẫn giữ không khí vui vẻ. Khi có các dự án gấp, tất cả cùng nhau phối hợp và hỗ trợ lẫn nhau không phân biệt vị trí. Điều này khiến tôi cảm thấy mình thực sự là một phần của tập thể, dù chỉ là sinh viên thực tập.")
+    add_p("Văn hóa công ty rất tích cực: mọi người tôn trọng lẫn nhau, làm việc nghiêm túc nhưng vẫn giữ không khí vui vẻ, hỗ trợ lẫn nhau không phân biệt vị trí.")
 
     add_h3("6. Chính sách & Quyền lợi Thực tập (Internship Policies / Benefits)")
     add_p("Công ty cung cấp phụ cấp thực tập và hỗ trợ thời gian làm việc linh hoạt khi cần thiết. Ngoài ra, cơ hội tham gia các buổi đào tạo nội bộ chuyên sâu là một điểm cộng rất lớn của chương trình.")
 
-    add_h2("5.2. Câu hỏi Bổ sung (Additional Questions)")
-    
-    add_p("• Điều gì làm bạn hài lòng nhất trong kỳ thực tập? (What did you find most satisfying during your internship?)", bold=True)
-    add_p("  => Điều làm tôi hài lòng nhất là sự hỗ trợ tận tình từ Mentor và cơ hội được trực tiếp giải quyết các bài toán thực tế của doanh nghiệp, giúp kỹ năng giải quyết vấn đề của tôi nâng cao rõ rệt.")
-
-    add_p("• Theo bạn công ty nên cải thiện điều gì cho các khóa thực tập sau? (What do you think the company should improve for future interns?)", bold=True)
-    add_p("  => Công ty có thể xem xét tổ chức các hoạt động team-bonding thường xuyên hơn để sinh viên thực tập có cơ hội giao lưu, kết nối sâu hơn với các phòng ban khác.")
-
-    add_p("• Nếu giới thiệu cho bạn bè, bạn có đề xuất họ thực tập tại đây không? Vì sao? (If recommending to a friend, would you suggest they intern here? Why or why not?)", bold=True)
-    add_p("  => Chắc chắn có. FCAJ mang lại môi trường thực tế, chuyên nghiệp với văn hóa cởi mở cùng cơ hội học hỏi vô cùng lớn từ các anh chị đi trước giàu kinh nghiệm.")
-
-    add_h2("5.3. Đề xuất & Kỳ vọng (Suggestions & Expectations)")
-
-    add_p("• Bạn có đề xuất gì để cải thiện trải nghiệm thực tập không? (Do you have any suggestions to improve the internship experience?)", bold=True)
-    add_p("  => Tôi đề xuất nhóm có thể xây dựng một trang \"Knowledge Base\" nội bộ ghi lại các sự cố kỹ thuật thường gặp khi làm dự án thực tế (như giới hạn quota AWS, lỗi phân quyền IAM hay cấu hình môi trường). Điều này sẽ giúp các bạn thực tập sinh khóa sau tra cứu, xử lý nhanh hơn và hòa nhập dễ dàng hơn.")
-
-    add_p("• Bạn có muốn tiếp tục đồng hành cùng chương trình trong tương lai không? (Would you like to continue this program in the future?)", bold=True)
-    add_p("  => Rất muốn. Những kinh nghiệm thực tế tích lũy được tại đây là vô giá, và nếu có cơ hội, tôi rất mong muốn được tiếp tục làm việc cùng team trong các dự án dài hạn của công ty.")
-
-    add_p("• Ý kiến đóng góp khác (Chia sẻ tự do) (Any other comments / free sharing):", bold=True)
-    add_p("  => Tôi đánh giá rất cao các buổi workshop cuối tuần do công ty tổ chức. Kiến thức chuyên sâu được chia sẻ trong các buổi này có chất lượng tuyệt vời và đã hỗ trợ tôi rất nhiều trong việc hoàn thành xuất sắc dự án của mình!")
+    add_h2("5.3. Đề xuất & Bài học Kinh nghiệm (Recommendations)")
+    add_p("• Kiểm tra Service Quotas từ Ngày 1: Luôn kiểm tra quota AWS trước khi viết bất kỳ mã nguồn huấn luyện nào.")
+    add_p("• Sử dụng API boto3 trực tiếp: Tăng tính ổn định cho các luồng công việc phức tạp trên SageMaker.")
+    add_p("• Xây dựng Knowledge Base nội bộ: Đề xuất công ty xây dựng kho kiến thức lưu trữ cách xử lý các sự cố tài nguyên đám mây thường gặp để giúp thực tập sinh khóa sau hòa nhập nhanh chóng hơn.")
 
     # -------------------------------------------------------------
     # PHẦN 6: CHỮ KÝ VÀ XÁC NHẬN
@@ -490,7 +526,7 @@ def create_report():
 
     output_path = r"e:\AWS - TTNT\BaoCao_ThucTap_NgoaiTruong_AWS_SageMaker_MLOps.docx"
     doc.save(output_path)
-    print(f"Successfully generated Word report with new layout at: {output_path}")
+    print(f"Successfully generated updated Word report at: {output_path}")
 
 if __name__ == "__main__":
     create_report()
