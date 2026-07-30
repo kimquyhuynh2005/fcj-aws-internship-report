@@ -54,16 +54,7 @@ Dưới đây là bảng đánh giá tổng hợp 8 tiêu chí chuyên môn dự
 
 ---
 
-## 3. Thành tựu Nổi bật trong 8 Tuần Thực tập
-
-1. **Hiệu năng Mô hình Vượt trội:** Mô hình XGBoost đạt Test RMSE **925.28** và MAPE **9.92%**, vượt xa kỳ vọng ban đầu (RMSE ~1,200).
-2. **Triển khai Phục vụ Thực tế:** API kiểm thử trên dữ liệu thực tế (Store 1, 2015-06-15) đạt độ chính xác cao với mức sai lệch chỉ **4.58%** và độ trễ phản hồi **~1.1 giây**.
-3. **Giải quyết Sự cố Thực tiễn:** Xử lý triệt để 3 bài toán lỗi triển khai lớn trên đám mây với phân tích nguyên nhân gốc (Root Cause Analysis).
-4. **Chia sẻ Kiến thức Cộng đồng:** Xuất bản 3 bài viết kỹ thuật Blog chuẩn học thuật và xây dựng tài liệu Workshop dùng chung cho nhóm.
-
----
-
-## 4. Cảm nhận Cá nhân & Bài học Tích lũy (Personal Reflection)
+## 3. Cảm nhận Cá nhân & Bài học Tích lũy (Personal Reflection)
 
 **8 tuần thực tập** tại chương trình AWS First Cloud AI Journey đã vượt xa kỳ vọng ban đầu của tôi về một khóa đào tạo thực tiễn. Trải nghiệm quý giá nhất không chỉ nằm ở việc xây dựng thành công REST API hoạt động trơn tru—mà chính là **hành trình chẩn đoán và khắc phục sự cố kỹ thuật (Debugging Journey)**: từ việc phát hiện giới hạn quota máy chủ SageMaker, giải quyết xung đột phiên bản thư viện XGBoost, cho đến việc thấu hiểu cơ chế tràn số biến đổi log với `np.expm1()`.
 
@@ -73,7 +64,7 @@ Dưới đây là bảng đánh giá tổng hợp 8 tiêu chí chuyên môn dự
 
 ---
 
-## 5. Tổng hợp Đánh giá Hiệu suất
+## 4. Tổng hợp Đánh giá Hiệu suất
 
 ```
 Kiến thức AWS:        ████████░░  Tốt (Good)

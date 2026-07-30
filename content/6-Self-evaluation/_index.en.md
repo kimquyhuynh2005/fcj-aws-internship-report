@@ -54,16 +54,7 @@ The table below summarizes the evaluation across 8 core professional criteria ba
 
 ---
 
-## 3. Key Accomplishments During 8 Weeks
-
-1. **Superior Model Accuracy:** XGBoost model achieved Test RMSE **925.28** and MAPE **9.92%**, significantly outperforming initial baseline targets.
-2. **Production Deployment:** Live REST API tested on real store data (Store 1, 2015-06-15) achieved a **4.58% error rate** with **~1.1s latency**.
-3. **Real-World Problem Solving:** Successfully resolved 3 major cloud deployment bottlenecks through systematic Root Cause Analysis.
-4. **Knowledge Sharing:** Published 3 technical blog posts and authored a master hands-on workshop guide.
-
----
-
-## 4. Personal Reflection & Key Takeaways
+## 3. Personal Reflection & Key Takeaways
 
 The **8-week internship** at the AWS First Cloud AI Journey program far exceeded my initial expectations for practical learning. The most valuable experience was not merely producing a functional REST API—it was the **debugging journey**: identifying cloud quota limits, resolving SDK dependency conflicts, and understanding numerical overflow behavior in log transformations.
 
@@ -73,7 +64,7 @@ These are practical cloud engineering skills that static tutorials cannot impart
 
 ---
 
-## 5. Overall Performance Summary
+## 4. Overall Performance Summary
 
 ```
 Technical AWS Knowledge:    ████████░░  Good (Tốt)
