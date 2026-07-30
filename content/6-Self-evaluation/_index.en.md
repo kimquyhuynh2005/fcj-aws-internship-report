@@ -6,94 +6,59 @@ chapter: false
 pre: "<b>6. </b>"
 ---
 
-# Self-evaluation
+# Self-Evaluation & Internship Feedback
 
-Assessment of personal performance and skill development during the 8-week AWS First Cloud AI Journey internship.
+Assessment of personal performance, working environment, skill development, and overall experience during the AWS First Cloud AI Journey internship.
 
 **Evaluator:** Huynh Kim Quy  
-**Period:** 06/06/2026 – 15/08/2026
+**Program:** Workforce Bootcamp — First Cloud AI Journey (FCAJ)  
+**Company:** Amazon Web Services Viet Nam Company Limited  
+**Period:** 06/06/2026 – 15/08/2026  
 
 ---
 
-## Evaluation Criteria
+## Overall Evaluation
 
-| # | Criteria | Rating | Notes |
-|---|---------|--------|-------|
-| 1 | Technical AWS Knowledge | **Tốt / Good** | Mastered S3, IAM, SageMaker, Lambda, API Gateway, CloudWatch |
-| 2 | Machine Learning Skills | **Tốt / Good** | Successfully trained XGBoost with RMSE 925.28, MAPE 9.92% |
-| 3 | Problem-solving & Debugging | **Tốt / Good** | Resolved 3 real deployment errors; multiple quota workarounds |
-| 4 | Code Quality | **Khá / Fair** | Code works but documentation could be more consistent |
-| 5 | Teamwork & Collaboration | **Tốt / Good** | Effective division of work with team; clear communication |
-| 6 | Time Management | **Khá / Fair** | Most deliverables on time; Week 6 took longer than planned |
-| 7 | Documentation | **Khá / Fair** | Improved significantly during Weeks 9–12 |
-| 8 | Initiative & Proactiveness | **Tốt / Good** | Identified quota issues early; proposed workarounds |
+### 1. Working Environment
+The working environment is very friendly and open. FCAJ members are always willing to help whenever I encounter difficulties, even outside working hours. The workspace is tidy and comfortable, helping me focus better. However, I think it would be nice to have more social gatherings or team bonding activities to strengthen relationships among members.
 
-**Scale:** Tốt (Good) > Khá (Fair) > Trung bình (Average)
+### 2. Support from Mentor / Team Admin
+The mentor provides very detailed guidance, explains clearly when I don't understand, and always encourages me to ask questions. The admin team supports administrative tasks, provides necessary documents, and creates favorable conditions for me to work effectively. I especially appreciate that the mentor allows me to try and solve problems myself instead of just giving the exact answer immediately.
 
----
+### 3. Relevance of Work to Academic Major
+The tasks I was assigned align well with the knowledge I learned at university, while also introducing me to new areas I had never encountered before. This allowed me to both strengthen my foundational knowledge and gain highly practical skills.
 
-## Technical Skills Acquired
+### 4. Learning & Skill Development Opportunities
+During the internship, I learned many new skills such as using project management tools, teamwork skills, and professional communication in a corporate environment. The mentor also shared valuable real-world experiences that helped me better plan my future career path.
 
-### AWS Services (Hands-on)
-- ✅ **Amazon S3** — bucket creation, policies, versioning, boto3 upload/download
-- ✅ **AWS IAM** — roles, inline policies, least privilege design
-- ✅ **Amazon SageMaker** — Endpoint deployment, model packaging, Experiments tracking
-- ✅ **AWS Lambda** — function creation, IaC deployment, SageMaker integration
-- ✅ **Amazon API Gateway** — REST API, Lambda Proxy, stage deployment
-- ✅ **Amazon CloudWatch** — dashboard creation, metrics, log groups
-- ✅ **SageMaker Pipelines** — Pipeline definition JSON, boto3 creation
+### 5. Company Culture & Team Spirit
+The company culture is very positive: everyone respects each other, works seriously but still keeps things enjoyable. When there are urgent projects, everyone works together and supports one another regardless of their position. This made me feel like a real part of the team, even as an intern.
 
-### ML/Data Engineering Skills
-- ✅ Feature engineering for time series (rolling means, lags, date features)
-- ✅ XGBoost training, hyperparameter tuning, early stopping
-- ✅ Model evaluation: RMSE, MAPE
-- ✅ SHAP feature importance analysis
-- ✅ Statistical drift detection (z-score)
-- ✅ Data leakage prevention (chronological splits, proper scaling)
-- 🔄 PyTorch LSTM (basic implementation, needs improvement)
+### 6. Internship Policies / Benefits
+The company provides an internship allowance and offers flexible working hours when needed. In addition, having the opportunity to join internal training sessions is a major highlight of the program.
 
 ---
 
-## Key Accomplishments
+## Additional Questions
 
-1. **Best model result:** RMSE 925.28, MAPE 9.92% — exceeded initial target of RMSE ~1,200
-2. **Production deployment:** Successfully deployed REST API with 5.14% error on real data
-3. **Real debugging:** Solved 3 concrete deployment errors with root cause analysis
-4. **Pragmatic workarounds:** Navigated quota limitations without blocking project progress
-5. **Knowledge sharing:** Published 3 technical blog posts and presented at AWS Study Group Q&A
+- **What did you find most satisfying during your internship?**  
+  The most satisfying aspect was the dedicated support from my mentor and the opportunity to tackle real-world challenges, which significantly improved my problem-solving skills.
 
----
+- **What do you think the company should improve for future interns?**  
+  The company could consider organizing more frequent team-bonding activities so that interns can interact more deeply with other departments.
 
-## Areas for Improvement
-
-1. **Deep Learning:** LSTM implementation needs better normalization and longer training
-2. **Testing:** Should have written more unit tests throughout the project
-3. **Documentation:** Started documentation too late (Week 9 vs. continuous)
-4. **Cost optimization:** Could have used Spot Instances for training experiments
+- **If recommending to a friend, would you suggest they intern here? Why or why not?**  
+  Absolutely. FCAJ provides a highly professional, practical environment with an open culture and immense learning opportunities from experienced peers.
 
 ---
 
-## Personal Reflection
+## Suggestions & Expectations
 
-The 12-week internship exceeded my expectations in terms of practical learning. The most valuable experience was not the final working API — it was the debugging journey: discovering quota limitations, resolving XGBoost version conflicts, and understanding why `np.expm1()` caused Infinity predictions.
+- **Do you have any suggestions to improve the internship experience?**  
+  I suggest the team could build an internal "Knowledge Base" documenting common technical roadblocks encountered during real-world projects (such as AWS quota limits, IAM permission issues, or environment configuration errors). This would empower future interns to troubleshoot faster and make their onboarding process much smoother.
 
-These are the lessons that no tutorial can teach. Real projects break in unexpected ways, and learning to diagnose and fix those breaks is the core skill of a cloud engineer.
+- **Would you like to continue this program in the future?**  
+  Definitely. The practical experience gained here is invaluable, and given the opportunity, I would love to continue working with the team on the company's long-term projects.
 
-**What I would do differently:** Check service quotas on Day 1 of any new AWS project, and start documentation from Week 1 — not Week 9.
-
----
-
-## Rating Summary
-
-```
-Technical AWS Knowledge:    ████████░░  Good
-Machine Learning Skills:    ████████░░  Good
-Problem-solving:            ████████░░  Good
-Code Quality:               ██████░░░░  Fair
-Teamwork:                   ████████░░  Good
-Time Management:            ██████░░░░  Fair
-Documentation:              ██████░░░░  Fair
-Initiative:                 ████████░░  Good
-```
-
-**Overall Rating: Khá — Good** (above average, with clear growth areas identified)
+- **Any other comments (free sharing):**  
+  I highly appreciate the frequent weekend workshops organized by the company. The in-depth knowledge shared during these sessions is of excellent quality and has significantly supported me in successfully implementing my project!
