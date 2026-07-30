@@ -171,7 +171,7 @@ def create_report():
         ("  1.2. Chương trình thực tập đã được Khoa duyệt (Form D2/D3)", "Trang 3"),
         ("PHẦN 2: NỘI DUNG VÀ NHẬT KÝ HOẠT ĐỘNG THỰC TẬP (WORKLOG)", "Trang 4"),
         ("  2.1. Nhật ký công việc từng tuần (Tuần 1 → Tuần 8)", "Trang 4"),
-        ("  2.2. Chi tiết kết quả thực hiện các giai đoạn", "Trang 6"),
+        ("  2.2. Chi tiết thực hiện các Tuần 3, 4, 5 chuyên sâu", "Trang 6"),
         ("PHẦN 3: BÁO CÁO KỸ THUẬT VÀ KIẾN TRÚC GIẢI PHÁP", "Trang 8"),
         ("  3.1. Tổng quan Kiến trúc MLOps 4 Tầng", "Trang 8"),
         ("  3.2. Tiền xử lý dữ liệu và Feature Engineering (22 đặc trưng)", "Trang 9"),
@@ -182,8 +182,8 @@ def create_report():
         ("PHẦN 4: HƯỚNG DẪN THỰC HÀNH WORKSHOP PIPELINE", "Trang 19"),
         ("PHẦN 5: TỰ ĐÁNH GIÁ VÀ PHẢN HỒI THỰC TẬP (8 TUẦN)", "Trang 23"),
         ("  5.1. Bảng Tiêu chí Đánh giá Cá nhân", "Trang 23"),
-        ("  5.2. Đánh giá Tổng quan & Phản hồi Thực tập", "Trang 24"),
-        ("  5.3. Đề xuất & Bài học Kinh nghiệm", "Trang 25"),
+        ("  5.2. Đánh giá Tổng quan & Mức độ Hài lòng", "Trang 24"),
+        ("  5.3. Kỹ năng Chuyên môn Áp dụng vào Sự nghiệp", "Trang 25"),
         ("PHẦN 6: CHỮ KÝ XÁC NHẬN VÀ BẢO MẬT DỮ LIỆU DOANH NGHIỆP", "Trang 26")
     ]
     for title, page in toc_items:
@@ -233,9 +233,9 @@ def create_report():
     worklog_data = [
         ("Tuần 1 (06/06 - 12/06/2026)", "Onboarding & Thu thập Dữ liệu", "Tham gia buổi định hướng FCJ Program; Khởi tạo môi trường AWS; Khám phá bộ dữ liệu Rossmann Store Sales (1,017,209 dòng × 9 cột).", "Đã khởi tạo S3 Bucket `aws-internship-hkq-2026` và tải thành công dữ liệu thô lên S3."),
         ("Tuần 2 (13/06 - 19/06/2026)", "Tiền xử lý & Feature Engineering", "Xử lý dữ liệu khuyết, lọc cửa hàng đóng cửa (Open=0); Trích xuất 22 đặc trưng chuỗi thời gian (Rolling Means 7/14/30, Lag 7/14/30, Calendar features).", "Hoàn thành script `preprocessing.py`; Phân chia tập Train/Val/Test theo đúng trình tự thời gian."),
-        ("Tuần 3 (20/06 - 26/06/2026)", "Huấn luyện Mô hình XGBoost Baseline", "Xây dựng kịch bản huấn luyện XGBoost Regressor (v1.7.6); Tối ưu siêu tham số bằng Optuna; Phân tích lỗi theo RMSE và MAPE.", "Mô hình XGBoost đạt kết quả vượt trội: Test RMSE = 925.28, Test MAPE = 9.92%."),
-        ("Tuần 4 (27/06 - 03/07/2026)", "Thử nghiệm PyTorch LSTM & So sánh", "Thiết kế kiến trúc Deep Learning PyTorch LSTM (2 lớp LSTM + Linear output); Tiến hành huấn luyện trên GPU; So sánh trực diện với XGBoost.", "XGBoost áp đảo LSTM (MAPE 9.92% vs 32.79%); Quyết định lựa chọn XGBoost làm Production Model."),
-        ("Tuần 5 (04/07 - 10/07/2026)", "SageMaker Experiments & SHAP Analysis", "Tích hợp thư viện `boto3` để ghi nhận siêu tham số và chỉ số đánh giá lên Amazon SageMaker Experiments; Trực quan hóa SHAP Values.", "Hoàn thành bài viết Blog 2 về SageMaker Experiments (Tác giả: Nguyễn Ngọc Sáng); Xác định Top 5 đặc trưng quan trọng."),
+        ("Tuần 3 (20/06 - 26/06/2026)", "Huấn luyện XGBoost & Optuna Tuning", "Xây dựng kịch bản huấn luyện XGBoost Regressor (v1.7.6); Tối ưu siêu tham số bằng Optuna (max_depth=10, eta=0.03); Phân chia tập dữ liệu theo thời gian.", "Mô hình XGBoost đạt kết quả xuất sắc: Test RMSE = 925.28, Test MAPE = 9.92%."),
+        ("Tuần 4 (27/06 - 03/07/2026)", "PyTorch LSTM & So sánh Đối chứng", "Thiết kế kiến trúc Deep Learning PyTorch LSTM (2 lớp LSTM + Linear output); Tiến hành huấn luyện trên GPU; So sánh trực diện với XGBoost.", "XGBoost áp đảo LSTM (MAPE 9.92% vs 32.79%); Phân tích nguyên nhân và chọn XGBoost làm Production Model."),
+        ("Tuần 5 (04/07 - 10/07/2026)", "Model Registry & SHAP Analysis", "Thiết kế kiến trúc S3 Metadata Registry (v1.0 JSON); Phân tích độ quan trọng đặc trưng bằng SHAP TreeExplainer; Viết kịch bản `inference.py`.", "Xác định Top 5 đặc trưng quan trọng (rolling_mean_14, Promo); Hoàn thành `inference.py` cho container."),
         ("Tuần 6 (11/07 - 17/07/2026)", "SageMaker Pipelines & Serving API", "Đóng gói quy trình MLOps tự động hóa với SageMaker Pipelines; Triển khai SageMaker Endpoint (`ml.t2.medium`); Triển khai AWS Lambda + API Gateway.", "Hoàn thành bài viết Blog 3 về MLOps Pipelines (Tác giả: Văn Thái Quân); Xây dựng xong Serverless REST API."),
         ("Tuần 7 (18/07 - 24/07/2026)", "Live Web Dashboard & Quality Gate", "Thiết kế giao diện Live Web UI Dashboard (Dark Mode / Glassmorphism); Kiểm thử giả lập kịch bản What-If; Đánh giá độ trễ API.", "API kiểm thử trên dữ liệu thực tế đạt độ chính xác ấn tượng (sai số 4.58%, độ trễ ~1.1s)."),
         ("Tuần 8 (25/07 - 15/08/2026)", "Tài liệu Workshop & Hoàn thiện Báo cáo", "Tổng hợp toàn bộ tài liệu hướng dẫn thực hành Workshop `Workshop_AWS_ML_Forecasting.md`; Đánh giá bản thân và hoàn thiện hồ sơ thực tập.", "Hoàn thành 100% các hạng mục công việc; Deploy toàn bộ sản phẩm lên GitHub và GitHub Pages.")
@@ -284,6 +284,16 @@ def create_report():
                 run.bold = True
 
     add_p("", space_after=12)
+
+    add_h2("2.2. Chi tiết thực hiện các Tuần 3, 4, 5 chuyên sâu")
+    add_h3("Tuần 3 — Huấn luyện XGBoost & Optuna Hyperparameter Tuning")
+    add_p("Trong Tuần 3, nhóm tập trung xây dựng mô hình XGBoost Regressor (v1.7.6) làm mô hình baseline. Nhóm áp dụng phương pháp phân chia dữ liệu nghiêm ngặt theo thời gian (Train: 2013-01 đến 2015-05, Val: 2015-06, Test: 2015-07) để tránh rò rỉ dữ liệu. Sử dụng Optuna để tìm siêu tham số tối ưu (max_depth=10, eta=0.03, subsample=0.8), kết quả thu được cực kỳ ấn tượng trên tập Test độc lập: RMSE = 925.28 và MAPE = 9.92%, vượt xa mục tiêu RMSE ~1,200 ban đầu.")
+
+    add_h3("Tuần 4 — Thử nghiệm Deep Learning PyTorch LSTM & So sánh Đối chứng")
+    add_p("Trong Tuần 4, nhóm xây dựng mô hình Deep Learning PyTorch LSTM (2 lớp stacked LSTM, hidden_dim=128, dropout=0.2) kết hợp với kỹ thuật chuẩn hóa MinMaxScaler và tạo chuỗi cửa sổ trượt 30 ngày. Kết quả thử nghiệm trên tập Test cho thấy LSTM đạt RMSE 3,044.43 và MAPE 32.79%. Phân tích nguyên nhân cho thấy dữ liệu dạng bảng có tính rời rạc cao và biến động chu kỳ thích hợp hơn với cây quyết định gradient boosting. Nhóm quyết định lựa chọn XGBoost làm mô hình sản xuất chính thức.")
+
+    add_h3("Tuần 5 — S3 Model Registry Metadata & SHAP Feature Importance")
+    add_p("Trong Tuần 5, do giới hạn SageMaker Model Registry quota = 0, nhóm đã thiết kế kiến trúc S3 Metadata Registry sử dụng định dạng JSON (phiên bản v1.0) lưu vết toàn bộ siêu tham số và chỉ số đánh giá. Nhóm cũng thực thi thuật toán SHAP TreeExplainer để phân tích tầm quan trọng của các đặc trưng, qua đó xác định 2 yếu tố ảnh hưởng lớn nhất đến doanh số là Chương trình khuyến mại (Promo) và Trung bình trượt 14 ngày (rolling_mean_14). Đồng thời hoàn thành kịch bản `inference.py` phục vụ container.")
 
     # -------------------------------------------------------------
     # PHẦN 3
@@ -442,7 +452,7 @@ def create_report():
 
     add_p("", space_after=10)
 
-    add_h2("5.2. Đánh giá Tổng quan & Phản hồi Thực tập")
+    add_h2("5.2. Đánh giá Tổng quan & Mức độ Hài lòng")
     add_h3("1. Môi trường Làm việc (Working Environment)")
     add_p("Môi trường làm việc rất thân thiện và cởi mở. Các thành viên FCAJ luôn sẵn sàng hỗ trợ mỗi khi tôi gặp khó khăn, ngay cả ngoài giờ làm việc. Không gian làm việc ngăn nắp, thoải mái, giúp tôi tập trung tốt hơn.")
 
@@ -455,16 +465,12 @@ def create_report():
     add_h3("4. Cơ hội Học hỏi & Phát triển Kỹ năng (Learning & Skill Development Opportunities)")
     add_p("Trong suốt 8 tuần thực tập, tôi đã học hỏi được nhiều kỹ năng mới như sử dụng công cụ quản lý dự án, kỹ năng làm việc nhóm và giao tiếp chuyên nghiệp trong môi trường doanh nghiệp.")
 
-    add_h3("5. Văn hóa Công ty & Tinh thần Đồng đội (Company Culture & Team Spirit)")
-    add_p("Văn hóa công ty rất tích cực: mọi người tôn trọng lẫn nhau, làm việc nghiêm túc nhưng vẫn giữ không khí vui vẻ, hỗ trợ lẫn nhau không phân biệt vị trí.")
-
-    add_h3("6. Chính sách & Quyền lợi Thực tập (Internship Policies / Benefits)")
-    add_p("Công ty cung cấp phụ cấp thực tập và hỗ trợ thời gian làm việc linh hoạt khi cần thiết. Ngoài ra, cơ hội tham gia các buổi đào tạo nội bộ chuyên sâu là một điểm cộng rất lớn của chương trình.")
-
-    add_h2("5.3. Đề xuất & Bài học Kinh nghiệm (Recommendations)")
-    add_p("• Kiểm tra Service Quotas từ Ngày 1: Luôn kiểm tra quota AWS trước khi viết bất kỳ mã nguồn huấn luyện nào.")
-    add_p("• Sử dụng API boto3 trực tiếp: Tăng tính ổn định cho các luồng công việc phức tạp trên SageMaker.")
-    add_p("• Xây dựng Knowledge Base nội bộ: Đề xuất công ty xây dựng kho kiến thức lưu trữ cách xử lý các sự cố tài nguyên đám mây thường gặp để giúp thực tập sinh khóa sau hòa nhập nhanh chóng hơn.")
+    add_h2("5.3. Kỹ năng Chuyên môn Áp dụng vào Sự nghiệp")
+    add_p("• AWS IAM Least Privilege: Thiết kế phân quyền an toàn cho mọi hệ thống đám mây doanh nghiệp.")
+    add_p("• Thư viện Python boto3 API: Tự động hóa hạ tầng đám mây và quy trình xử lý dữ liệu tự động.")
+    add_p("• XGBoost & Feature Engineering: Giải quyết các bài toán Machine Learning dạng bảng và chuỗi thời gian.")
+    add_p("• Deploy SageMaker Endpoints: Triển khai mô hình AI/ML phục vụ ứng dụng sản xuất (Production).")
+    add_p("• CloudWatch Monitoring & Drift: Xây dựng hệ thống giám sát sức khỏe mô hình và phát hiện trôi dữ liệu.")
 
     # -------------------------------------------------------------
     # PHẦN 6: CHỮ KÝ VÀ XÁC NHẬN

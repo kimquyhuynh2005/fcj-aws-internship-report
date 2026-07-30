@@ -1,14 +1,14 @@
 ---
-title: "Feedback & Recommendations"
+title: "Feedback & Reflection"
 date: 2026-06-06
 weight: 7
 chapter: false
 pre: "<b>7. </b>"
 ---
 
-# Feedback & Recommendations — AWS First Cloud AI Journey
+# Feedback — AWS First Cloud AI Journey
 
-Summary of reflections, program feedback, and professional recommendations based on **8 active working weeks** in the AWS First Cloud AI Journey program.
+Summary of reflections and professional feedback based on **8 active working weeks** in the AWS First Cloud AI Journey program.
 
 **Submitter:** Huynh Kim Quy  
 **Role:** Data & Machine Learning Engineer Intern  
@@ -45,34 +45,7 @@ Hands-on access to production AWS Cloud environments builds practical expertise 
 
 ---
 
-## 3. Recommendations for Future Program Iterations
-
-### 3.1. Early Service Quota Onboarding & Configuration
-Resolving default `SageMaker Training Jobs` quota limitations (set to zero on new accounts) required significant troubleshooting time. Key recommendations:
-- Include explicit quota verification and request instructions during Week 1 onboarding.
-- Pre-configure bootcamp accounts with default quotas for dedicated training instance types (`ml.m5.large`, `ml.t2.medium`).
-
-### 3.2. Standardized Dependency Version Pinning
-Due to architectural updates across SageMaker Python SDK versions (v2.x vs. v3.x), providing a tested `requirements.txt` environment configuration from Day 1 will prevent SDK version conflict overhead.
-
-### 3.3. Scheduled Technical Code Reviews
-Complementing self-directed research with scheduled code review sessions or Q&A meetings led by AWS Solutions Architects / ML Specialists will help interns refine code architecture.
-
----
-
-## 4. Key Takeaways & Advice for Future Interns
-
-Based on **8 weeks of practical experience**, here are 5 valuable recommendations for upcoming interns:
-
-1. **Verify Service Quotas on Day 1:** Run quota verification scripts prior to executing training pipelines.
-2. **Utilize `boto3` API Directly:** Direct API calls offer greater stability and flexibility for complex custom workflows compared to high-level SDK wrappers.
-3. **Maintain Continuous Documentation:** Document technical steps and troubleshooting notes weekly rather than deferring documentation to final weeks.
-4. **Embrace Pragmatic Problem Solving:** In production cloud engineering, developing creative workarounds under resource constraints is an essential skill.
-5. **Promptly Clean Up Compute Endpoints:** Delete SageMaker Endpoints immediately following testing to eliminate hourly compute charges.
-
----
-
-## 5. Career Competencies & Industry Applications
+## 3. Career Competencies & Industry Applications
 
 | Technical Skill | Direct Industry Application |
 |-----------------|-----------------------------|
@@ -85,7 +58,7 @@ Based on **8 weeks of practical experience**, here are 5 valuable recommendation
 
 ---
 
-## 6. Conclusion
+## 4. Conclusion
 
 The AWS First Cloud AI Journey program provided an invaluable professional growth experience across **8 active working weeks**. The single most important lesson learned: **An exceptional Cloud Engineer is not defined by never encountering errors—but by understanding their root cause and resolving them systematically.**
 
