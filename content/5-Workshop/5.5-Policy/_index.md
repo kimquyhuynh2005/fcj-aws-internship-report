@@ -36,16 +36,17 @@ Sai lệch:          4.58%
 
 ---
 
-### 4. Giao diện Dự báo Tương tác Live Dashboard (UI Demo)
+### 4. Giao diện Dự báo Tương tác Live Dashboard (Production Link)
 
-Nhóm đã hiện thực giao diện Web Dashboard tương tác thời gian thực (Dark Mode / Glassmorphism) giúp người dùng cuối trực quan hóa kết quả dự báo, mô phỏng kịch bản **What-If** và xem biểu đồ xu hướng doanh số 14 ngày.
+Nhóm đã triển khai thành công giao diện Web Dashboard tương tác thời gian thực (Dark Mode / Glassmorphism UI) giúp trực quan hóa kết quả dự báo, mô phỏng kịch bản **What-If** và theo dõi biểu đồ xu hướng doanh số 14 ngày.
+
+> 🌐 **Live Production Link:** [https://kimquyhuynh2005.github.io/fcj-aws-internship-report/demo-ui/](https://kimquyhuynh2005.github.io/fcj-aws-internship-report/demo-ui/)
 
 ![Retail Sales Forecasting Live Dashboard](/images/demo_dashboard.png)
 
-#### Hướng dẫn chạy Live Dashboard:
+#### Hướng dẫn chạy Live Dashboard nội bộ:
 ```powershell
 # Khởi chạy Server Backend & UI tại cổng 8000
 python demo_ui/server.py
 ```
-Sau đó truy cập trình duyệt tại địa chỉ: **http://localhost:8000**
-
+Hoặc truy cập trực tiếp đường link Production trực tuyến: **[https://kimquyhuynh2005.github.io/fcj-aws-internship-report/demo-ui/](https://kimquyhuynh2005.github.io/fcj-aws-internship-report/demo-ui/)**

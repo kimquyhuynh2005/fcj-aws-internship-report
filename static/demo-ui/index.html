@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Rossmann Sales Forecast Live Dashboard</title>
+    <!-- Google Fonts & Chart.js -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="brand">
+                <div class="aws-badge">
+                    <svg viewBox="0 0 60 30" width="36"><path fill="#FF9900" d="M14.09 10.85a4.7 4.7 0 00.19 1.48 7.73 7.73 0 00.54 1.19.77.77 0 01.12.38.64.64 0 01-.32.49l-1 .7a.83.83 0 01-.44.15.69.69 0 01-.49-.23 3.8 3.8 0 01-.6-.77q-.25-.42-.51-1a6.14 6.14 0 01-4.89 2.3 4.54 4.54 0 01-3.32-1.19 4.27 4.27 0 01-1.22-3.2 4.28 4.28 0 011.46-3.4A6.06 6.06 0 017.69 6.46a12.47 12.47 0 011.76.13q.92.13 1.91.36V5.73a3.65 3.65 0 00-.79-2.66A3.81 3.81 0 007.86 2.3a7.71 7.71 0 00-1.79.22 12.78 12.78 0 00-1.79.57 4.55 4.55 0 01-.58.22h-.26q-.35 0-.35-.52V2a1.09 1.09 0 01.12-.58 1.2 1.2 0 01.47-.35A10.88 10.88 0 015.77.32 10.19 10.19 0 018.36 0a6 6 0 014.35 1.35 5.49 5.49 0 011.38 4.09z"/></svg>
+                    <span>AWS ML INTERNSHIP</span>
+                </div>
+                <h1>Retail Sales Forecasting Live Dashboard</h1>
+            </div>
+            <div class="model-status">
+                <div class="pill winner">
+                    <span class="dot"></span> XGBoost Model (MAPE 9.92%)
+                </div>
+                <div class="pill cloud">
+                    <span>☁️ SageMaker Endpoint Active</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Layout -->
+        <main class="main-grid">
+            <!-- Sidebar Controls -->
+            <aside class="card controls-card">
+                <h2>⚡ Forecast Parameters</h2>
+                <form id="forecast-form">
+                    <div class="form-group">
+                        <label for="store_id">Store Selection</label>
+                        <select id="store_id" name="store_id" class="input-field">
+                            <option value="1">Store #1 (Classic Retailer)</option>
+                            <option value="2">Store #2 (City Center)</option>
+                            <option value="3">Store #3 (High Volume)</option>
+                            <option value="4">Store #4 (Suburban Outlet)</option>
+                            <option value="5">Store #5 (Standard Store)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="target_date">Target Date</label>
+                        <input type="date" id="target_date" name="target_date" value="2015-06-15" class="input-field" min="2015-06-01" max="2015-07-31">
+                    </div>
+
+                    <div class="form-group toggle-group">
+                        <label class="toggle-label">
+                            <span>Active Promotion (Promo)</span>
+                            <input type="checkbox" id="promo" name="promo" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="form-group toggle-group">
+                        <label class="toggle-label">
+                            <span>School Holiday</span>
+                            <input type="checkbox" id="school_holiday" name="school_holiday">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <button type="submit" id="btn-submit" class="btn-primary">
+                        <span>⚡ Run Prediction Engine</span>
+                    </button>
+                </form>
+
+                <!-- What-If Simulation Box -->
+                <div class="whatif-box" id="whatif-container">
+                    <h3>💡 What-If Simulation</h3>
+                    <p id="whatif-desc">Evaluating promotion impact...</p>
+                    <div class="whatif-metric" id="whatif-val">--</div>
+                </div>
+            </aside>
+
+            <!-- Results Section -->
+            <section class="results-section">
+                <!-- Metrics Summary Cards -->
+                <div class="metrics-row">
+                    <div class="metric-card glow-cyan">
+                        <small>PREDICTED SALES</small>
+                        <div class="metric-value" id="val-predicted">$0.00</div>
+                        <div class="metric-sub" id="val-range">RMSE Bounds: ±$925</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <small>ACTUAL SALES (TEST GROUND TRUTH)</small>
+                        <div class="metric-value" id="val-actual">$0.00</div>
+                        <div class="metric-sub" id="val-actual-date">June 15, 2015</div>
+                    </div>
+
+                    <div class="metric-card glow-green" id="error-card">
+                        <small>MODEL ERROR (MAPE)</small>
+                        <div class="metric-value" id="val-error">0.00%</div>
+                        <div class="metric-sub" id="val-status">PASS (< 15.0% threshold)</div>
+                    </div>
+                </div>
+
+                <!-- Trend Chart Card -->
+                <div class="card chart-card">
+                    <div class="chart-header">
+                        <h3>📈 14-Day Sales Trend & Real-time Prediction Forecast</h3>
+                        <div class="legend-pills">
+                            <span class="pill-legend historical">Historical Sales</span>
+                            <span class="pill-legend predicted">XGBoost Forecast</span>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Feature Engineer Table -->
+                <div class="card table-card">
+                    <h3>🔬 Real-time Engineered Features (23 Inputs)</h3>
+                    <div class="table-responsive">
+                        <table id="features-table">
+                            <thead>
+                                <tr>
+                                    <th>Feature Name</th>
+                                    <th>Value</th>
+                                    <th>Feature Category</th>
+                                    <th>Engineered Formula</th>
+                                </tr>
+                            </thead>
+                            <tbody id="features-body">
+                                <tr><td colspan="4" class="text-center">Loading feature vector...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
