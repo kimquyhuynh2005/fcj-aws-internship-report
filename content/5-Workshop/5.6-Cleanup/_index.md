@@ -22,3 +22,4 @@ python week6_deployment/cleanup.py
 1. SageMaker Endpoint (`rossmann-forecasting-endpoint`)
 2. Endpoint Config (`rossmann-config-*`)
 3. SageMaker Model (`rossmann-xgboost-*`)
+
