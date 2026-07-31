@@ -31,23 +31,27 @@ function initChart() {
                     label: "Historical Sales ($)",
                     data: [],
                     borderColor: "#64748B",
-                    backgroundColor: "rgba(100, 116, 139, 0.06)",
+                    backgroundColor: "rgba(100, 116, 139, 0.05)",
                     borderWidth: 2,
                     tension: 0.2,
-                    pointRadius: 3,
-                    pointBackgroundColor: "#64748B"
+                    pointRadius: 4,
+                    pointBackgroundColor: "#64748B",
+                    pointBorderColor: "#FFFFFF",
+                    pointBorderWidth: 1
                 },
                 {
                     label: "Predicted Sales ($)",
                     data: [],
                     borderColor: "#10B981",
-                    backgroundColor: "rgba(16, 185, 129, 0.12)",
-                    borderWidth: 2.5,
-                    pointRadius: 6,
+                    backgroundColor: "rgba(16, 185, 129, 0.15)",
+                    borderWidth: 3,
+                    borderDash: [6, 4], // Dashed line to highlight "Forecast Prediction"
+                    tension: 0.2,
+                    pointRadius: 8,
                     pointBackgroundColor: "#10B981",
                     pointBorderColor: "#FFFFFF",
                     pointBorderWidth: 2,
-                    pointHoverRadius: 8,
+                    pointHoverRadius: 10,
                     fill: true
                 }
             ]
@@ -117,6 +121,8 @@ async function fetchPrediction() {
             const data = await response.json();
             if (data.status === "success") {
                 updateUI(data, modelType);
+                btn.innerHTML = "<span>Run Prediction Engine</span>";
+                btn.disabled = false;
                 return;
             }
         }
@@ -308,21 +314,39 @@ function updateChart(data, modelType) {
     document.getElementById("legend-forecast-name").textContent = isXGB ? "XGBoost Forecast" : "PyTorch LSTM Forecast";
     document.getElementById("dot-forecast-color").style.backgroundColor = forecastColor;
 
-    const trendDates = [...data.history_trend.dates, data.target_date + " (Forecast)"];
-    const trendSales = [...data.history_trend.sales, null];
+    // 1. Labels: 14 historical dates + 1 forecast target date
+    const trendDates = [...data.history_trend.dates, `${data.target_date} (Forecast)`];
     
-    const predictedSales = new Array(data.history_trend.sales.length).fill(null);
+    // 2. Historical Sales Dataset: indices 0..13 have values, index 14 is null
+    const historicalSales = [...data.history_trend.sales, null];
+
+    // 3. Forecast Dataset: indices 0..12 are null, index 13 = last historical value, index 14 = predicted sales
+    const lastHistValue = data.history_trend.sales[data.history_trend.sales.length - 1];
+    const predictedSales = new Array(data.history_trend.sales.length - 1).fill(null);
+    predictedSales.push(lastHistValue);
     predictedSales.push(data.predicted_sales);
 
-    trendSales[trendSales.length - 2] = data.history_trend.sales[data.history_trend.sales.length - 1];
-
     salesChart.data.labels = trendDates;
-    salesChart.data.datasets[0].data = trendSales;
-    
+
+    // Historical dataset styling
+    salesChart.data.datasets[0].data = historicalSales;
+    salesChart.data.datasets[0].borderColor = "#64748B";
+    salesChart.data.datasets[0].backgroundColor = "rgba(100, 116, 139, 0.05)";
+
+    // Forecast dataset styling (connected line segment + prominent forecast target point)
     salesChart.data.datasets[1].label = isXGB ? "XGBoost Forecast ($)" : "LSTM Forecast ($)";
     salesChart.data.datasets[1].data = predictedSales;
     salesChart.data.datasets[1].borderColor = forecastColor;
+    salesChart.data.datasets[1].borderWidth = 3;
     salesChart.data.datasets[1].pointBackgroundColor = forecastColor;
+    salesChart.data.datasets[1].pointRadius = [
+        ...new Array(data.history_trend.sales.length - 1).fill(0),
+        4,
+        8 // Big prominent forecast target point!
+    ];
+    salesChart.data.datasets[1].pointHoverRadius = 10;
+    salesChart.data.datasets[1].pointBorderColor = "#FFFFFF";
+    salesChart.data.datasets[1].pointBorderWidth = 2;
     salesChart.data.datasets[1].backgroundColor = forecastBg;
 
     salesChart.update();
