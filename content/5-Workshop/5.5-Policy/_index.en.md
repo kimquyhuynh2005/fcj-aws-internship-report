@@ -57,7 +57,7 @@ def output_fn(prediction, accept):
 ```
 
 {{% notice warning %}}
-**Common Mistake:** Do NOT add `np.expm1()` in `predict_fn` unless you explicitly log-transformed the target during training. The actual inference error we encountered was caused by this exact mistake — producing Infinity values.
+**Technical Note:** Avoid adding `np.expm1()` in `predict_fn` unless target log-transformation was explicitly applied during training. The actual inference error our team encountered was caused by this exact issue — producing Infinity values.
 {{% /notice %}}
 
 ### Step 5.2: Deploy SageMaker Endpoint
@@ -216,5 +216,5 @@ The team developed a real-time Interactive Web Forecast Dashboard featuring a mo
 # Start the Python HTTP Server & UI on port 8000
 python demo_ui/server.py
 ```
-Open your browser and navigate to: **http://localhost:8000**
+Access the live interface via local web browser at: **http://localhost:8000**
 

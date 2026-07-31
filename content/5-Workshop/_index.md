@@ -10,13 +10,13 @@ pre: "<b>5. </b>"
 
 ## Tổng quan
 
-Trong workshop này, bạn sẽ xây dựng một **pipeline Machine Learning end-to-end hoàn chỉnh** trên AWS để dự báo doanh số bán hàng theo ngày cho chuỗi cửa hàng bán lẻ. Workshop này dựa trên dự án thực tế được thực hiện trong chương trình AWS First Cloud AI Journey.
+Trang hướng dẫn kỹ thuật này trình bày chi tiết **pipeline Machine Learning end-to-end hoàn chỉnh** được nhóm thực tập triển khai trên AWS để dự báo doanh số bán hàng theo ngày cho chuỗi cửa hàng bán lẻ. Toàn bộ giải pháp được tổng hợp dựa trên kết quả triển khai thực tế của nhóm trong chương trình AWS First Cloud AI Journey.
 
 {{% notice info %}}
-**Dự án thực tế:** Workshop này dựa trên công việc thực tế trong 8 tuần thực tập AWS. Tất cả code, kết quả và cấu hình đều từ implementation thực tế — không phải demo hướng dẫn.
+**Dự án thực tế:** Workshop này trình bày quy trình triển khai thực tế được nhóm thực hiện trong 8 tuần thực tập AWS. Tất cả mã nguồn, kết quả đánh giá và cấu hình đều từ hệ thống triển khai thực tế của nhóm — không phải ví dụ minh họa lý thuyết.
 {{% /notice %}}
 
-## Những gì bạn sẽ xây dựng
+## Cấu trúc Kiến trúc Hệ thống
 
 ```
 Dữ liệu thô (S3)
@@ -37,51 +37,51 @@ AWS Lambda + API Gateway (REST API công khai)
 CloudWatch Monitoring + Phát hiện Data Drift
 ```
 
-## AWS Services sử dụng
+## Các Dịch vụ AWS Được Sử Dụng
 
-| Service | Mục đích |
-|---------|---------|
-| Amazon S3 | Lưu trữ data, model artifacts |
-| AWS IAM | Role theo Least Privilege |
-| Amazon SageMaker | Deploy model endpoint |
-| AWS Lambda | Serverless inference wrapper |
-| Amazon API Gateway | REST API công khai |
-| Amazon CloudWatch | Dashboard giám sát |
+| Service | Mục đích Triển khai |
+|---------|---------------------|
+| Amazon S3 | Lưu trữ tập dữ liệu thô và Model Artifacts |
+| AWS IAM | Phân quyền bảo mật theo nguyên tắc Least Privilege |
+| Amazon SageMaker | Triển khai Real-time Inference Endpoint |
+| AWS Lambda | Xử lý logic trung gian Serverless Inference |
+| Amazon API Gateway | Cung cấp điểm cuối REST API công khai |
+| Amazon CloudWatch | Giám sát vận hành và cảnh báo Data Drift |
 
-## Mục tiêu học tập
+## Kết Quả Kỹ Thuật Đạt Được
 
-Sau khi hoàn thành workshop, bạn có thể:
-- Tiền xử lý và feature engineer dữ liệu time series cho ML
-- Train model XGBoost và đánh giá với RMSE/MAPE
-- Deploy model lên SageMaker Endpoint bằng boto3
-- Xây dựng serverless inference API với Lambda + API Gateway
-- Giám sát sức khỏe model và phát hiện data drift
+Hệ thống workshop trình bày chi tiết các bước nhóm đã thực hiện:
+- Tiền xử lý và tạo các đặc trưng temporal feature engineering cho dữ liệu chuỗi thời gian
+- Huấn luyện mô hình XGBoost và đánh giá định lượng bằng RMSE (`925.28`) và MAPE (`9.92%`)
+- Triển khai mô hình lên SageMaker Endpoint bằng SDK `boto3`
+- Xây dựng kiến trúc Serverless Inference API với AWS Lambda và API Gateway
+- Cấu hình hệ thống giám sát sức khỏe mô hình và phát hiện sai lệch dữ liệu (data drift) qua CloudWatch
 
-## Thời gian ước tính
+## Thời Gian Triển khai Mô Hình
 
-| Phần | Thời gian |
-|------|----------|
-| 1. Tổng quan | 10 phút |
-| 2. Chuẩn bị | 15 phút |
-| 3. Xử lý dữ liệu | 30 phút |
-| 4. Train Model | 30 phút |
-| 5. Triển khai & API | 45 phút |
-| 6. Dọn dẹp | 10 phút |
-| **Tổng** | **~2.5 giờ** |
+| Phần Kỹ Thuật | Thời Gian Thực Hiện |
+|---------------|---------------------|
+| 1. Tổng quan kiến trúc | 10 phút |
+| 2. Môi trường chuẩn bị | 15 phút |
+| 3. Xử lý & Tạo đặc trưng | 30 phút |
+| 4. Huấn luyện mô hình | 30 phút |
+| 5. Triển khai Endpoint & API | 45 phút |
+| 6. Xóa tài nguyên | 10 phút |
+| **Tổng cộng** | **~2.5 giờ** |
 
-## Chi phí ước tính
+## Chi Phí Triển Khai Thực Tế
 
-~$2–5 USD (SageMaker Endpoint trong ~1 giờ)
+~$2–5 USD (Duy trì SageMaker Endpoint trong ~1 giờ thử nghiệm)
 
 {{% notice warning %}}
-**Quan trọng:** Luôn chạy bước Cleanup để xóa SageMaker Endpoint sau khi hoàn thành workshop. Endpoint tính phí theo giờ kể cả khi không có request.
+**Lưu ý vận hành:** Nhóm luôn thực hiện quy trình Cleanup để dọn dẹp SageMaker Endpoint sau khi hoàn tất kiểm thử nhằm tối ưu hóa chi phí tài nguyên AWS.
 {{% /notice %}}
 
-## Các phần của Workshop
+## Các Nội Dung Chi Tiết Của Workshop
 
 1. [Tổng quan Workshop](5.1-Workshop-overview)
-2. [Chuẩn bị](5.2-Prerequiste)
+2. [Môi trường chuẩn bị](5.2-Prerequiste)
 3. [Xử lý dữ liệu](5.3-S3-vpc)
-4. [Train Model](5.4-S3-onprem)
-5. [Triển khai & API](5.5-Policy)
-6. [Dọn dẹp](5.6-Cleanup)
+4. [Huấn luyện Mô hình](5.4-S3-onprem)
+5. [Triển khai Endpoint & API](5.5-Policy)
+6. [Dọn dẹp tài nguyên](5.6-Cleanup)

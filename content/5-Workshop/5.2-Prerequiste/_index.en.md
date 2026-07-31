@@ -11,10 +11,10 @@ pre: "<b>5.2. </b>"
 ### AWS Account Requirements
 
 {{% notice warning %}}
-Check your SageMaker service quotas **before** starting. This workshop requires SageMaker Endpoint quota ≥ 1. If your quota is 0, see the workaround section below.
+SageMaker service quotas are verified before deployment. The workshop pipeline requires SageMaker Endpoint quota ≥ 1. If quota limits are encountered, see the workaround section below.
 {{% /notice %}}
 
-#### Check Your Quotas
+#### Quota Verification
 
 ```bash
 # Install quota checker
@@ -151,7 +151,7 @@ SAGEMAKER_ROLE_ARN = "arn:aws:iam::YOUR-ACCOUNT-ID:role/SageMaker-ExecutionRole"
 
 ### Workaround: If SageMaker Endpoint Quota = 0
 
-If you encounter quota issues (as the team did), you have two options:
+If quota limits are encountered (as the team experienced during Week 6), two resolution paths exist:
 1. **Request quota increase** via AWS Support (takes 1–3 business days)
 2. **Use a personal AWS account** with fresh quota (immediate)
 

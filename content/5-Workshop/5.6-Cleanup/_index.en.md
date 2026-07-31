@@ -82,7 +82,7 @@ print("✅ API Gateway deleted")
 ### Optional: Delete S3 Data
 
 ```bash
-# Only if you want to remove all data
+# Option to remove all stored data artifacts
 aws s3 rm s3://your-ml-forecasting-bucket/ml-forecasting/ --recursive
 ```
 
@@ -98,7 +98,7 @@ aws s3 rm s3://your-ml-forecasting-bucket/ml-forecasting/ --recursive
 
 ### Workshop Complete! 🎉
 
-You have successfully:
+The engineering pipeline successfully accomplished:
 - ✅ Preprocessed 1M+ rows of retail sales data
 - ✅ Trained XGBoost model achieving **RMSE 925.28, MAPE 9.92%**
 - ✅ Deployed model to SageMaker Endpoint
