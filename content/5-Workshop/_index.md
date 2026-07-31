@@ -13,7 +13,7 @@ pre: "<b>5. </b>"
 Trong workshop này, bạn sẽ xây dựng một **pipeline Machine Learning end-to-end hoàn chỉnh** trên AWS để dự báo doanh số bán hàng theo ngày cho chuỗi cửa hàng bán lẻ. Workshop này dựa trên dự án thực tế được thực hiện trong chương trình AWS First Cloud AI Journey.
 
 {{% notice info %}}
-**Dự án thực tế:** Workshop này dựa trên công việc thực tế trong 12 tuần thực tập AWS. Tất cả code, kết quả và cấu hình đều từ implementation thực tế — không phải demo hướng dẫn.
+**Dự án thực tế:** Workshop này dựa trên công việc thực tế trong 8 tuần thực tập AWS. Tất cả code, kết quả và cấu hình đều từ implementation thực tế — không phải demo hướng dẫn.
 {{% /notice %}}
 
 ## Những gì bạn sẽ xây dựng

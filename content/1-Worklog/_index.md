@@ -9,7 +9,7 @@ pre: "<b>1. </b>"
 # Nhật ký công việc — Dự án AWS ML Internship
 
 > **Nhóm thực hiện:** Huỳnh Kim Quý (Data/ML) · Văn Thái Quân (Infra/AWS) · Nguyễn Ngọc Sáng (Backend/API)  
-> **Thời gian:** 12 tuần  
+> **Thời gian:** 8 tuần (06/06/2026 – 15/08/2026)  
 > **Trạng thái:** Hoàn thành ✅
 
 ---

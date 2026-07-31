@@ -13,7 +13,7 @@ pre: "<b>5. </b>"
 In this workshop, you will build a complete **end-to-end Machine Learning pipeline** on AWS to forecast daily sales for a retail chain. This is based on the actual project completed during the AWS First Cloud AI Journey internship.
 
 {{% notice info %}}
-**Real Project:** This workshop is based on actual work performed during a 12-week AWS internship. All code, results, and configurations are from a real implementation — not a tutorial demo.
+**Real Project:** This workshop is based on actual work performed during an 8-week AWS internship. All code, results, and configurations are from a real implementation — not a tutorial demo.
 {{% /notice %}}
 
 ## What You Will Build
