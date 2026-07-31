@@ -28,24 +28,24 @@ function initChart() {
                 {
                     label: "Historical Sales ($)",
                     data: [],
-                    borderColor: "#94a3b8",
-                    backgroundColor: "rgba(148, 163, 184, 0.05)",
+                    borderColor: "#848E9C",
+                    backgroundColor: "rgba(132, 142, 156, 0.05)",
                     borderWidth: 2,
-                    tension: 0.3,
-                    pointRadius: 4,
-                    pointBackgroundColor: "#94a3b8"
+                    tension: 0.2,
+                    pointRadius: 3,
+                    pointBackgroundColor: "#848E9C"
                 },
                 {
                     label: "Predicted Sales ($)",
                     data: [],
-                    borderColor: "#0284c7",
-                    backgroundColor: "rgba(2, 132, 199, 0.2)",
-                    borderWidth: 3,
-                    pointRadius: 7,
-                    pointBackgroundColor: "#38bdf8",
-                    pointBorderColor: "#ffffff",
+                    borderColor: "#0ECB81",
+                    backgroundColor: "rgba(14, 203, 129, 0.12)",
+                    borderWidth: 2.5,
+                    pointRadius: 6,
+                    pointBackgroundColor: "#0ECB81",
+                    pointBorderColor: "#0E1117",
                     pointBorderWidth: 2,
-                    pointHoverRadius: 9,
+                    pointHoverRadius: 8,
                     fill: true
                 }
             ]
@@ -56,12 +56,12 @@ function initChart() {
             plugins: {
                 legend: { display: false },
                 tooltip: {
-                    backgroundColor: "#0f172a",
-                    titleFont: { family: "Outfit", size: 14, weight: "bold" },
-                    bodyFont: { family: "Inter", size: 13 },
-                    borderColor: "rgba(255,255,255,0.1)",
+                    backgroundColor: "#181E29",
+                    titleFont: { family: "Inter", size: 13, weight: "600" },
+                    bodyFont: { family: "JetBrains Mono", size: 12 },
+                    borderColor: "#242D3C",
                     borderWidth: 1,
-                    padding: 12,
+                    padding: 10,
                     callbacks: {
                         label: function(context) {
                             return `${context.dataset.label}: $${context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
@@ -71,14 +71,14 @@ function initChart() {
             },
             scales: {
                 x: {
-                    grid: { color: "rgba(255, 255, 255, 0.05)" },
-                    ticks: { color: "#94a3b8", font: { family: "Inter", size: 11 } }
+                    grid: { color: "rgba(255, 255, 255, 0.04)", drawBorder: false },
+                    ticks: { color: "#848E9C", font: { family: "Inter", size: 11 } }
                 },
                 y: {
-                    grid: { color: "rgba(255, 255, 255, 0.05)" },
+                    grid: { color: "rgba(255, 255, 255, 0.04)", drawBorder: false },
                     ticks: {
-                        color: "#94a3b8",
-                        font: { family: "Inter", size: 11 },
+                        color: "#848E9C",
+                        font: { family: "JetBrains Mono", size: 11 },
                         callback: (value) => "$" + value.toLocaleString()
                     }
                 }
@@ -94,7 +94,7 @@ async function fetchPrediction() {
     const schoolHoliday = document.getElementById("school_holiday").checked ? 1 : 0;
 
     const btn = document.getElementById("btn-submit");
-    btn.innerHTML = "<span>⌛ Calculating Prediction...</span>";
+    btn.innerHTML = "<span>Calculations in Progress...</span>";
     btn.disabled = true;
 
     try {
@@ -119,16 +119,16 @@ async function fetchPrediction() {
             }
         }
     } catch (err) {
-        console.log("Running standalone Web UI client-side forecast engine...");
+        console.log("Running standalone Web UI forecast engine...");
     }
 
-    // Client-side execution for live web deployment
+    // Client-side fallback calculation for GitHub Pages Production Link
     const data = getSimulatedForecast(parseInt(storeId), targetDate, promo, schoolHoliday);
     updateMetrics(data);
     updateChart(data);
     updateFeaturesTable(data.features);
 
-    btn.innerHTML = "<span>⚡ Run Prediction Engine</span>";
+    btn.innerHTML = "<span>Run Prediction Engine</span>";
     btn.disabled = false;
 }
 
@@ -238,11 +238,11 @@ function updateMetrics(data) {
         if (data.error_pct <= 15.0) {
             errorCard.className = "metric-card glow-green";
             document.getElementById("val-status").textContent = "PASS (< 15.0% target)";
-            document.getElementById("val-status").style.color = "#34d399";
+            document.getElementById("val-status").style.color = "#0ECB81";
         } else {
             errorCard.className = "metric-card";
             document.getElementById("val-status").textContent = "EXCEEDS THRESHOLD";
-            document.getElementById("val-status").style.color = "#f87171";
+            document.getElementById("val-status").style.color = "#F6465D";
         }
     } else {
         document.getElementById("val-actual").textContent = "N/A";
@@ -260,9 +260,9 @@ function updateMetrics(data) {
     document.getElementById("whatif-val").textContent = `$${data.whatif.predicted_sales.toLocaleString()} (${diffSign}${diffPct}%)`;
     
     if (diffPct > 0) {
-        document.getElementById("whatif-val").style.color = "#34d399";
+        document.getElementById("whatif-val").style.color = "#0ECB81";
     } else {
-        document.getElementById("whatif-val").style.color = "#f87171";
+        document.getElementById("whatif-val").style.color = "#F6465D";
     }
 }
 
@@ -315,8 +315,8 @@ function updateFeaturesTable(features) {
         tr.innerHTML = `
             <td><strong>${key}</strong></td>
             <td><code>${formattedVal}</code></td>
-            <td><span class="pill-legend historical">${category}</span></td>
-            <td><small style="color:#94a3b8">${formula}</small></td>
+            <td><span class="pill-legend">${category}</span></td>
+            <td><small style="color:var(--text-muted)">${formula}</small></td>
         `;
         tbody.appendChild(tr);
     }
