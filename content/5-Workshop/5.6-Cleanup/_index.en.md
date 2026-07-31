@@ -107,4 +107,4 @@ The engineering pipeline successfully accomplished:
 - ✅ Set up CloudWatch monitoring and drift detection
 - ✅ Cleaned up all resources
 
-**Repository:** [github.com/kimquyhuynh/aws-internship-ML-forecasting](https://github.com)
+**Repository:** [github.com/kimquyhuynh2005/aws-internship-ML-forecasting](https://github.com/kimquyhuynh2005/aws-internship-ML-forecasting/)

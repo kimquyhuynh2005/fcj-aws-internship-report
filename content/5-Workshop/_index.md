@@ -16,6 +16,8 @@ Trang hướng dẫn kỹ thuật này trình bày chi tiết **pipeline Machine
 **Dự án thực tế:** Workshop này trình bày quy trình triển khai thực tế được nhóm thực hiện trong 8 tuần thực tập AWS. Tất cả mã nguồn, kết quả đánh giá và cấu hình đều từ hệ thống triển khai thực tế của nhóm — không phải ví dụ minh họa lý thuyết.
 {{% /notice %}}
 
+> 🔗 **Kho mã nguồn GitHub Dự án:** [github.com/kimquyhuynh2005/aws-internship-ML-forecasting](https://github.com/kimquyhuynh2005/aws-internship-ML-forecasting/)
+
 ## Cấu trúc Kiến trúc Hệ thống
 
 ```

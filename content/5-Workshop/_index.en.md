@@ -16,6 +16,8 @@ This technical documentation section presents the **complete end-to-end Machine 
 **Real Project:** This workshop details the actual engineering work performed by our team during the 8-week AWS internship. All code, evaluation metrics, and configurations are from our team's live deployment—not a theoretical tutorial demo.
 {{% /notice %}}
 
+> 🔗 **GitHub Source Repository:** [github.com/kimquyhuynh2005/aws-internship-ML-forecasting](https://github.com/kimquyhuynh2005/aws-internship-ML-forecasting/)
+
 ## Implemented System Architecture
 
 ```
