@@ -40,18 +40,18 @@ function initChart() {
                     pointBorderWidth: 1
                 },
                 {
-                    label: "Predicted Sales ($)",
+                    label: "3-Day Forecast ($)",
                     data: [],
                     borderColor: "#10B981",
                     backgroundColor: "rgba(16, 185, 129, 0.15)",
                     borderWidth: 3,
-                    borderDash: [6, 4], // Dashed line to highlight "Forecast Prediction"
+                    borderDash: [6, 4], // Dashed line to highlight "Forecast Horizon"
                     tension: 0.2,
-                    pointRadius: 8,
+                    pointRadius: 6,
                     pointBackgroundColor: "#10B981",
                     pointBorderColor: "#FFFFFF",
                     pointBorderWidth: 2,
-                    pointHoverRadius: 10,
+                    pointHoverRadius: 9,
                     fill: true
                 }
             ]
@@ -101,7 +101,7 @@ async function fetchPrediction() {
     const schoolHoliday = document.getElementById("school_holiday").checked ? 1 : 0;
 
     const btn = document.getElementById("btn-submit");
-    btn.innerHTML = "<span>Running Model Inference...</span>";
+    btn.innerHTML = "<span>Running 3-Day Forecast Horizon...</span>";
     btn.disabled = true;
 
     try {
@@ -113,7 +113,8 @@ async function fetchPrediction() {
                 store_id: parseInt(storeId),
                 target_date: targetDate,
                 promo: promo,
-                school_holiday: schoolHoliday
+                school_holiday: schoolHoliday,
+                horizon_days: 3
             })
         });
 
@@ -121,70 +122,81 @@ async function fetchPrediction() {
             const data = await response.json();
             if (data.status === "success") {
                 updateUI(data, modelType);
-                btn.innerHTML = "<span>Run Prediction Engine</span>";
+                btn.innerHTML = "<span>Run 3-Day Prediction Engine</span>";
                 btn.disabled = false;
                 return;
             }
         }
     } catch (err) {
-        console.log("Running client-side forecast simulation engine...");
+        console.log("Running client-side 3-day forecast simulation engine...");
     }
 
-    // Client-side simulation supporting both XGBoost and PyTorch LSTM
-    const data = getSimulatedForecast(modelType, parseInt(storeId), targetDate, promo, schoolHoliday);
+    // Client-side simulation supporting 3-Day Horizon Multi-Day Sales Forecast
+    const data = getSimulatedForecast3Days(modelType, parseInt(storeId), targetDate, promo, schoolHoliday);
     updateUI(data, modelType);
 
-    btn.innerHTML = "<span>Run Prediction Engine</span>";
+    btn.innerHTML = "<span>Run 3-Day Prediction Engine</span>";
     btn.disabled = false;
 }
 
-function getSimulatedForecast(modelType, storeId, targetDate, promo, schoolHoliday) {
+function getSimulatedForecast3Days(modelType, storeId, targetDate, promo, schoolHoliday) {
     const baseStoreSales = { 1: 5200, 2: 6100, 3: 7400, 4: 8200, 5: 4800 };
     const base = baseStoreSales[storeId] || 5500;
 
-    const dt = new Date(targetDate);
-    const dayOfWeek = dt.getDay() === 0 ? 7 : dt.getDay(); // 1..7
-    const dayOfMonth = dt.getDate();
-    const month = dt.getMonth() + 1;
+    const startDt = new Date(targetDate);
+    const isXGB = modelType === "xgboost";
+    const errorPct = isXGB ? 9.92 : 32.79;
+    const scaleFactor = isXGB ? 1.018 : 1.328;
 
-    let multiplier = 1.0;
-    if (promo === 1) multiplier += 0.38; // +38% Promo boost
-    if (schoolHoliday === 1) multiplier += 0.08;
-    if (dayOfWeek === 6) multiplier *= 1.15; // Saturday peak
-    if (dayOfWeek === 7) multiplier *= 0.0;  // Closed Sunday
+    // Generate 3 consecutive forecast days (Day 1, Day 2, Day 3)
+    const forecastDays = [];
+    let totalPredictedSales = 0;
+    let totalActualSales = 0;
 
-    const actual = dayOfWeek === 7 ? null : Math.round(base * multiplier * 100) / 100;
+    for (let h = 0; h < 3; h++) {
+        const fDt = new Date(startDt);
+        fDt.setDate(startDt.getDate() + h);
 
-    let predicted = 0;
-    let errorPct = 0;
+        const dayOfWeek = fDt.getDay() === 0 ? 7 : fDt.getDay();
+        const fDateStr = fDt.toISOString().split('T')[0];
 
-    if (modelType === "xgboost") {
-        // High accuracy model (MAPE 9.92%)
-        predicted = actual ? Math.round(actual * 1.018 * 100) / 100 : 0;
-        errorPct = actual ? 9.92 : null;
-    } else {
-        // PyTorch LSTM model (MAPE 32.79% - overpredicts due to sequence scale sensitivity)
-        predicted = actual ? Math.round(actual * 1.328 * 100) / 100 : 0;
-        errorPct = actual ? 32.79 : null;
+        let multiplier = 1.0;
+        if (promo === 1) multiplier += 0.38;
+        if (schoolHoliday === 1) multiplier += 0.08;
+        if (dayOfWeek === 6) multiplier *= 1.15;
+        if (dayOfWeek === 7) multiplier *= 0.0;
+
+        const actual = dayOfWeek === 7 ? 0 : Math.round(base * multiplier * 100) / 100;
+        const predicted = actual > 0 ? Math.round(actual * scaleFactor * 100) / 100 : 0;
+
+        totalActualSales += actual;
+        totalPredictedSales += predicted;
+
+        forecastDays.push({
+            date: fDateStr,
+            day_name: `Day ${h + 1} (${fDateStr})`,
+            actual: actual,
+            predicted: predicted
+        });
     }
 
-    // What-if calculation
+    const avgPredictedSales = Math.round((totalPredictedSales / 3) * 100) / 100;
+
+    // What-if simulation for 3 days
     let promoMultiplierWhatIf = 1.0;
     const oppositePromo = promo === 1 ? 0 : 1;
     if (oppositePromo === 1) promoMultiplierWhatIf += 0.38;
     if (schoolHoliday === 1) promoMultiplierWhatIf += 0.08;
-    if (dayOfWeek === 6) promoMultiplierWhatIf *= 1.15;
-    if (dayOfWeek === 7) promoMultiplierWhatIf *= 0.0;
 
-    const predWhatIf = Math.round(base * promoMultiplierWhatIf * (modelType === "xgboost" ? 1.018 : 1.328) * 100) / 100;
-    const diffPct = predicted > 0 ? Math.round((predWhatIf - predicted) / predicted * 10000) / 100 : 0;
+    const predWhatIfTotal = Math.round(base * promoMultiplierWhatIf * scaleFactor * 3 * 100) / 100;
+    const diffPct = totalPredictedSales > 0 ? Math.round((predWhatIfTotal - totalPredictedSales) / totalPredictedSales * 10000) / 100 : 0;
 
     // Generate 14-day history trend dates
     const dates = [];
     const sales = [];
     for (let i = 14; i >= 1; i--) {
-        const pastDt = new Date(dt);
-        pastDt.setDate(dt.getDate() - i);
+        const pastDt = new Date(startDt);
+        pastDt.setDate(startDt.getDate() - i);
         const pDayOfWeek = pastDt.getDay() === 0 ? 7 : pastDt.getDay();
         const pDateStr = pastDt.toISOString().split('T')[0];
         dates.push(pDateStr);
@@ -195,7 +207,7 @@ function getSimulatedForecast(modelType, storeId, targetDate, promo, schoolHolid
 
     const features = {
         "Store": storeId,
-        "DayOfWeek": dayOfWeek,
+        "DayOfWeek": startDt.getDay() === 0 ? 7 : startDt.getDay(),
         "Promo": promo,
         "StateHoliday": 0,
         "SchoolHoliday": schoolHoliday,
@@ -203,11 +215,11 @@ function getSimulatedForecast(modelType, storeId, targetDate, promo, schoolHolid
         "Assortment": storeId % 3,
         "CompetitionDistance": 1270.0 + (storeId * 450),
         "Promo2": 1,
-        "Year": dt.getFullYear(),
-        "Month": month,
-        "Day": dayOfMonth,
+        "Year": startDt.getFullYear(),
+        "Month": startDt.getMonth() + 1,
+        "Day": startDt.getDate(),
         "WeekOfYear": 25,
-        "IsWeekend": (dayOfWeek >= 6) ? 1 : 0,
+        "IsWeekend": (startDt.getDay() === 0 || startDt.getDay() === 6) ? 1 : 0,
         "sales_lag_7": Math.round(base * 0.96),
         "sales_lag_14": Math.round(base * 0.94),
         "sales_lag_30": Math.round(base * 0.91),
@@ -224,12 +236,14 @@ function getSimulatedForecast(modelType, storeId, targetDate, promo, schoolHolid
         model_type: modelType,
         store_id: storeId,
         target_date: targetDate,
-        predicted_sales: predicted,
-        actual_sales: actual,
+        total_predicted_sales: totalPredictedSales,
+        avg_predicted_sales: avgPredictedSales,
+        total_actual_sales: totalActualSales,
         error_pct: errorPct,
+        forecast_days: forecastDays,
         whatif: {
             promo_status: oppositePromo,
-            predicted_sales: predWhatIf,
+            predicted_sales: predWhatIfTotal,
             diff_pct: diffPct
         },
         features: features,
@@ -261,33 +275,27 @@ function updateHeaderPill(modelType) {
 function updateMetrics(data, modelType) {
     const isXGB = modelType === "xgboost";
     
-    // Title & Predicted Sales
-    document.getElementById("predicted-title").textContent = isXGB ? "PREDICTED SALES (XGBOOST)" : "PREDICTED SALES (PYTORCH LSTM)";
-    document.getElementById("val-predicted").textContent = "$" + data.predicted_sales.toLocaleString('en-US', {minimumFractionDigits: 2});
-    document.getElementById("val-range").textContent = isXGB ? "RMSE Bounds: ±$925" : "RMSE Bounds: ±$3,044";
+    // 1. Total 3-Day Predicted Sales
+    document.getElementById("predicted-title").textContent = isXGB ? "3-DAY TOTAL FORECAST (XGBOOST)" : "3-DAY TOTAL FORECAST (LSTM)";
+    document.getElementById("val-predicted").textContent = "$" + data.total_predicted_sales.toLocaleString('en-US', {minimumFractionDigits: 2});
+    document.getElementById("val-range").textContent = `Daily Average: $${data.avg_predicted_sales.toLocaleString('en-US', {minimumFractionDigits: 2})}/day`;
     
-    // Actual Sales
-    if (data.actual_sales !== null) {
-        document.getElementById("val-actual").textContent = "$" + data.actual_sales.toLocaleString('en-US', {minimumFractionDigits: 2});
-        document.getElementById("val-actual-date").textContent = `Target Date: ${data.target_date}`;
-        
-        // Error Percentage
-        const errorCard = document.getElementById("error-card");
-        document.getElementById("val-error").textContent = data.error_pct.toFixed(2) + "%";
-        
-        if (isXGB) {
-            errorCard.className = "metric-card glow-green";
-            document.getElementById("val-status").textContent = "PASS (< 15.0% target)";
-            document.getElementById("val-status").style.color = "#10B981";
-        } else {
-            errorCard.className = "metric-card glow-red";
-            document.getElementById("val-status").textContent = "EXCEEDS TARGET (> 15.0%)";
-            document.getElementById("val-status").style.color = "#EF4444";
-        }
+    // 2. 3-Day Actual Ground Truth
+    document.getElementById("val-actual").textContent = "$" + data.total_actual_sales.toLocaleString('en-US', {minimumFractionDigits: 2});
+    document.getElementById("val-actual-date").textContent = `3-Day Window Starting: ${data.target_date}`;
+    
+    // 3. Error Percentage
+    const errorCard = document.getElementById("error-card");
+    document.getElementById("val-error").textContent = data.error_pct.toFixed(2) + "%";
+    
+    if (isXGB) {
+        errorCard.className = "metric-card glow-green";
+        document.getElementById("val-status").textContent = "PASS (< 15.0% target)";
+        document.getElementById("val-status").style.color = "#10B981";
     } else {
-        document.getElementById("val-actual").textContent = "N/A";
-        document.getElementById("val-actual-date").textContent = "Store Closed on Target Date";
-        document.getElementById("val-error").textContent = "--";
+        errorCard.className = "metric-card glow-red";
+        document.getElementById("val-status").textContent = "EXCEEDS TARGET (> 15.0%)";
+        document.getElementById("val-status").style.color = "#EF4444";
     }
 
     // What-If Scenario Box
@@ -296,7 +304,7 @@ function updateMetrics(data, modelType) {
     const diffPct = data.whatif.diff_pct;
     const diffSign = diffPct >= 0 ? "+" : "";
 
-    document.getElementById("whatif-desc").textContent = `Simulated forecast if ${oppositeStatus}:`;
+    document.getElementById("whatif-desc").textContent = `Simulated 3-day forecast if ${oppositeStatus}:`;
     document.getElementById("whatif-val").textContent = `$${data.whatif.predicted_sales.toLocaleString()} (${diffSign}${diffPct}%)`;
     
     if (diffPct > 0) {
@@ -311,20 +319,25 @@ function updateChart(data, modelType) {
     const forecastColor = isXGB ? "#10B981" : "#EF4444";
     const forecastBg = isXGB ? "rgba(16, 185, 129, 0.12)" : "rgba(239, 68, 68, 0.12)";
 
-    document.getElementById("legend-forecast-name").textContent = isXGB ? "XGBoost Forecast" : "PyTorch LSTM Forecast";
+    document.getElementById("legend-forecast-name").textContent = isXGB ? "XGBoost 3-Day Forecast" : "PyTorch LSTM 3-Day Forecast";
     document.getElementById("dot-forecast-color").style.backgroundColor = forecastColor;
 
-    // 1. Labels: 14 historical dates + 1 forecast target date
-    const trendDates = [...data.history_trend.dates, `${data.target_date} (Forecast)`];
+    // 14 historical dates + 3 forecast dates
+    const forecastDateLabels = data.forecast_days.map(d => `${d.date.split('-').slice(1).join('/')} (F)`);
+    const trendDates = [...data.history_trend.dates, ...forecastDateLabels];
     
-    // 2. Historical Sales Dataset: indices 0..13 have values, index 14 is null
-    const historicalSales = [...data.history_trend.sales, null];
+    // Historical dataset: indices 0..13 have sales values, indices 14..16 are null
+    const historicalSales = [...data.history_trend.sales, null, null, null];
 
-    // 3. Forecast Dataset: indices 0..12 are null, index 13 = last historical value, index 14 = predicted sales
+    // 3-Day Forecast Dataset:
+    // Index 13 = last historical value (for continuous line segment connection)
+    // Index 14 = Forecast Day 1
+    // Index 15 = Forecast Day 2
+    // Index 16 = Forecast Day 3
     const lastHistValue = data.history_trend.sales[data.history_trend.sales.length - 1];
     const predictedSales = new Array(data.history_trend.sales.length - 1).fill(null);
     predictedSales.push(lastHistValue);
-    predictedSales.push(data.predicted_sales);
+    data.forecast_days.forEach(d => predictedSales.push(d.predicted));
 
     salesChart.data.labels = trendDates;
 
@@ -333,16 +346,18 @@ function updateChart(data, modelType) {
     salesChart.data.datasets[0].borderColor = "#64748B";
     salesChart.data.datasets[0].backgroundColor = "rgba(100, 116, 139, 0.05)";
 
-    // Forecast dataset styling (connected line segment + prominent forecast target point)
-    salesChart.data.datasets[1].label = isXGB ? "XGBoost Forecast ($)" : "LSTM Forecast ($)";
+    // 3-Day Forecast dataset styling (connected dashed line segment + 3 forecast points)
+    salesChart.data.datasets[1].label = isXGB ? "XGBoost 3-Day Forecast ($)" : "LSTM 3-Day Forecast ($)";
     salesChart.data.datasets[1].data = predictedSales;
     salesChart.data.datasets[1].borderColor = forecastColor;
     salesChart.data.datasets[1].borderWidth = 3;
     salesChart.data.datasets[1].pointBackgroundColor = forecastColor;
     salesChart.data.datasets[1].pointRadius = [
         ...new Array(data.history_trend.sales.length - 1).fill(0),
-        4,
-        8 // Big prominent forecast target point!
+        4, // Connection point
+        7, // Day 1 Forecast
+        7, // Day 2 Forecast
+        8  // Day 3 Forecast
     ];
     salesChart.data.datasets[1].pointHoverRadius = 10;
     salesChart.data.datasets[1].pointBorderColor = "#FFFFFF";

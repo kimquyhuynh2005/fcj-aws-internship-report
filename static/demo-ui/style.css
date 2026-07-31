@@ -164,7 +164,7 @@ body {
 }
 
 .form-group {
-    margin-bottom: 18px;
+    margin-bottom: 16px;
 }
 
 .form-group label {
@@ -177,11 +177,12 @@ body {
 
 .input-field {
     width: 100%;
+    height: 44px;
     background-color: var(--bg-surface-elevated);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-sm);
     color: var(--text-primary);
-    padding: 10px 14px;
+    padding: 0 14px;
     font-size: 0.88rem;
     font-family: var(--font-sans);
     outline: none;
@@ -200,13 +201,17 @@ body {
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-/* Perfect Right-Aligned Custom Toggle Switches */
+/* Perfectly Balanced Toggle Boxes matching Input Field Height & Alignment */
 .toggle-group {
+    width: 100%;
+    height: 44px;
     background-color: var(--bg-surface-elevated);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-sm);
-    padding: 12px 16px;
-    margin-bottom: 14px;
+    padding: 0 14px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
 }
 
 .toggle-label {
@@ -214,6 +219,8 @@ body {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    height: 100%;
+    margin: 0;
     cursor: pointer;
     user-select: none;
     font-size: 0.85rem;
@@ -238,7 +245,7 @@ body {
     border-radius: 12px;
     transition: background-color 0.2s ease, border 0.2s ease;
     flex-shrink: 0;
-    margin-left: auto; /* Forces toggle to the far right end */
+    margin-left: auto; /* Pushes toggle cleanly to far right side of box */
 }
 
 .switch-slider::before {
@@ -265,17 +272,21 @@ input[type="checkbox"]:checked + .switch-slider::before {
 /* Primary Action Button */
 .btn-primary {
     width: 100%;
+    height: 44px;
     background-color: var(--color-accent);
     color: #FFFFFF;
     border: none;
     border-radius: var(--radius-sm);
-    padding: 12px;
+    padding: 0 16px;
     font-size: 0.9rem;
     font-weight: 700;
     cursor: pointer;
     transition: var(--transition);
-    margin-top: 8px;
+    margin-top: 4px;
     box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-primary:hover {
@@ -381,7 +392,7 @@ input[type="checkbox"]:checked + .switch-slider::before {
 
 .metric-value {
     font-family: var(--font-mono);
-    font-size: 1.7rem;
+    font-size: 1.6rem;
     font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 4px;
@@ -456,7 +467,7 @@ input[type="checkbox"]:checked + .switch-slider::before {
 }
 
 .chart-wrapper {
-    height: 280px;
+    height: 290px;
     position: relative;
 }
 
