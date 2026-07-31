@@ -68,7 +68,7 @@ function initChart() {
                     backgroundColor: "#0F172A",
                     titleFont: { family: "Inter", size: 13, weight: "600" },
                     bodyFont: { family: "JetBrains Mono", size: 12 },
-                    borderColor: "#E2E8F0",
+                    borderColor: "#CBD5E1",
                     borderWidth: 1,
                     padding: 12,
                     callbacks: {
@@ -85,7 +85,7 @@ function initChart() {
                 },
                 y: {
                     min: 0,
-                    max: 20000, // FIXED Y-AXIS BENCHMARK SCALE from $0 to $20,000
+                    max: 20000, // FIXED Y-AXIS BENCHMARK SCALE ($0 to $20,000)
                     grid: { color: "rgba(0, 0, 0, 0.06)", drawBorder: false },
                     ticks: {
                         color: "#475569",
@@ -110,24 +110,91 @@ function fetchPrediction() {
 }
 
 function getSimulatedForecast3Days(modelType, storeId, targetDate, promo, schoolHoliday) {
-    // Distinct store profiles designed to fit cleanly on the fixed $0 - $20,000 scale
+    // Unique store profiles with DISTINCT, NON-HOMOGENEOUS historical sales curves & seasonal behaviors
     const storeProfiles = {
-        1: { name: "Standard Retailer", base: 5200, type: "A (Standard)", dist: 1270 },
-        2: { name: "City Center Mall", base: 8900, type: "B (High Density)", dist: 570 },
-        3: { name: "High Volume Superstore", base: 12500, type: "C (Hypermarket)", dist: 3130 },
-        4: { name: "Suburban Outlet", base: 3800, type: "D (Out-of-Town)", dist: 8500 },
-        5: { name: "Metropolitan Store", base: 6400, type: "A (Standard)", dist: 2100 }
+        1: {
+            name: "Standard Retailer",
+            type: "A (Standard)",
+            dist: 1270,
+            base: 5200,
+            histPattern: [4800, 5100, 4950, 5300, 5600, 6100, 0, 5000, 5200, 5150, 5400, 5800, 6400, 0],
+            baseForecast: [5350, 5600, 5850],
+            promoSensitivity: 0.28,
+            holidaySensitivity: 0.05
+        },
+        2: {
+            name: "City Center Mall",
+            type: "B (High Density)",
+            dist: 570,
+            base: 8900,
+            histPattern: [7200, 8100, 9400, 7800, 8900, 11500, 0, 7500, 8300, 9600, 8100, 9200, 12100, 0],
+            baseForecast: [9800, 10200, 9100],
+            promoSensitivity: 0.45,
+            holidaySensitivity: 0.12
+        },
+        3: {
+            name: "High Volume Superstore",
+            type: "C (Hypermarket)",
+            dist: 3130,
+            base: 13500,
+            histPattern: [13200, 12800, 13500, 13100, 14200, 15100, 8500, 13000, 12900, 13800, 13400, 14500, 15800, 8800],
+            baseForecast: [14100, 14600, 13900],
+            promoSensitivity: 0.18,
+            holidaySensitivity: 0.04
+        },
+        4: {
+            name: "Suburban Outlet",
+            type: "D (Out-of-Town)",
+            dist: 8500,
+            base: 3800,
+            histPattern: [3100, 3300, 3500, 4100, 4800, 2900, 0, 3200, 3400, 3600, 4300, 5100, 3100, 0],
+            baseForecast: [3650, 3800, 4200],
+            promoSensitivity: 0.35,
+            holidaySensitivity: 0.22
+        },
+        5: {
+            name: "Metropolitan Store",
+            type: "A (Standard)",
+            dist: 2100,
+            base: 6400,
+            histPattern: [5900, 6800, 6100, 6500, 7200, 5400, 0, 6000, 6900, 6200, 6600, 7400, 5600, 0],
+            baseForecast: [6700, 7100, 6400],
+            promoSensitivity: 0.30,
+            holidaySensitivity: 0.08
+        }
     };
 
     const profile = storeProfiles[storeId] || storeProfiles[1];
-    const base = profile.base;
-
     const startDt = new Date(targetDate);
     const isXGB = modelType === "xgboost";
     const errorPct = isXGB ? 9.92 : 32.79;
-    const scaleFactor = isXGB ? 1.018 : 1.328;
+    const modelMultiplier = isXGB ? 1.018 : 1.328;
 
-    // Generate 3 consecutive forecast days
+    // Calculate Promo & Holiday Impact based on Store Specific Sensitivity
+    let conditionMultiplier = 1.0;
+    if (promo === 1) conditionMultiplier += profile.promoSensitivity;
+    if (schoolHoliday === 1) conditionMultiplier += profile.holidaySensitivity;
+
+    // Build 14-day distinct historical trend
+    const dates = [];
+    const sales = [];
+    for (let i = 14; i >= 1; i--) {
+        const pastDt = new Date(startDt);
+        pastDt.setDate(startDt.getDate() - i);
+        const pDateStr = pastDt.toISOString().split('T')[0];
+        dates.push(pDateStr);
+
+        const rawVal = profile.histPattern[14 - i];
+        const dayOfWeek = pastDt.getDay() === 0 ? 7 : pastDt.getDay();
+        
+        let histSale = rawVal;
+        if (dayOfWeek === 7 && storeId !== 3) {
+            histSale = 0; // Sundays closed except hypermarket store 3
+        }
+        sales.push(Math.round(histSale * 100) / 100);
+    }
+
+    // Build 3-day forecast with store-specific distinct curves
     const forecastDays = [];
     let totalPredictedSales = 0;
     let totalActualSales = 0;
@@ -139,14 +206,13 @@ function getSimulatedForecast3Days(modelType, storeId, targetDate, promo, school
         const dayOfWeek = fDt.getDay() === 0 ? 7 : fDt.getDay();
         const fDateStr = fDt.toISOString().split('T')[0];
 
-        let multiplier = 1.0;
-        if (promo === 1) multiplier += 0.38;
-        if (schoolHoliday === 1) multiplier += 0.08;
-        if (dayOfWeek === 6) multiplier *= 1.15;
-        if (dayOfWeek === 7) multiplier *= 0.0;
+        const baseFcst = profile.baseForecast[h];
+        let actual = Math.round(baseFcst * conditionMultiplier * 100) / 100;
+        if (dayOfWeek === 7 && storeId !== 3) {
+            actual = 0;
+        }
 
-        const actual = dayOfWeek === 7 ? 0 : Math.round(base * multiplier * 100) / 100;
-        const predicted = actual > 0 ? Math.round(actual * scaleFactor * 100) / 100 : 0;
+        const predicted = actual > 0 ? Math.round(actual * modelMultiplier * 100) / 100 : 0;
 
         totalActualSales += actual;
         totalPredictedSales += predicted;
@@ -161,28 +227,19 @@ function getSimulatedForecast3Days(modelType, storeId, targetDate, promo, school
 
     const avgPredictedSales = Math.round((totalPredictedSales / 3) * 100) / 100;
 
-    // What-if simulation for 3 days
-    let promoMultiplierWhatIf = 1.0;
+    // What-if simulation for opposite promo state
     const oppositePromo = promo === 1 ? 0 : 1;
-    if (oppositePromo === 1) promoMultiplierWhatIf += 0.38;
-    if (schoolHoliday === 1) promoMultiplierWhatIf += 0.08;
+    let whatIfMultiplier = 1.0;
+    if (oppositePromo === 1) whatIfMultiplier += profile.promoSensitivity;
+    if (schoolHoliday === 1) whatIfMultiplier += profile.holidaySensitivity;
 
-    const predWhatIfTotal = Math.round(base * promoMultiplierWhatIf * scaleFactor * 3 * 100) / 100;
-    const diffPct = totalPredictedSales > 0 ? Math.round((predWhatIfTotal - totalPredictedSales) / totalPredictedSales * 10000) / 100 : 0;
-
-    // Generate 14-day history trend dates
-    const dates = [];
-    const sales = [];
-    for (let i = 14; i >= 1; i--) {
-        const pastDt = new Date(startDt);
-        pastDt.setDate(startDt.getDate() - i);
-        const pDayOfWeek = pastDt.getDay() === 0 ? 7 : pastDt.getDay();
-        const pDateStr = pastDt.toISOString().split('T')[0];
-        dates.push(pDateStr);
-
-        let pSales = pDayOfWeek === 7 ? 0 : base * (0.85 + (i % 5) * 0.08);
-        sales.push(Math.round(pSales * 100) / 100);
+    let totalWhatIf = 0;
+    for (let h = 0; h < 3; h++) {
+        const baseFcst = profile.baseForecast[h];
+        totalWhatIf += Math.round(baseFcst * whatIfMultiplier * modelMultiplier * 100) / 100;
     }
+
+    const diffPct = totalPredictedSales > 0 ? Math.round((totalWhatIf - totalPredictedSales) / totalPredictedSales * 10000) / 100 : 0;
 
     const features = {
         "Store": storeId,
@@ -199,15 +256,15 @@ function getSimulatedForecast3Days(modelType, storeId, targetDate, promo, school
         "Day": startDt.getDate(),
         "WeekOfYear": 25,
         "IsWeekend": (startDt.getDay() === 0 || startDt.getDay() === 6) ? 1 : 0,
-        "sales_lag_7": Math.round(base * 0.96),
-        "sales_lag_14": Math.round(base * 0.94),
-        "sales_lag_30": Math.round(base * 0.91),
-        "rolling_mean_7": Math.round(base * 0.98),
-        "rolling_mean_14": Math.round(base * 0.97),
-        "rolling_mean_30": Math.round(base * 0.95),
-        "rolling_std_7": Math.round(base * 0.08 * 100) / 100,
-        "rolling_std_14": Math.round(base * 0.09 * 100) / 100,
-        "rolling_std_30": Math.round(base * 0.10 * 100) / 100
+        "sales_lag_7": sales[7] || Math.round(profile.base * 0.96),
+        "sales_lag_14": sales[0] || Math.round(profile.base * 0.94),
+        "sales_lag_30": Math.round(profile.base * 0.91),
+        "rolling_mean_7": Math.round(profile.base * 0.98),
+        "rolling_mean_14": Math.round(profile.base * 0.97),
+        "rolling_mean_30": Math.round(profile.base * 0.95),
+        "rolling_std_7": Math.round(profile.base * 0.08 * 100) / 100,
+        "rolling_std_14": Math.round(profile.base * 0.09 * 100) / 100,
+        "rolling_std_30": Math.round(profile.base * 0.10 * 100) / 100
     };
 
     return {
@@ -223,7 +280,7 @@ function getSimulatedForecast3Days(modelType, storeId, targetDate, promo, school
         forecast_days: forecastDays,
         whatif: {
             promo_status: oppositePromo,
-            predicted_sales: predWhatIfTotal,
+            predicted_sales: totalWhatIf,
             diff_pct: diffPct
         },
         features: features,
@@ -314,7 +371,7 @@ function updateChart(data, modelType) {
     const forecastDateLabels = data.forecast_days.map(d => `${d.date.split('-').slice(1).join('/')} (F)`);
     const trendDates = [...data.history_trend.dates, ...forecastDateLabels];
     
-    // Historical dataset: indices 0..13 have sales values, indices 14..16 are null
+    // Historical dataset
     const historicalSales = [...data.history_trend.sales, null, null, null];
 
     // 3-Day Forecast Dataset
