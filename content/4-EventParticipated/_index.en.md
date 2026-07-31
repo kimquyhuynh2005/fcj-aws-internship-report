@@ -16,10 +16,18 @@ pre: "<b>4. </b>"
 | **Location** | Floor 26, Bitexco Financial Tower |
 | **Role** | Attendee |
 
-## Event 2 (15/07/2026)
+## Event 2 (13/06/2026)
 
 | Information | Details |
 |---|---|
-| **Time** | Wednesday, 15/07/2026, 14:00 |
-| **Location** | Online (Zoom / Google Meet) |
+| **Time** | Saturday, 13/06/2026, 09:00 |
+| **Location** | Floor 26, Bitexco Financial Tower |
+| **Role** | Attendee |
+
+## Event 3 (25/07/2026)
+
+| Information | Details |
+|---|---|
+| **Time** | Saturday, 25/07/2026, 09:00 |
+| **Location** | Floor 26, Bitexco Financial Tower |
 | **Role** | Attendee |
