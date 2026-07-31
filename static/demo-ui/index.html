@@ -50,12 +50,15 @@
                     <div class="form-group">
                         <label for="store_id">Store Selection</label>
                         <select id="store_id" name="store_id" class="input-field">
-                            <option value="1">Store #1 (Classic Retailer)</option>
-                            <option value="2">Store #2 (City Center)</option>
-                            <option value="3">Store #3 (High Volume)</option>
-                            <option value="4">Store #4 (Suburban Outlet)</option>
-                            <option value="5">Store #5 (Standard Store)</option>
+                            <option value="1">Store #1 - Standard Retailer ($5,200/day)</option>
+                            <option value="2">Store #2 - City Center Mall ($8,900/day)</option>
+                            <option value="3" selected>Store #3 - High Volume Superstore ($14,500/day)</option>
+                            <option value="4">Store #4 - Suburban Outlet ($3,800/day)</option>
+                            <option value="5">Store #5 - Metropolitan Store ($6,400/day)</option>
                         </select>
+                        <div class="store-info-box" id="store-info-box">
+                            Store Profile: <strong>Hypermarket (Type C)</strong> | Distance: <strong>3,130m</strong>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -63,7 +66,7 @@
                         <input type="date" id="target_date" name="target_date" value="2015-06-15" class="input-field" min="2015-06-01" max="2015-07-31">
                     </div>
 
-                    <!-- Custom Clear Toggle Switches -->
+                    <!-- Custom Clear Toggle Switches (100% Right-Aligned) -->
                     <div class="form-group toggle-group">
                         <label class="toggle-label" for="promo">
                             <span>Active Promotion (Promo)</span>
@@ -81,7 +84,7 @@
                     </div>
 
                     <button type="submit" id="btn-submit" class="btn-primary">
-                        Run Prediction Engine
+                        Run 3-Day Prediction Engine
                     </button>
                 </form>
 
@@ -115,15 +118,15 @@
                 <!-- Metrics Summary Cards -->
                 <div class="metrics-row">
                     <div class="metric-card glow-gold" id="predicted-card">
-                        <small id="predicted-title">PREDICTED SALES (XGBOOST)</small>
+                        <small id="predicted-title">3-DAY TOTAL FORECAST (XGBOOST)</small>
                         <div class="metric-value" id="val-predicted">$0.00</div>
-                        <div class="metric-sub" id="val-range">RMSE Bounds: ±$925</div>
+                        <div class="metric-sub" id="val-range">Daily Average: $0.00/day</div>
                     </div>
 
                     <div class="metric-card">
-                        <small>ACTUAL SALES (TEST GROUND TRUTH)</small>
+                        <small>3-DAY ACTUAL GROUND TRUTH</small>
                         <div class="metric-value" id="val-actual">$0.00</div>
-                        <div class="metric-sub" id="val-actual-date">June 15, 2015</div>
+                        <div class="metric-sub" id="val-actual-date">Window Starting: June 15, 2015</div>
                     </div>
 
                     <div class="metric-card glow-green" id="error-card">
@@ -136,10 +139,10 @@
                 <!-- 14-Day Trend Chart -->
                 <div class="chart-card">
                     <div class="chart-header">
-                        <h2 id="chart-title">14-Day Sales Trend & Forecast</h2>
+                        <h2 id="chart-title">14-Day Sales Trend & 3-Day Forecast</h2>
                         <div class="chart-legend">
                             <span><strong class="dot-historical"></strong> Historical Sales</span>
-                            <span><strong class="dot-forecast" id="dot-forecast-color"></strong> <span id="legend-forecast-name">XGBoost Forecast</span></span>
+                            <span><strong class="dot-forecast" id="dot-forecast-color"></strong> <span id="legend-forecast-name">XGBoost 3-Day Forecast</span></span>
                         </div>
                     </div>
                     <div class="chart-wrapper">

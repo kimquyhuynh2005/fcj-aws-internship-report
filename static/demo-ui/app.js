@@ -8,13 +8,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function setupEventListeners() {
     const form = document.getElementById("forecast-form");
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        fetchPrediction();
-    });
+    if (form) {
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            fetchPrediction();
+        });
+    }
 
     document.getElementById("model_type").addEventListener("change", fetchPrediction);
     document.getElementById("store_id").addEventListener("change", fetchPrediction);
+    document.getElementById("target_date").addEventListener("change", fetchPrediction);
     document.getElementById("promo").addEventListener("change", fetchPrediction);
     document.getElementById("school_holiday").addEventListener("change", fetchPrediction);
 }
@@ -45,7 +48,7 @@ function initChart() {
                     borderColor: "#10B981",
                     backgroundColor: "rgba(16, 185, 129, 0.15)",
                     borderWidth: 3,
-                    borderDash: [6, 4], // Dashed line to highlight "Forecast Horizon"
+                    borderDash: [6, 4],
                     tension: 0.2,
                     pointRadius: 6,
                     pointBackgroundColor: "#10B981",
@@ -93,62 +96,36 @@ function initChart() {
     });
 }
 
-async function fetchPrediction() {
+function fetchPrediction() {
     const modelType = document.getElementById("model_type").value;
-    const storeId = document.getElementById("store_id").value;
+    const storeId = parseInt(document.getElementById("store_id").value);
     const targetDate = document.getElementById("target_date").value;
     const promo = document.getElementById("promo").checked ? 1 : 0;
     const schoolHoliday = document.getElementById("school_holiday").checked ? 1 : 0;
 
-    const btn = document.getElementById("btn-submit");
-    btn.innerHTML = "<span>Running 3-Day Forecast Horizon...</span>";
-    btn.disabled = true;
-
-    try {
-        const response = await fetch("/api/forecast", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                model_type: modelType,
-                store_id: parseInt(storeId),
-                target_date: targetDate,
-                promo: promo,
-                school_holiday: schoolHoliday,
-                horizon_days: 3
-            })
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            if (data.status === "success") {
-                updateUI(data, modelType);
-                btn.innerHTML = "<span>Run 3-Day Prediction Engine</span>";
-                btn.disabled = false;
-                return;
-            }
-        }
-    } catch (err) {
-        console.log("Running client-side 3-day forecast simulation engine...");
-    }
-
-    // Client-side simulation supporting 3-Day Horizon Multi-Day Sales Forecast
-    const data = getSimulatedForecast3Days(modelType, parseInt(storeId), targetDate, promo, schoolHoliday);
+    const data = getSimulatedForecast3Days(modelType, storeId, targetDate, promo, schoolHoliday);
     updateUI(data, modelType);
-
-    btn.innerHTML = "<span>Run 3-Day Prediction Engine</span>";
-    btn.disabled = false;
 }
 
 function getSimulatedForecast3Days(modelType, storeId, targetDate, promo, schoolHoliday) {
-    const baseStoreSales = { 1: 5200, 2: 6100, 3: 7400, 4: 8200, 5: 4800 };
-    const base = baseStoreSales[storeId] || 5500;
+    // Distinct store profiles with vastly different base revenues and metadata
+    const storeProfiles = {
+        1: { name: "Standard Retailer", base: 5200, type: "A (Standard)", dist: 1270 },
+        2: { name: "City Center Mall", base: 8900, type: "B (High Density)", dist: 570 },
+        3: { name: "High Volume Superstore", base: 14500, type: "C (Hypermarket)", dist: 3130 },
+        4: { name: "Suburban Outlet", base: 3800, type: "D (Out-of-Town)", dist: 8500 },
+        5: { name: "Metropolitan Store", base: 6400, type: "A (Standard)", dist: 2100 }
+    };
+
+    const profile = storeProfiles[storeId] || storeProfiles[1];
+    const base = profile.base;
 
     const startDt = new Date(targetDate);
     const isXGB = modelType === "xgboost";
     const errorPct = isXGB ? 9.92 : 32.79;
     const scaleFactor = isXGB ? 1.018 : 1.328;
 
-    // Generate 3 consecutive forecast days (Day 1, Day 2, Day 3)
+    // Generate 3 consecutive forecast days
     const forecastDays = [];
     let totalPredictedSales = 0;
     let totalActualSales = 0;
@@ -211,9 +188,9 @@ function getSimulatedForecast3Days(modelType, storeId, targetDate, promo, school
         "Promo": promo,
         "StateHoliday": 0,
         "SchoolHoliday": schoolHoliday,
-        "StoreType": storeId % 2 === 0 ? 1 : 0,
+        "StoreType": profile.type,
         "Assortment": storeId % 3,
-        "CompetitionDistance": 1270.0 + (storeId * 450),
+        "CompetitionDistance": profile.dist,
         "Promo2": 1,
         "Year": startDt.getFullYear(),
         "Month": startDt.getMonth() + 1,
@@ -226,15 +203,16 @@ function getSimulatedForecast3Days(modelType, storeId, targetDate, promo, school
         "rolling_mean_7": Math.round(base * 0.98),
         "rolling_mean_14": Math.round(base * 0.97),
         "rolling_mean_30": Math.round(base * 0.95),
-        "rolling_std_7": 412.50,
-        "rolling_std_14": 485.20,
-        "rolling_std_30": 520.10
+        "rolling_std_7": Math.round(base * 0.08 * 100) / 100,
+        "rolling_std_14": Math.round(base * 0.09 * 100) / 100,
+        "rolling_std_30": Math.round(base * 0.10 * 100) / 100
     };
 
     return {
         status: "success",
         model_type: modelType,
         store_id: storeId,
+        store_profile: profile,
         target_date: targetDate,
         total_predicted_sales: totalPredictedSales,
         avg_predicted_sales: avgPredictedSales,
@@ -255,10 +233,18 @@ function getSimulatedForecast3Days(modelType, storeId, targetDate, promo, school
 }
 
 function updateUI(data, modelType) {
+    updateStoreBanner(data.store_profile);
     updateHeaderPill(modelType);
     updateMetrics(data, modelType);
     updateChart(data, modelType);
     updateFeaturesTable(data.features);
+}
+
+function updateStoreBanner(profile) {
+    const box = document.getElementById("store-info-box");
+    if (box) {
+        box.innerHTML = `Store Profile: <strong>${profile.name} (${profile.type})</strong> | Distance: <strong>${profile.dist.toLocaleString()}m</strong>`;
+    }
 }
 
 function updateHeaderPill(modelType) {
@@ -329,11 +315,7 @@ function updateChart(data, modelType) {
     // Historical dataset: indices 0..13 have sales values, indices 14..16 are null
     const historicalSales = [...data.history_trend.sales, null, null, null];
 
-    // 3-Day Forecast Dataset:
-    // Index 13 = last historical value (for continuous line segment connection)
-    // Index 14 = Forecast Day 1
-    // Index 15 = Forecast Day 2
-    // Index 16 = Forecast Day 3
+    // 3-Day Forecast Dataset
     const lastHistValue = data.history_trend.sales[data.history_trend.sales.length - 1];
     const predictedSales = new Array(data.history_trend.sales.length - 1).fill(null);
     predictedSales.push(lastHistValue);
@@ -346,7 +328,7 @@ function updateChart(data, modelType) {
     salesChart.data.datasets[0].borderColor = "#64748B";
     salesChart.data.datasets[0].backgroundColor = "rgba(100, 116, 139, 0.05)";
 
-    // 3-Day Forecast dataset styling (connected dashed line segment + 3 forecast points)
+    // 3-Day Forecast dataset styling
     salesChart.data.datasets[1].label = isXGB ? "XGBoost 3-Day Forecast ($)" : "LSTM 3-Day Forecast ($)";
     salesChart.data.datasets[1].data = predictedSales;
     salesChart.data.datasets[1].borderColor = forecastColor;

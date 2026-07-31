@@ -201,7 +201,22 @@ body {
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-/* Perfectly Balanced Toggle Boxes matching Input Field Height & Alignment */
+/* Store Profile Banner */
+.store-info-box {
+    margin-top: 6px;
+    padding: 10px 12px;
+    background-color: rgba(37, 99, 235, 0.05);
+    border: 1px solid rgba(37, 99, 235, 0.15);
+    border-radius: var(--radius-sm);
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+}
+
+.store-info-box strong {
+    color: var(--color-accent);
+}
+
+/* Guaranteed 100% Perfectly Right-Aligned Toggle Box */
 .toggle-group {
     width: 100%;
     height: 44px;
@@ -215,12 +230,14 @@ body {
 }
 
 .toggle-label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    margin: 0;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
     cursor: pointer;
     user-select: none;
     font-size: 0.85rem;
@@ -228,24 +245,21 @@ body {
     color: var(--text-primary);
 }
 
-.toggle-label input[type="checkbox"] {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-    pointer-events: none;
+.toggle-label span:first-child {
+    flex-grow: 1;
+    text-align: left;
 }
 
 .switch-slider {
     position: relative;
-    display: inline-block;
+    display: block;
     width: 44px;
     height: 24px;
     background-color: #CBD5E1;
     border-radius: 12px;
     transition: background-color 0.2s ease, border 0.2s ease;
     flex-shrink: 0;
-    margin-left: auto; /* Pushes toggle cleanly to far right side of box */
+    margin-left: auto !important; /* Pushes toggle cleanly to far right side of box */
 }
 
 .switch-slider::before {
