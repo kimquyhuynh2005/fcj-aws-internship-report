@@ -10,6 +10,7 @@ pre: "<b>3.2. </b>"
 > **Category:** Machine Learning Engineering / Experiment Tracking  
 > **Community:** AWS Study Group  
 > **Project:** E-commerce Sales Forecasting on AWS SageMaker  
+> 🔗 **Facebook Post:** [View Post on Facebook Group](https://www.facebook.com/groups/awsstudygroupfcj/permalink/2227796681318625/?rdid=lrEgZ0DETtn6dY8p#)  
 
 ---
 

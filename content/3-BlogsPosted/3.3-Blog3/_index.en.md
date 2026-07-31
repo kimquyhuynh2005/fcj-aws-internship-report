@@ -7,9 +7,10 @@ pre: "<b>3.3. </b>"
 ---
 
 > **Author:** Van Thai Quan  
-> **Category:** Machine Learning Engineering / MLOps  
+> **Category:** MLOps & Production Engineering  
 > **Community:** AWS Study Group  
 > **Project:** E-commerce Sales Forecasting on AWS SageMaker  
+> 🔗 **Facebook Post:** [View Post on Facebook Group](https://www.facebook.com/groups/660548818043427/?multi_permalinks=2227791551319138&ref=share)  
 
 ---
 

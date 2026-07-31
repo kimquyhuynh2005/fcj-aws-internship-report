@@ -7,9 +7,10 @@ pre: "<b>3.3. </b>"
 ---
 
 > **Tác giả:** Văn Thái Quân  
-> **Chuyên mục:** Machine Learning Engineering / MLOps  
+> **Chuyên mục:** MLOps & Production Engineering  
 > **Cộng đồng:** AWS Study Group  
 > **Dự án:** E-commerce Sales Forecasting on AWS SageMaker  
+> 🔗 **Facebook Post:** [Xem bài viết trên Group Facebook](https://www.facebook.com/groups/660548818043427/?multi_permalinks=2227791551319138&ref=share)  
 
 ---
 

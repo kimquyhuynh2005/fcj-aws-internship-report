@@ -9,7 +9,8 @@ pre: "<b>3.1. </b>"
 > **Tác giả:** Huỳnh Kim Quý  
 > **Chuyên mục:** Machine Learning Engineering / Time Series Forecasting  
 > **Cộng đồng:** AWS Study Group  
-> **Dự án:** E-commerce Sales Forecasting on AWS SageMaker
+> **Dự án:** E-commerce Sales Forecasting on AWS SageMaker  
+> 🔗 **Facebook Post:** [Xem bài viết trên Group Facebook](https://www.facebook.com/groups/660548818043427/?multi_permalinks=2229917637773196&ref=share)
 
 ---
 

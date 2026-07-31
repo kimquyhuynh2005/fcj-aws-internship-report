@@ -9,7 +9,8 @@ pre: "<b>3.1. </b>"
 > **Author:** Huynh Kim Quy  
 > **Category:** Machine Learning Engineering / Time Series Forecasting  
 > **Community:** AWS Study Group  
-> **Project:** E-commerce Sales Forecasting on AWS SageMaker
+> **Project:** E-commerce Sales Forecasting on AWS SageMaker  
+> 🔗 **Facebook Post:** [View Post on Facebook Group](https://www.facebook.com/groups/660548818043427/?multi_permalinks=2229917637773196&ref=share)
 
 ---
 

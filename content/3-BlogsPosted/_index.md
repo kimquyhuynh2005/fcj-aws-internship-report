@@ -8,8 +8,8 @@ pre: "<b>3. </b>"
 
 # Bài viết Blog trên cộng đồng AWS Study Group
 
-| # | Tiêu đề Bài viết | Chủ đề Chuyên môn | Trạng thái | Liên kết Bài viết |
-|---|------------------|-------------------|------------|-------------------|
-| 1 | XGBoost vs. PyTorch LSTM trong Dự báo Chuỗi thời gian | Time Series Forecasting & Model Evaluation | Hoàn thành | [Xem bài viết](3.1-blog1/) |
-| 2 | Theo dõi Thí nghiệm Machine Learning với Amazon SageMaker Experiments | Experiment Tracking & SageMaker Experiments | Hoàn thành | [Xem bài viết](3.2-blog2/) |
-| 3 | Từ Local Notebook đến MLOps Thực Chiến: Hành trình "thuần phục" AWS SageMaker Pipelines | MLOps & SageMaker Pipelines | Hoàn thành | [Xem bài viết](3.3-blog3/) |
+| # | Tiêu đề Bài viết | Chủ đề Chuyên môn | Bài viết trên Website | Link Bài viết Facebook |
+|---|------------------|-------------------|----------------------|-----------------------|
+| 1 | XGBoost vs. PyTorch LSTM trong Dự báo Chuỗi thời gian | Time Series Forecasting & Model Evaluation | [Xem trên Website](3.1-blog1/) | [Xem bài viết trên Facebook](https://www.facebook.com/groups/660548818043427/?multi_permalinks=2229917637773196&ref=share) |
+| 2 | Theo dõi Thí nghiệm Machine Learning với Amazon SageMaker Experiments | Experiment Tracking & SageMaker Experiments | [Xem trên Website](3.2-blog2/) | [Xem bài viết trên Facebook](https://www.facebook.com/groups/awsstudygroupfcj/permalink/2227796681318625/?rdid=lrEgZ0DETtn6dY8p#) |
+| 3 | Từ Local Notebook đến MLOps Thực Chiến: Hành trình "thuần phục" AWS SageMaker Pipelines | MLOps & SageMaker Pipelines | [Xem trên Website](3.3-blog3/) | [Xem bài viết trên Facebook](https://www.facebook.com/groups/660548818043427/?multi_permalinks=2227791551319138&ref=share) |
