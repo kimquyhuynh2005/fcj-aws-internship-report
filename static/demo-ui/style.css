@@ -1,29 +1,30 @@
 :root {
-    --bg-primary: #0E1117;
-    --bg-surface: #181E29;
-    --bg-surface-elevated: #1E2532;
-    --bg-hover: #2B313A;
-    --border-subtle: #242D3C;
+    --bg-primary: #F8FAFC;
+    --bg-surface: #FFFFFF;
+    --bg-surface-elevated: #F1F5F9;
+    --bg-hover: #F8FAFC;
+    --border-subtle: #E2E8F0;
     
-    --text-primary: #E6E8EA;
-    --text-secondary: #848E9C;
-    --text-muted: #5E6673;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #64748B;
 
-    --color-positive: #0ECB81;
-    --color-positive-bg: rgba(14, 203, 129, 0.1);
-    --color-negative: #F6465D;
-    --color-negative-bg: rgba(246, 70, 93, 0.1);
-    --color-accent: #F0B90B;
-    --color-accent-hover: #FCD535;
+    --color-positive: #10B981;
+    --color-positive-bg: rgba(16, 185, 129, 0.1);
+    --color-negative: #EF4444;
+    --color-negative-bg: rgba(239, 68, 68, 0.1);
+    --color-accent: #2563EB;
+    --color-accent-hover: #1D4ED8;
 
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace;
 
-    --radius-sm: 4px;
-    --radius-md: 6px;
-    --radius-lg: 8px;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 12px;
     
     --transition: all 0.2s ease;
+    --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
 }
 
 * {
@@ -52,7 +53,8 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
-    background-color: var(--bg-primary);
+    background-color: rgba(248, 250, 252, 0.9);
+    backdrop-filter: blur(12px);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -78,27 +80,27 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: rgba(240, 185, 11, 0.1);
-    border: 1px solid rgba(240, 185, 11, 0.25);
+    background: rgba(37, 99, 235, 0.08);
+    border: 1px solid rgba(37, 99, 235, 0.2);
     color: var(--color-accent);
-    padding: 3px 8px;
-    border-radius: var(--radius-sm);
-    font-size: 0.7rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.04em;
 }
 
 .model-status {
     display: flex;
-    gap: 8px;
+    gap: 10px;
 }
 
 .pill {
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 12px;
-    border-radius: var(--radius-sm);
+    padding: 6px 14px;
+    border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 600;
     font-family: var(--font-mono);
@@ -106,20 +108,21 @@ body {
 
 .pill.winner {
     background: var(--color-positive-bg);
-    border: 1px solid rgba(14, 203, 129, 0.3);
+    border: 1px solid rgba(16, 185, 129, 0.3);
     color: var(--color-positive);
 }
 
 .pill.lstm-pill {
     background: var(--color-negative-bg);
-    border: 1px solid rgba(246, 70, 93, 0.3);
+    border: 1px solid rgba(239, 68, 68, 0.3);
     color: var(--color-negative);
 }
 
 .pill.cloud {
-    background: rgba(230, 232, 234, 0.05);
+    background: #FFFFFF;
     border: 1px solid var(--border-subtle);
     color: var(--text-secondary);
+    box-shadow: var(--shadow-sm);
 }
 
 .pill .dot {
@@ -132,23 +135,24 @@ body {
 /* Main Grid Layout */
 .main-grid {
     display: grid;
-    grid-template-columns: 350px 1fr;
+    grid-template-columns: 360px 1fr;
     gap: 24px;
 }
 
-/* Cards & Surface */
+/* Cards & Surface (Light Mode) */
 .card {
     background-color: var(--bg-surface);
     border-radius: var(--radius-md);
-    padding: 20px;
+    padding: 24px;
     border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-sm);
 }
 
 .card h2 {
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -160,25 +164,25 @@ body {
 }
 
 .form-group {
-    margin-bottom: 16px;
+    margin-bottom: 18px;
 }
 
 .form-group label {
     display: block;
-    font-size: 0.8rem;
-    font-weight: 500;
+    font-size: 0.82rem;
+    font-weight: 600;
     color: var(--text-secondary);
     margin-bottom: 6px;
 }
 
 .input-field {
     width: 100%;
-    background-color: var(--bg-primary);
+    background-color: var(--bg-surface-elevated);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-sm);
     color: var(--text-primary);
-    padding: 10px 12px;
-    font-size: 0.85rem;
+    padding: 10px 14px;
+    font-size: 0.88rem;
     font-family: var(--font-sans);
     outline: none;
     transition: var(--transition);
@@ -187,32 +191,34 @@ body {
 .input-field.model-select {
     border-color: var(--color-accent);
     font-weight: 600;
-    background-color: var(--bg-surface-elevated);
+    background-color: #FFFFFF;
 }
 
 .input-field:focus {
     border-color: var(--color-accent);
+    background-color: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-/* Custom Clear Toggle Switches */
+/* Perfect Right-Aligned Custom Toggle Switches */
 .toggle-group {
-    background-color: var(--bg-primary);
+    background-color: var(--bg-surface-elevated);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-sm);
-    padding: 10px 14px;
-    margin-bottom: 12px;
+    padding: 12px 16px;
+    margin-bottom: 14px;
 }
 
 .toggle-label {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     cursor: pointer;
     user-select: none;
     font-size: 0.85rem;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--text-primary);
-    width: 100%;
 }
 
 .toggle-label input[type="checkbox"] {
@@ -227,11 +233,12 @@ body {
     position: relative;
     display: inline-block;
     width: 44px;
-    height: 22px;
-    background-color: var(--border-subtle);
-    border-radius: 11px;
+    height: 24px;
+    background-color: #CBD5E1;
+    border-radius: 12px;
     transition: background-color 0.2s ease, border 0.2s ease;
     flex-shrink: 0;
+    margin-left: auto; /* Forces toggle to the far right end */
 }
 
 .switch-slider::before {
@@ -239,28 +246,27 @@ body {
     position: absolute;
     top: 3px;
     left: 3px;
-    width: 16px;
-    height: 16px;
-    background-color: #848E9C;
+    width: 18px;
+    height: 18px;
+    background-color: #FFFFFF;
     border-radius: 50%;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    transition: transform 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 input[type="checkbox"]:checked + .switch-slider {
-    background-color: rgba(14, 203, 129, 0.2);
-    border: 1px solid var(--color-positive);
-}
-
-input[type="checkbox"]:checked + .switch-slider::before {
-    transform: translateX(22px);
     background-color: var(--color-positive);
 }
 
-/* Primary Action Button (Binance Gold) */
+input[type="checkbox"]:checked + .switch-slider::before {
+    transform: translateX(20px);
+}
+
+/* Primary Action Button */
 .btn-primary {
     width: 100%;
     background-color: var(--color-accent);
-    color: #0E1117;
+    color: #FFFFFF;
     border: none;
     border-radius: var(--radius-sm);
     padding: 12px;
@@ -269,10 +275,12 @@ input[type="checkbox"]:checked + .switch-slider::before {
     cursor: pointer;
     transition: var(--transition);
     margin-top: 8px;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
 }
 
 .btn-primary:hover {
     background-color: var(--color-accent-hover);
+    box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
 }
 
 .btn-primary:disabled {
@@ -283,27 +291,27 @@ input[type="checkbox"]:checked + .switch-slider::before {
 /* Benchmark Box */
 .benchmark-box {
     margin-top: 20px;
-    padding: 14px;
-    background-color: var(--bg-primary);
+    padding: 16px;
+    background-color: var(--bg-surface-elevated);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-sm);
 }
 
 .benchmark-box h3 {
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-secondary);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     text-transform: uppercase;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
 }
 
 .benchmark-row {
     display: flex;
     justify-content: space-between;
-    font-size: 0.8rem;
-    padding: 4px 0;
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.04);
+    font-size: 0.82rem;
+    padding: 6px 0;
+    border-bottom: 1px dashed #E2E8F0;
 }
 
 .benchmark-row:last-child {
@@ -313,19 +321,19 @@ input[type="checkbox"]:checked + .switch-slider::before {
 /* What-If Box */
 .whatif-box {
     margin-top: 16px;
-    padding: 14px;
-    background-color: var(--bg-primary);
+    padding: 16px;
+    background-color: var(--bg-surface-elevated);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-sm);
 }
 
 .whatif-box h3 {
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-secondary);
     margin-bottom: 4px;
     text-transform: uppercase;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
 }
 
 .whatif-box p {
@@ -336,7 +344,7 @@ input[type="checkbox"]:checked + .switch-slider::before {
 
 .whatif-metric {
     font-family: var(--font-mono);
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 700;
 }
 
@@ -357,13 +365,14 @@ input[type="checkbox"]:checked + .switch-slider::before {
     background-color: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
-    padding: 16px 20px;
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
 }
 
 .metric-card small {
     display: block;
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-secondary);
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -372,7 +381,7 @@ input[type="checkbox"]:checked + .switch-slider::before {
 
 .metric-value {
     font-family: var(--font-mono);
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 4px;
@@ -383,17 +392,17 @@ input[type="checkbox"]:checked + .switch-slider::before {
 }
 
 .metric-sub {
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     color: var(--text-muted);
     font-family: var(--font-mono);
 }
 
 .metric-card.glow-green {
-    border-left: 3px solid var(--color-positive);
+    border-left: 4px solid var(--color-positive);
 }
 
 .metric-card.glow-red {
-    border-left: 3px solid var(--color-negative);
+    border-left: 4px solid var(--color-negative);
 }
 
 /* Chart Container */
@@ -401,7 +410,8 @@ input[type="checkbox"]:checked + .switch-slider::before {
     background-color: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
-    padding: 20px;
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
 }
 
 .chart-header {
@@ -411,10 +421,17 @@ input[type="checkbox"]:checked + .switch-slider::before {
     margin-bottom: 16px;
 }
 
+.chart-header h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
 .chart-legend {
     display: flex;
     gap: 16px;
     font-size: 0.8rem;
+    font-weight: 500;
     color: var(--text-secondary);
 }
 
@@ -428,7 +445,7 @@ input[type="checkbox"]:checked + .switch-slider::before {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: #848E9C;
+    background-color: #64748B;
 }
 
 .dot-forecast {
@@ -448,11 +465,19 @@ input[type="checkbox"]:checked + .switch-slider::before {
     background-color: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
-    padding: 20px;
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+.table-card h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 16px;
 }
 
 .table-wrapper {
-    max-height: 320px;
+    max-height: 340px;
     overflow-y: auto;
 }
 
@@ -464,21 +489,21 @@ input[type="checkbox"]:checked + .switch-slider::before {
 
 .data-table th {
     text-align: left;
-    padding: 10px 12px;
+    padding: 12px 14px;
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    border-bottom: 1px solid var(--border-subtle);
+    border-bottom: 2px solid var(--border-subtle);
     position: sticky;
     top: 0;
     background-color: var(--bg-surface);
 }
 
 .data-table td {
-    padding: 10px 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    padding: 12px 14px;
+    border-bottom: 1px solid #F1F5F9;
     color: var(--text-primary);
 }
 
@@ -489,15 +514,16 @@ input[type="checkbox"]:checked + .switch-slider::before {
 .data-table code {
     font-family: var(--font-mono);
     color: var(--color-accent);
+    font-weight: 600;
 }
 
 .pill-legend {
     display: inline-block;
-    padding: 2px 6px;
-    border-radius: var(--radius-sm);
-    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.72rem;
     font-weight: 600;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: var(--bg-surface-elevated);
     color: var(--text-secondary);
 }
 

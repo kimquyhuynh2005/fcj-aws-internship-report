@@ -30,22 +30,22 @@ function initChart() {
                 {
                     label: "Historical Sales ($)",
                     data: [],
-                    borderColor: "#848E9C",
-                    backgroundColor: "rgba(132, 142, 156, 0.05)",
+                    borderColor: "#64748B",
+                    backgroundColor: "rgba(100, 116, 139, 0.06)",
                     borderWidth: 2,
                     tension: 0.2,
                     pointRadius: 3,
-                    pointBackgroundColor: "#848E9C"
+                    pointBackgroundColor: "#64748B"
                 },
                 {
                     label: "Predicted Sales ($)",
                     data: [],
-                    borderColor: "#0ECB81",
-                    backgroundColor: "rgba(14, 203, 129, 0.12)",
+                    borderColor: "#10B981",
+                    backgroundColor: "rgba(16, 185, 129, 0.12)",
                     borderWidth: 2.5,
                     pointRadius: 6,
-                    pointBackgroundColor: "#0ECB81",
-                    pointBorderColor: "#0E1117",
+                    pointBackgroundColor: "#10B981",
+                    pointBorderColor: "#FFFFFF",
                     pointBorderWidth: 2,
                     pointHoverRadius: 8,
                     fill: true
@@ -58,10 +58,10 @@ function initChart() {
             plugins: {
                 legend: { display: false },
                 tooltip: {
-                    backgroundColor: "#181E29",
+                    backgroundColor: "#0F172A",
                     titleFont: { family: "Inter", size: 13, weight: "600" },
                     bodyFont: { family: "JetBrains Mono", size: 12 },
-                    borderColor: "#242D3C",
+                    borderColor: "#E2E8F0",
                     borderWidth: 1,
                     padding: 10,
                     callbacks: {
@@ -73,13 +73,13 @@ function initChart() {
             },
             scales: {
                 x: {
-                    grid: { color: "rgba(255, 255, 255, 0.04)", drawBorder: false },
-                    ticks: { color: "#848E9C", font: { family: "Inter", size: 11 } }
+                    grid: { color: "rgba(0, 0, 0, 0.04)", drawBorder: false },
+                    ticks: { color: "#64748B", font: { family: "Inter", size: 11 } }
                 },
                 y: {
-                    grid: { color: "rgba(255, 255, 255, 0.04)", drawBorder: false },
+                    grid: { color: "rgba(0, 0, 0, 0.04)", drawBorder: false },
                     ticks: {
-                        color: "#848E9C",
+                        color: "#64748B",
                         font: { family: "JetBrains Mono", size: 11 },
                         callback: (value) => "$" + value.toLocaleString()
                     }
@@ -272,11 +272,11 @@ function updateMetrics(data, modelType) {
         if (isXGB) {
             errorCard.className = "metric-card glow-green";
             document.getElementById("val-status").textContent = "PASS (< 15.0% target)";
-            document.getElementById("val-status").style.color = "#0ECB81";
+            document.getElementById("val-status").style.color = "#10B981";
         } else {
             errorCard.className = "metric-card glow-red";
             document.getElementById("val-status").textContent = "EXCEEDS TARGET (> 15.0%)";
-            document.getElementById("val-status").style.color = "#F6465D";
+            document.getElementById("val-status").style.color = "#EF4444";
         }
     } else {
         document.getElementById("val-actual").textContent = "N/A";
@@ -294,16 +294,16 @@ function updateMetrics(data, modelType) {
     document.getElementById("whatif-val").textContent = `$${data.whatif.predicted_sales.toLocaleString()} (${diffSign}${diffPct}%)`;
     
     if (diffPct > 0) {
-        document.getElementById("whatif-val").style.color = "#0ECB81";
+        document.getElementById("whatif-val").style.color = "#10B981";
     } else {
-        document.getElementById("whatif-val").style.color = "#F6465D";
+        document.getElementById("whatif-val").style.color = "#EF4444";
     }
 }
 
 function updateChart(data, modelType) {
     const isXGB = modelType === "xgboost";
-    const forecastColor = isXGB ? "#0ECB81" : "#F6465D";
-    const forecastBg = isXGB ? "rgba(14, 203, 129, 0.12)" : "rgba(246, 70, 93, 0.12)";
+    const forecastColor = isXGB ? "#10B981" : "#EF4444";
+    const forecastBg = isXGB ? "rgba(16, 185, 129, 0.12)" : "rgba(239, 68, 68, 0.12)";
 
     document.getElementById("legend-forecast-name").textContent = isXGB ? "XGBoost Forecast" : "PyTorch LSTM Forecast";
     document.getElementById("dot-forecast-color").style.backgroundColor = forecastColor;
