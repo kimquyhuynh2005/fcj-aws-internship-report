@@ -70,7 +70,7 @@ function initChart() {
                     bodyFont: { family: "JetBrains Mono", size: 12 },
                     borderColor: "#E2E8F0",
                     borderWidth: 1,
-                    padding: 10,
+                    padding: 12,
                     callbacks: {
                         label: function(context) {
                             return `${context.dataset.label}: $${context.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
@@ -81,13 +81,15 @@ function initChart() {
             scales: {
                 x: {
                     grid: { color: "rgba(0, 0, 0, 0.04)", drawBorder: false },
-                    ticks: { color: "#64748B", font: { family: "Inter", size: 11 } }
+                    ticks: { color: "#475569", font: { family: "Inter", size: 12, weight: "500" } }
                 },
                 y: {
-                    grid: { color: "rgba(0, 0, 0, 0.04)", drawBorder: false },
+                    min: 0,
+                    max: 20000, // FIXED Y-AXIS BENCHMARK SCALE from $0 to $20,000
+                    grid: { color: "rgba(0, 0, 0, 0.06)", drawBorder: false },
                     ticks: {
-                        color: "#64748B",
-                        font: { family: "JetBrains Mono", size: 11 },
+                        color: "#475569",
+                        font: { family: "JetBrains Mono", size: 12, weight: "600" },
                         callback: (value) => "$" + value.toLocaleString()
                     }
                 }
@@ -108,11 +110,11 @@ function fetchPrediction() {
 }
 
 function getSimulatedForecast3Days(modelType, storeId, targetDate, promo, schoolHoliday) {
-    // Distinct store profiles with vastly different base revenues and metadata
+    // Distinct store profiles designed to fit cleanly on the fixed $0 - $20,000 scale
     const storeProfiles = {
         1: { name: "Standard Retailer", base: 5200, type: "A (Standard)", dist: 1270 },
         2: { name: "City Center Mall", base: 8900, type: "B (High Density)", dist: 570 },
-        3: { name: "High Volume Superstore", base: 14500, type: "C (Hypermarket)", dist: 3130 },
+        3: { name: "High Volume Superstore", base: 12500, type: "C (Hypermarket)", dist: 3130 },
         4: { name: "Suburban Outlet", base: 3800, type: "D (Out-of-Town)", dist: 8500 },
         5: { name: "Metropolitan Store", base: 6400, type: "A (Standard)", dist: 2100 }
     };
