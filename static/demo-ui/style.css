@@ -110,6 +110,12 @@ body {
     color: var(--color-positive);
 }
 
+.pill.lstm-pill {
+    background: var(--color-negative-bg);
+    border: 1px solid rgba(246, 70, 93, 0.3);
+    color: var(--color-negative);
+}
+
 .pill.cloud {
     background: rgba(230, 232, 234, 0.05);
     border: 1px solid var(--border-subtle);
@@ -126,7 +132,7 @@ body {
 /* Main Grid Layout */
 .main-grid {
     display: grid;
-    grid-template-columns: 340px 1fr;
+    grid-template-columns: 350px 1fr;
     gap: 24px;
 }
 
@@ -172,21 +178,29 @@ body {
     border-radius: var(--radius-sm);
     color: var(--text-primary);
     padding: 10px 12px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-family: var(--font-sans);
     outline: none;
     transition: var(--transition);
+}
+
+.input-field.model-select {
+    border-color: var(--color-accent);
+    font-weight: 600;
+    background-color: var(--bg-surface-elevated);
 }
 
 .input-field:focus {
     border-color: var(--color-accent);
 }
 
+/* Custom Clear Toggle Switches */
 .toggle-group {
     background-color: var(--bg-primary);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-sm);
-    padding: 10px 12px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
 }
 
 .toggle-label {
@@ -194,42 +208,52 @@ body {
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+    user-select: none;
     font-size: 0.85rem;
+    font-weight: 500;
     color: var(--text-primary);
+    width: 100%;
 }
 
-.toggle-label input {
-    display: none;
+.toggle-label input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
 }
 
-.slider {
+.switch-slider {
     position: relative;
-    width: 36px;
-    height: 20px;
+    display: inline-block;
+    width: 44px;
+    height: 22px;
     background-color: var(--border-subtle);
-    border-radius: 10px;
-    transition: var(--transition);
+    border-radius: 11px;
+    transition: background-color 0.2s ease, border 0.2s ease;
+    flex-shrink: 0;
 }
 
-.slider::before {
+.switch-slider::before {
     content: "";
     position: absolute;
-    top: 2px;
-    left: 2px;
+    top: 3px;
+    left: 3px;
     width: 16px;
     height: 16px;
-    background-color: var(--text-secondary);
+    background-color: #848E9C;
     border-radius: 50%;
-    transition: var(--transition);
+    transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-input:checked + .slider {
+input[type="checkbox"]:checked + .switch-slider {
+    background-color: rgba(14, 203, 129, 0.2);
+    border: 1px solid var(--color-positive);
+}
+
+input[type="checkbox"]:checked + .switch-slider::before {
+    transform: translateX(22px);
     background-color: var(--color-positive);
-}
-
-input:checked + .slider::before {
-    transform: translateX(16px);
-    background-color: var(--bg-primary);
 }
 
 /* Primary Action Button (Binance Gold) */
@@ -256,8 +280,8 @@ input:checked + .slider::before {
     cursor: not-allowed;
 }
 
-/* What-If Box */
-.whatif-box {
+/* Benchmark Box */
+.benchmark-box {
     margin-top: 20px;
     padding: 14px;
     background-color: var(--bg-primary);
@@ -265,8 +289,38 @@ input:checked + .slider::before {
     border-radius: var(--radius-sm);
 }
 
-.whatif-box h3 {
+.benchmark-box h3 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.benchmark-row {
+    display: flex;
+    justify-content: space-between;
     font-size: 0.8rem;
+    padding: 4px 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.04);
+}
+
+.benchmark-row:last-child {
+    border-bottom: none;
+}
+
+/* What-If Box */
+.whatif-box {
+    margin-top: 16px;
+    padding: 14px;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+}
+
+.whatif-box h3 {
+    font-size: 0.75rem;
     font-weight: 600;
     color: var(--text-secondary);
     margin-bottom: 4px;
@@ -336,6 +390,10 @@ input:checked + .slider::before {
 
 .metric-card.glow-green {
     border-left: 3px solid var(--color-positive);
+}
+
+.metric-card.glow-red {
+    border-left: 3px solid var(--color-negative);
 }
 
 /* Chart Container */
